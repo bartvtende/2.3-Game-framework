@@ -76,6 +76,9 @@ public class Network {
 		}
 	}
 	
+	/**
+	 * Closes a connection to the server
+	 */
 	public void closeConnection() {
 		try {
 			client.close();

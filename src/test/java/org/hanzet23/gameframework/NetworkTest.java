@@ -18,6 +18,7 @@ public class NetworkTest extends TestCase {
 		return new TestSuite(NetworkTest.class);
 	}
 	
+	/*
 	public void testMakingTheConnection() {
 		Network network = Network.getInstance();
 		
@@ -31,5 +32,5 @@ public class NetworkTest extends TestCase {
 		network.closeConnection();
 		
 		assertNull(network.getSocket());
-	}
+	}*/
 }
