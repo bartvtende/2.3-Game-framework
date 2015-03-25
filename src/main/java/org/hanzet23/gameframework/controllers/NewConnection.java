@@ -1,4 +1,4 @@
-package controller;
+package main.java.org.hanzet23.gameframework.controllers;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;

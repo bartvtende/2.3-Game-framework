@@ -1,4 +1,4 @@
-package view;
+package main.java.org.hanzet23.gameframework.views;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -9,9 +9,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import controller.GameControls;
-import controller.NewConnection;
-import controller.NewGame;
+import main.java.org.hanzet23.gameframework.controllers.GameControls;
+import main.java.org.hanzet23.gameframework.controllers.NewConnection;
+import main.java.org.hanzet23.gameframework.controllers.NewGame;
 
 public class GameFrame extends JFrame {
 	

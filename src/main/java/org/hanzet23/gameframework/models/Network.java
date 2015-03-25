@@ -1,10 +1,9 @@
 package main.java.org.hanzet23.gameframework.models;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Network {
@@ -14,15 +13,16 @@ public class Network {
 	private static final int SERVER_PORT = 7789;
 	private static final String SERVER_NAME = "localhost";
 	
-	private DataOutputStream output = null;
-	private DataInputStream input = null;
+	protected PrintWriter output = null;
+	protected BufferedReader input = null;
 	
 	private Socket client;
 
 	private Network() {
 		connectToServer();
+		startConnectionThread();
 	}
-	
+
 	/**
 	 * Creates a new Network class
 	 */
@@ -61,42 +61,67 @@ public class Network {
 					+ client.getRemoteSocketAddress());
 
 			// Get the output
-			OutputStream outputToServer = client.getOutputStream();
-			this.output = new DataOutputStream(outputToServer);
-
-			this.output.writeUTF("Hello from " + client.getLocalSocketAddress());
+			this.output = new PrintWriter(client.getOutputStream(), true);
 
 			// Get the input
-			InputStream inputFromServer = client.getInputStream();
-			this.input = new DataInputStream(inputFromServer);
+			this.input = new BufferedReader(new InputStreamReader(
+	                client.getInputStream()));
 
-			System.out.println("Server says " + this.input.readUTF());
+			// Print the first two received lines
+			for (int i = 0; i < 2; i++) {
+				System.out.println("Server: " + this.input.readLine());
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Closes a connection to the server
 	 */
 	public void closeConnection() {
 		try {
-			client.close();
+			if (client != null)
+				client.close();
+			if (input != null)
+				input.close();
+			if (output != null)
+				output.close();
 		} catch (IOException e) {
 			System.out.println("Unable to close the socket connection!");
 		}
+	}
+	
+	private void startConnectionThread() {
+		NetworkConnection connection = new NetworkConnection(this.input);
+		connection.start();
+	}
+	
+	public synchronized String[] sendCommand(String command, int amountOfLines) {
+		String[] lines = new String[amountOfLines];
+		// Send the command
+		this.output.println(command);
+
+		// Receive the input
+		try {
+			for (int i = 0; i < amountOfLines; i++) {
+				lines[i] = this.input.readLine();
+			}
+		} catch (IOException e) {
+			System.out.println("Something went wrong reading the input in Network.sendCommand()");
+		}
+		return lines;
 	}
 	
 	public Socket getSocket() {
 		return this.client;
 	}
 	
-	public DataOutputStream getOutput() {
+	public PrintWriter getOutput() {
 		return this.output;
 	}
 	
-	public DataInputStream getInput() {
+	public BufferedReader getInput() {
 		return this.input;
 	}
-
 }

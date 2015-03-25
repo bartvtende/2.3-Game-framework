@@ -18,19 +18,19 @@ public class NetworkTest extends TestCase {
 		return new TestSuite(NetworkTest.class);
 	}
 	
-	/*
 	public void testMakingTheConnection() {
 		Network network = Network.getInstance();
 		
+		// Network object shouldn't be empty
+		assertNotNull(network);
+		
 		// Socket object shouldn't be empty
 		assertNotNull(network.getSocket());
-	}
-	
-	public void testClosingTheConnection() {
-		Network network = Network.getInstance();
-
-		network.closeConnection();
 		
-		assertNull(network.getSocket());
-	}*/
+		// PrintWriter object shouldn't be empty
+		assertNotNull(network.getOutput());
+		
+		// BufferedReader object shouldn't be empty
+		assertNotNull(network.getInput());
+	}
 }

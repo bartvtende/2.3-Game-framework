@@ -1,11 +1,11 @@
 package main.java.org.hanzet23.gameframework;
 
-/**
- * Hello world!
- *
- */
+import main.java.org.hanzet23.gameframework.views.GameFrame;
+
 public class Main {
 	public static void main(String[] args) {
-		System.out.println("Hello World!");
+		GameFrame frame = new GameFrame();
+		frame.setVisible(true);
+		frame.pack();
 	}
 }
