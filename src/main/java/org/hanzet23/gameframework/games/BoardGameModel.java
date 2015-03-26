@@ -6,12 +6,12 @@ package main.java.org.hanzet23.gameframework.games;
  * Methodes die specifiek zijn aan de game zelf worden verder gedefineerd in de game klassen zelf. 
  * Created by Joz Reijnevweld on 26/03/15.
  */
-public abstract class BoardGame {
+public abstract class BoardGameModel {
     private char[][] board;
     private int playerState = -1; // -1 staat voor dat er nog geen player is geselecteerd
 
-    public BoardGame(){  
-        //TODO BoardGame moet nog geimplementeerd worden 
+    public BoardGameModel(){
+        //TODO BoardGameModel moet nog geimplementeerd worden
         //Moet gechecked worden welke parameters nodig zijn voor communicatie tussen objecten.
     }
 
