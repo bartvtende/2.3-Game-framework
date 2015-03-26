@@ -19,7 +19,7 @@ public class NetworkTest extends TestCase {
 	}
 	
 	public void testMakingTheConnection() {
-		Network network = Network.getInstance();
+		Network network = new Network(0, null);
 		
 		// Network object shouldn't be empty
 		assertNotNull(network);

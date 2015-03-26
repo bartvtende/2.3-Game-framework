@@ -6,56 +6,36 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class Network {
+public class Network implements Runnable {
 	
-	private static Network instance = null;
-
-	private static final int SERVER_PORT = 7789;
-	private static final String SERVER_NAME = "localhost";
+	private int serverPort = 7789;
+	private String serverName = "bartvantende.nl";
 	
 	protected PrintWriter output = null;
 	protected BufferedReader input = null;
 	
+	private Thread thread = null;
+	
 	private Socket client;
 
-	private Network() {
+	public Network(int port, String serverName) {
+		if (port != 0)
+			this.serverPort = port;
+		if (serverName != null)
+			this.serverName = serverName;
 		connectToServer();
-		startConnectionThread();
-	}
-
-	/**
-	 * Creates a new Network class
-	 */
-	private synchronized static void createInstance () {
-        if (instance == null) {
-        	instance = new Network();
-        }
-    }
-
-	/**
-	 * Singleton design pattern to ensure that only one connection is open
-	 * 
-	 * @return
-	 */
-    public static Network getInstance() {
-        if (instance == null) {
-        	createInstance();
-        }
-        return instance;
 	}
 	
 	/**
 	 * Opens a socket connection to the game server
-	 * 
-	 * @param port
 	 */
 	public void connectToServer() {
 		try {
-			System.out.println("Connecting to " + SERVER_NAME
-					+ " on port: " + SERVER_PORT);
+			System.out.println("Connecting to " + serverName
+					+ " on port: " + serverPort);
 			
 			// Open a new socket connection
-			this.client = new Socket(SERVER_NAME, SERVER_PORT);
+			this.client = new Socket(serverName, serverPort);
 
 			System.out.println("Connected to: "
 					+ client.getRemoteSocketAddress());
@@ -71,6 +51,9 @@ public class Network {
 			for (int i = 0; i < 2; i++) {
 				System.out.println("Server: " + this.input.readLine());
 			}
+
+			this.thread = new Thread(this);
+			this.thread.start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -92,25 +75,21 @@ public class Network {
 		}
 	}
 	
-	private void startConnectionThread() {
-		NetworkConnection connection = new NetworkConnection(this.input);
-		connection.start();
-	}
-	
-	public synchronized String[] sendCommand(String command, int amountOfLines) {
-		String[] lines = new String[amountOfLines];
+	public synchronized void sendCommand(String command) {
 		// Send the command
 		this.output.println(command);
-
-		// Receive the input
+	}
+	
+	@Override
+	public void run() {
 		try {
-			for (int i = 0; i < amountOfLines; i++) {
-				lines[i] = this.input.readLine();
-			}
+			String line;
+			while ((line = this.input.readLine()) != null) {
+				Command.receiveCommand(line);
+        	}
 		} catch (IOException e) {
-			System.out.println("Something went wrong reading the input in Network.sendCommand()");
+			e.printStackTrace();
 		}
-		return lines;
 	}
 	
 	public Socket getSocket() {
