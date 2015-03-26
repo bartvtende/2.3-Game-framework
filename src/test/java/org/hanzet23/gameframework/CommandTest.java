@@ -82,18 +82,12 @@ public class CommandTest extends TestCase {
 		HashMap<String, String> map1 = Command.parseMap(testStringTrue1);
 		HashMap<String, String> map2 = Command.parseMap(testStringTrue2);
 
-		int i = 0; 
-		for (String key : map1.keySet()) {
-			assertEquals(actualFirst1[i], key);
-			assertEquals(actualSecond1[i], map1.get(key));
-		    i++;
-		}
-
-		i = 0;
-		for (String key : map2.keySet()) {
-			assertEquals(actualFirst2[i], key);
-			assertEquals(actualSecond2[i], map2.get(key));
-		    i++;
+		for (int i = 0; i < actualFirst1.length; i++) {
+			assertTrue(map1.containsKey(actualFirst1[i]));
+			assertTrue(map1.containsValue(actualSecond1[i]));
+			
+			assertTrue(map2.containsKey(actualFirst2[i]));
+			assertTrue(map2.containsValue(actualSecond2[i]));
 		}
 	}
 }
