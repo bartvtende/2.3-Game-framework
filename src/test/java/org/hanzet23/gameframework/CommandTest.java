@@ -10,7 +10,7 @@ import junit.framework.TestSuite;
 import main.java.org.hanzet23.gameframework.models.Command;
 
 /**
- * Unit test for the Network class
+ * Unit test for the Command class
  */
 public class CommandTest extends TestCase {
 
@@ -82,7 +82,7 @@ public class CommandTest extends TestCase {
 		HashMap<String, String> map1 = Command.parseMap(testStringTrue1);
 		HashMap<String, String> map2 = Command.parseMap(testStringTrue2);
 
-		int i = 0;
+		int i = 0; 
 		for (String key : map1.keySet()) {
 			assertEquals(actualFirst1[i], key);
 			assertEquals(actualSecond1[i], map1.get(key));

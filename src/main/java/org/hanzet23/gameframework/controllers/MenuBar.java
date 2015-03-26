@@ -10,10 +10,11 @@ import javax.swing.JMenuItem;
 
 public class MenuBar extends JMenuBar {
 
+	private static final long serialVersionUID = 1L;
+
 	public MenuBar(){
 	//maak menu 1
     JMenu file = new JMenu("File");
-    
     
     //Menu items
     JMenuItem newConnection = new JMenuItem("New connection");

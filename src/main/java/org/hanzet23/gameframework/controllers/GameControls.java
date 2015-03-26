@@ -13,6 +13,8 @@ import javax.swing.SpinnerNumberModel;
 
 public class GameControls extends JPanel {
 
+	private static final long serialVersionUID = 1L;
+	
 	private JSpinner xSpinner;
 	private JSpinner ySpinner;
 	private JButton place;
