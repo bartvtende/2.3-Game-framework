@@ -1,7 +1,6 @@
 package main.java.org.hanzet23.gameframework.models;
 
 import java.util.HashMap;
-import java.util.Stack;
 
 public class Command {
 	
@@ -35,53 +34,103 @@ public class Command {
 		}
 	}
 	
+	/**
+	 * Gets the list of games from the server
+	 * 
+	 * @param line
+	 */
 	public static void getGamelist(String line) {
 		String[] games = Command.parseList(line);
 		
 		System.out.println("Received gamelist: " + line);
 	}
 	
+	/**
+	 * Gets the list of players from the server
+	 * 
+	 * @param line
+	 */
 	public static void getPlayerlist(String line) {
 		String[] players = Command.parseList(line);
 		
 		System.out.println("Received playerlist: " + line);
 	}
 	
+	/**
+	 * Gets a match from the server including info
+	 * 
+	 * @param line
+	 */
 	public static void getMatch(String line) {
 		HashMap<String, String> map = Command.parseMap(line);
 		
 		System.out.println("Received match: " + line);
 	}
 		
+	/**
+	 * Gets turn info
+	 * 
+	 * @param line
+	 */
 	public static void getTurn(String line) {
 		HashMap<String, String> map = Command.parseMap(line);
 		
 		System.out.println("Received turn: " + line);
 	}
 	
+	/**
+	 * 	Gets the result of a move
+	 * 
+	 * @param line
+	 */
 	public static void getMove(String line) {
 		HashMap<String, String> map = Command.parseMap(line);
 		
 		System.out.println("Received move: " + line);
 	}
 	
+	/**
+	 * Gets the result of a game (WIN, LOSS or DRAW)
+	 * 
+	 * @param line
+	 */
 	public static void getResult(String line) {
 		HashMap<String, String> map = Command.parseMap(line);
 		
-		System.out.println("Received result: " + line);
+		String[] splitted = line.split("\\s");
+		String result = splitted[2];
 	}
 	
+	/**
+	 * Challenge a player for a game
+	 * 
+	 * @param line
+	 */
 	public static void getChallenge(String line) {
 		HashMap<String, String> map = Command.parseMap(line);
 		
 		System.out.println("Received challenge: " + line);
 	}
 	
+	/**
+	 * Challenge has been expired/denied
+	 * 
+	 * @param line
+	 */
 	public static void getChallengeCancelled(String line) {
+		HashMap<String, String> map = Command.parseMap(line);
+		
 		System.out.println("Received challenge cancelled: " + line);
 	}
 	
+	/**
+	 * Match is over, either the player disconnected or the player has forfeited
+	 * 
+	 * @param line
+	 */
 	public static void getClose(String line) {
+		HashMap<String, String> map = Command.parseMap(line);
+		
 		System.out.println("Received closing connection: " + line);
 	}
 	
@@ -182,6 +231,12 @@ public class Command {
 		return result;
 	}
 	
+	/**
+	 * Parse the string that includes a map and return a HashMap
+	 * 
+	 * @param line
+	 * @return
+	 */
 	public static HashMap<String, String> parseMap(String line) {
 		// Split the string with comma's
 		String[] result = parseString(line, '{', '}');
@@ -200,6 +255,14 @@ public class Command {
 		return map;
 	}
 	
+	/**
+	 * Helper method to parse a string into an array by using identifiers
+	 * 
+	 * @param line
+	 * @param firstIdentifier
+	 * @param endIdentifier
+	 * @return
+	 */
 	private static String[] parseString(String line, char firstIdentifier, char endIdentifier) {
 		int firstBracket = line.indexOf(firstIdentifier);
 		int lastBracket = line.indexOf(endIdentifier);
@@ -245,6 +308,11 @@ public class Command {
 		System.out.println("Client: " + line);
 	}
 	
+	/**
+	 * Getter for the Network object
+	 * 
+	 * @return
+	 */
 	public Network getNetwork() {
 		return this.network;
 	}	
