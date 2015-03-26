@@ -48,22 +48,32 @@ public class Command {
 	}
 	
 	public static void getMatch(String line) {
+		HashMap<String, String> map = Command.parseMap(line);
+		
 		System.out.println("Received match: " + line);
 	}
 		
 	public static void getTurn(String line) {
+		HashMap<String, String> map = Command.parseMap(line);
+		
 		System.out.println("Received turn: " + line);
 	}
 	
 	public static void getMove(String line) {
+		HashMap<String, String> map = Command.parseMap(line);
+		
 		System.out.println("Received move: " + line);
 	}
 	
 	public static void getResult(String line) {
+		HashMap<String, String> map = Command.parseMap(line);
+		
 		System.out.println("Received result: " + line);
 	}
 	
 	public static void getChallenge(String line) {
+		HashMap<String, String> map = Command.parseMap(line);
+		
 		System.out.println("Received challenge: " + line);
 	}
 	
