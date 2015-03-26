@@ -11,8 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.sun.xml.internal.ws.util.StringUtils;
-
 import main.java.org.hanzet23.gameframework.models.Command;
 
 public class NewConnection extends JFrame {
