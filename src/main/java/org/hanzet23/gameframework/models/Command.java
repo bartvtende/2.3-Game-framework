@@ -6,22 +6,75 @@ public class Command {
 	
 	public static Stack<String> receivedMessages = null;
 	
-	private Protocol protocol = null;
+	private Network network = null;
 	
 	public Command(int serverPort, String serverName) {
-		this.protocol = new Protocol(serverPort, serverName);
+		this.network = new Network(serverPort, serverName);
 		Command.receivedMessages = new Stack<String>();
 	}
 
-	public static void receiveCommand(String line) {
-		String[] splittedCommand = line.split("\\s");
-
-		if (splittedCommand[0].equals("SVR") && splittedCommand[1].equals("GAME")) {
-			System.out.println("SERVER MESSAGE: " + line);
+	public static void receiveCommand(String line) {		
+		if (line.startsWith("SVR GAMELIST ")) {
+			getGamelist(line);
+		} else if (line.startsWith("SVR PLAYERLIST ")) {
+			getPlayerlist(line);
+		} else if (line.startsWith("SVR GAME MATCH ")) {
+			getMatch(line);
+		} else if (line.startsWith("SVR GAME YOURTURN ")) {
+			getTurn(line);
+		} else if (line.startsWith("SVR GAME MOVE ")) {
+			getMove(line);
+		} else if (line.startsWith("SVR GAME WIN ") || line.startsWith("SVR GAME LOSS ") || line.startsWith("SVR GAME DRAW ")) {
+			getResult(line);
+		} else if (line.startsWith("SVR GAME CHALLENGE ")) {
+			getChallenge(line);
+		} else if (line.startsWith("SVR GAME CHALLENGE CANCELLED")) {
+			getChallengeCancelled(line);
+		} else if (line.startsWith("SVR GAME ")) {
+			getClose(line);
 		} else {
-			Command.receivedMessages.push(line);
-			printServerLine(Command.receivedMessages.peek());
+			Command.printServerLine(line);
 		}
+	}
+	
+	public static void getGamelist(String line) {
+		String[] games = Command.parseList(line);
+		
+		System.out.println("Received gamelist: " + line);
+	}
+	
+	public static void getPlayerlist(String line) {
+		String[] players = Command.parseList(line);
+		
+		System.out.println("Received playerlist: " + line);
+	}
+	
+	public static void getMatch(String line) {
+		System.out.println("Received match: " + line);
+	}
+		
+	public static void getTurn(String line) {
+		System.out.println("Received turn: " + line);
+	}
+	
+	public static void getMove(String line) {
+		System.out.println("Received move: " + line);
+	}
+	
+	public static void getResult(String line) {
+		System.out.println("Received result: " + line);
+	}
+	
+	public static void getChallenge(String line) {
+		System.out.println("Received challenge: " + line);
+	}
+	
+	public static void getChallengeCancelled(String line) {
+		System.out.println("Received challenge cancelled: " + line);
+	}
+	
+	public static void getClose(String line) {
+		System.out.println("Received closing connection: " + line);
 	}
 	
 	/**
@@ -31,14 +84,14 @@ public class Command {
 	 */
 	public void login(String name) {
 		String command = "login " + name;
-		protocol.sendOutput(command);
+		network.sendCommand(command);
 	}
 	
 	/**
 	 * Logs the user out and closes the client's connection
 	 */
 	public void logout() {
-		protocol.sendOutput("logout");
+		network.sendCommand("logout");
 	}
 	
 	/**
@@ -47,39 +100,96 @@ public class Command {
 	 * @return
 	 */
 	public void getGamelist() {
-		protocol.sendOutput("get gamelist");
+		network.sendCommand("get gamelist");
 	}
 	
 	/**
 	 * Get a list of all the players connected to the server
+	 * 
 	 * @return
 	 */
 	public void getPlayerlist() {
-		protocol.sendOutput("get playerlist");
+		network.sendCommand("get playerlist");
 	}
 	
+	/**
+	 * Subscribe for a game
+	 * 
+	 * @param name
+	 */
 	public void subscribe(String name) {
 		String command = "subscribe " + name;
-		protocol.sendOutput(command);
+		network.sendCommand(command);
 	}
 	
+	/**
+	 * Make a game move
+	 * 
+	 * @param move
+	 */
 	public void move(String move) {
 		String command = "move " + move;
-		protocol.sendOutput(command);
+		network.sendCommand(command);
 	}
 	
+	/**
+	 * Challenge a player for a game
+	 * 
+	 * @param player
+	 * @param game
+	 */
 	public void challenge(String player, String game) {
 		String command = "challenge \"" + player + "\" \"" + game + "\"";
-		protocol.sendOutput(command);
+		network.sendCommand(command);
 	}
 	
+	/**
+	 * Accept a challenge from an user
+	 * 
+	 * @param challengeNumber
+	 */
 	public void challengeAccept(String challengeNumber) {
 		String command = "challenge accept " + challengeNumber;
-		protocol.sendOutput(command);
+		network.sendCommand(command);
 	}
 	
+	/**
+	 * Forfeit a match 
+	 */
 	public void forfeit() {
-		protocol.sendOutput("forfeit");
+		network.sendCommand("forfeit");
+	}
+	
+
+	/**
+	 * Parse the string that includes a list and return an array
+	 * 
+	 * @param line
+	 * @return
+	 */
+	public static String[] parseList(String line) {
+		int firstBracket = line.indexOf('[') + 1;
+		int lastBracket = line.indexOf(']');
+		
+		// Get the string without the brackets
+		String newLine = line.substring(firstBracket, lastBracket);		
+		
+		// Remove the quotation marks
+		newLine = newLine.replace("\"", "");
+		
+		if (newLine == null) {
+			Command.printClientLine("The parsed list is empty!");
+			return null;
+		}
+
+		// Split the string with comma's
+		String[] result = newLine.split("\\s*,\\s*");
+		
+		return result;
+	}
+	
+	private static void parseMap(String line) {
+		
 	}
 
 	/**
@@ -100,8 +210,8 @@ public class Command {
 		System.out.println("Client: " + line);
 	}
 	
-	public Protocol getProtocol() {
-		return this.protocol;
+	public Network getNetwork() {
+		return this.network;
 	}
 	
 	public Stack<String> getReceivedMessages() {

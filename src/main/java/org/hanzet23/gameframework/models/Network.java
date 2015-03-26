@@ -76,6 +76,8 @@ public class Network implements Runnable {
 	}
 	
 	public synchronized void sendCommand(String command) {
+		// Print the command
+		Command.printClientLine(command);
 		// Send the command
 		this.output.println(command);
 	}

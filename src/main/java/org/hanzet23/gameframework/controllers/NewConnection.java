@@ -11,6 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.sun.xml.internal.ws.util.StringUtils;
+
+import main.java.org.hanzet23.gameframework.models.Command;
+
 public class NewConnection extends JFrame {
 
 	private JTextField IP = new JTextField();
@@ -52,8 +56,30 @@ public class NewConnection extends JFrame {
 				// TODO Auto-generated method stub
 				//DEMO
 				frame.dispose();
-				System.out.println(IP.getText() +":"+ port.getText());
+
+				// Check if port is an integer, otherwise use port 7789
+				int serverPort = 0;
+				try {
+					serverPort = Integer.parseInt(port.getText());
+				} catch (NumberFormatException e) {
+					System.out.println("Port is not a valid number, continuing with the default port.");
+				}
 				
+				// Check the server IP
+				String serverName = null;
+				if (IP.getText().equals("")) {
+					serverName = null;
+				} else {
+					serverName = IP.getText();
+				}
+				
+				// Open a network connection
+				Command command = new Command(serverPort, serverName);
+				
+				command.login("Bartje1");
+				command.subscribe("Guess Game");
+				
+				command.getGamelist();
 			}
 			
 		});
