@@ -1,10 +1,13 @@
 package test.java.org.hanzet23.gameframework;
 
-import main.java.org.hanzet23.gameframework.models.Command;
+import static org.junit.Assert.assertArrayEquals;
+
+import java.util.HashMap;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import static org.junit.Assert.*;
+import main.java.org.hanzet23.gameframework.models.Command;
 
 /**
  * Unit test for the Network class
@@ -52,5 +55,45 @@ public class CommandTest extends TestCase {
 		assertArrayEquals(expected3, actual3);
 		assertArrayEquals(expected4, actual4);
 		assertArrayEquals(expected3, actual3);
+	}
+	
+	public void testParseMapNull() {
+		String testStringNull1 = "";
+		String testStringNull2 = "testing but no list, oops";
+		String testStringNull3 = "tstdtsdt {";
+		String testStringNull4 = "tstdtsdt }";
+
+		assertNull(Command.parseMap(testStringNull1));
+		assertNull(Command.parseMap(testStringNull2));
+		assertNull(Command.parseMap(testStringNull3));
+		assertNull(Command.parseMap(testStringNull4));
+	}
+	
+	public void testParseMapTrue() {
+		String testStringTrue1 = "SVR GAME <speler resultaat> {PLAYERONESCORE: \"<score speler1>\", PLAYERTWOSCORE: \"<score speler2>\", COMMENT: \"<commentaar op resultaat>\"}";
+		String testStringTrue2 = "SVR GAME <speler resultaat> {PLAYERONESCORE:\"<score speler1>\",PLAYERTWOSCORE:\"<score speler2>\",COMMENT:\"<commentaar op resultaat>\"}";
+
+		String[] actualFirst1 = new String[]{"PLAYERONESCORE", "PLAYERTWOSCORE", "COMMENT"};
+		String[] actualFirst2 = new String[]{"PLAYERONESCORE", "PLAYERTWOSCORE", "COMMENT"};
+		
+		String[] actualSecond1 = new String[]{"<score speler1>", "<score speler2>", "<commentaar op resultaat>"};
+		String[] actualSecond2 = new String[]{"<score speler1>", "<score speler2>", "<commentaar op resultaat>"};
+		
+		HashMap<String, String> map1 = Command.parseMap(testStringTrue1);
+		HashMap<String, String> map2 = Command.parseMap(testStringTrue2);
+
+		int i = 0;
+		for (String key : map1.keySet()) {
+			assertEquals(actualFirst1[i], key);
+			assertEquals(actualSecond1[i], map1.get(key));
+		    i++;
+		}
+
+		i = 0;
+		for (String key : map2.keySet()) {
+			assertEquals(actualFirst2[i], key);
+			assertEquals(actualSecond2[i], map2.get(key));
+		    i++;
+		}
 	}
 }

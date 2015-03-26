@@ -1,5 +1,6 @@
 package main.java.org.hanzet23.gameframework.models;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 public class Command {
@@ -165,16 +166,40 @@ public class Command {
 	 * @return
 	 */
 	public static String[] parseList(String line) {
+		// Split the string with comma's
+		String[] result = parseString(line, '[', ']');
 		
-		int firstBracket = line.indexOf('[');
-		int lastBracket = line.indexOf(']');
+		return result;
+	}
+	
+	public static HashMap<String, String> parseMap(String line) {
+		// Split the string with comma's
+		String[] result = parseString(line, '{', '}');
+
+		if (result == null) {
+			return null;
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		for (String entry : result) {
+			String[] splitted = entry.split("\\s*:\\s*");
+			map.put(splitted[0], splitted[1]);
+		}
+		
+		return map;
+	}
+	
+	private static String[] parseString(String line, char firstIdentifier, char endIdentifier) {
+		int firstBracket = line.indexOf(firstIdentifier);
+		int lastBracket = line.indexOf(endIdentifier);
 
 		if (line.length() == 0 || firstBracket == -1 || lastBracket == -1) {
 			return null;
 		}
 		
 		firstBracket++;
-		
+
 		// Get the string without the brackets
 		String newLine = line.substring(firstBracket, lastBracket);
 		
@@ -182,7 +207,7 @@ public class Command {
 		newLine = newLine.replace("\"", "");
 		
 		if (newLine == null) {
-			Command.printClientLine("The parsed list is empty!");
+			Command.printClientLine("The parsed map is empty!");
 			return null;
 		}
 
@@ -190,10 +215,6 @@ public class Command {
 		String[] result = newLine.split("\\s*,\\s*");
 		
 		return result;
-	}
-	
-	private static void parseMap(String line) {
-		
 	}
 
 	/**
