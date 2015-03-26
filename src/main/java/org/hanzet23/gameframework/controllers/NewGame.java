@@ -10,10 +10,10 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class NewGame extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JComboBox playerType;
 	private JComboBox playerNumber;
 	private JButton create;

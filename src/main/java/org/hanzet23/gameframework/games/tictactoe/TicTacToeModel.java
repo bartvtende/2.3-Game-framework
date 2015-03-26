@@ -35,7 +35,7 @@ public class TicTacToeModel extends BoardGameModel {
     }
 
     @Override
-    public boolean CheckIfThereIsAWin() {
+    public boolean checkIfThereIsAWin() {
         if(checkDiagnalWin() && checkHorizontalWin() && checkVerticalWin()){ return true; }
         else { return false; }
     }
