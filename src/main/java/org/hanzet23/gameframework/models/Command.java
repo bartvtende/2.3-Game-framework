@@ -4,13 +4,10 @@ import java.util.Stack;
 
 public class Command {
 	
-	public static Stack<String> receivedMessages = null;
-	
 	private Network network = null;
 	
 	public Command(int serverPort, String serverName) {
 		this.network = new Network(serverPort, serverName);
-		Command.receivedMessages = new Stack<String>();
 	}
 
 	public static void receiveCommand(String line) {		
@@ -168,11 +165,18 @@ public class Command {
 	 * @return
 	 */
 	public static String[] parseList(String line) {
-		int firstBracket = line.indexOf('[') + 1;
+		
+		int firstBracket = line.indexOf('[');
 		int lastBracket = line.indexOf(']');
+
+		if (line.length() == 0 || firstBracket == -1 || lastBracket == -1) {
+			return null;
+		}
+		
+		firstBracket++;
 		
 		// Get the string without the brackets
-		String newLine = line.substring(firstBracket, lastBracket);		
+		String newLine = line.substring(firstBracket, lastBracket);
 		
 		// Remove the quotation marks
 		newLine = newLine.replace("\"", "");
@@ -212,10 +216,5 @@ public class Command {
 	
 	public Network getNetwork() {
 		return this.network;
-	}
-	
-	public Stack<String> getReceivedMessages() {
-		return Command.receivedMessages;
-	}
-	
+	}	
 }
