@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class Network implements Runnable {
+public class NetworkModel implements Runnable {
 	
 	private int serverPort = 7789;
 	private String serverName = "bartvantende.nl";
@@ -18,7 +18,7 @@ public class Network implements Runnable {
 	
 	private Socket client;
 
-	public Network(int port, String serverName) {
+	public NetworkModel(int port, String serverName) {
 		if (port != 0)
 			this.serverPort = port;
 		if (serverName != null)
@@ -77,7 +77,7 @@ public class Network implements Runnable {
 	
 	public synchronized void sendCommand(String command) {
 		// Print the command
-		Command.printClientLine(command);
+		CommandModel.printClientLine(command);
 		// Send the command
 		this.output.println(command);
 	}
@@ -87,7 +87,7 @@ public class Network implements Runnable {
 		try {
 			String line;
 			while ((line = this.input.readLine()) != null) {
-				Command.receiveCommand(line);
+				CommandModel.receiveCommand(line);
         	}
 		} catch (IOException e) {
 			e.printStackTrace();

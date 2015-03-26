@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import main.java.org.hanzet23.gameframework.models.Command;
+import main.java.org.hanzet23.gameframework.models.CommandModel;
 
 public class NewConnection extends JFrame {
 
@@ -74,7 +74,7 @@ public class NewConnection extends JFrame {
 				}
 
 				// Open a network connection
-				Command command = new Command(serverPort, serverName);
+				CommandModel command = new CommandModel(serverPort, serverName);
 
 				command.login("Bartje1");
 				command.subscribe("Guess Game");

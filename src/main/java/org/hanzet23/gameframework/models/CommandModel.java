@@ -2,12 +2,12 @@ package main.java.org.hanzet23.gameframework.models;
 
 import java.util.HashMap;
 
-public class Command {
+public class CommandModel {
 	
-	private Network network = null;
+	private NetworkModel network = null;
 	
-	public Command(int serverPort, String serverName) {
-		this.network = new Network(serverPort, serverName);
+	public CommandModel(int serverPort, String serverName) {
+		this.network = new NetworkModel(serverPort, serverName);
 	}
 
 	public static void receiveCommand(String line) {		
@@ -30,7 +30,7 @@ public class Command {
 		} else if (line.startsWith("SVR GAME ")) {
 			getClose(line);
 		} else {
-			Command.printServerLine(line);
+			CommandModel.printServerLine(line);
 		}
 	}
 	
@@ -40,7 +40,7 @@ public class Command {
 	 * @param line
 	 */
 	public static void getGamelist(String line) {
-		String[] games = Command.parseList(line);
+		String[] games = CommandModel.parseList(line);
 		
 		System.out.println("Received gamelist: " + line);
 	}
@@ -51,7 +51,7 @@ public class Command {
 	 * @param line
 	 */
 	public static void getPlayerlist(String line) {
-		String[] players = Command.parseList(line);
+		String[] players = CommandModel.parseList(line);
 		
 		System.out.println("Received playerlist: " + line);
 	}
@@ -62,7 +62,7 @@ public class Command {
 	 * @param line
 	 */
 	public static void getMatch(String line) {
-		HashMap<String, String> map = Command.parseMap(line);
+		HashMap<String, String> map = CommandModel.parseMap(line);
 		
 		System.out.println("Received match: " + line);
 	}
@@ -73,7 +73,7 @@ public class Command {
 	 * @param line
 	 */
 	public static void getTurn(String line) {
-		HashMap<String, String> map = Command.parseMap(line);
+		HashMap<String, String> map = CommandModel.parseMap(line);
 		
 		System.out.println("Received turn: " + line);
 	}
@@ -84,7 +84,7 @@ public class Command {
 	 * @param line
 	 */
 	public static void getMove(String line) {
-		HashMap<String, String> map = Command.parseMap(line);
+		HashMap<String, String> map = CommandModel.parseMap(line);
 		
 		System.out.println("Received move: " + line);
 	}
@@ -95,7 +95,7 @@ public class Command {
 	 * @param line
 	 */
 	public static void getResult(String line) {
-		HashMap<String, String> map = Command.parseMap(line);
+		HashMap<String, String> map = CommandModel.parseMap(line);
 		
 		String[] splitted = line.split("\\s");
 		String result = splitted[2];
@@ -107,7 +107,7 @@ public class Command {
 	 * @param line
 	 */
 	public static void getChallenge(String line) {
-		HashMap<String, String> map = Command.parseMap(line);
+		HashMap<String, String> map = CommandModel.parseMap(line);
 		
 		System.out.println("Received challenge: " + line);
 	}
@@ -118,7 +118,7 @@ public class Command {
 	 * @param line
 	 */
 	public static void getChallengeCancelled(String line) {
-		HashMap<String, String> map = Command.parseMap(line);
+		HashMap<String, String> map = CommandModel.parseMap(line);
 		
 		System.out.println("Received challenge cancelled: " + line);
 	}
@@ -129,7 +129,7 @@ public class Command {
 	 * @param line
 	 */
 	public static void getClose(String line) {
-		HashMap<String, String> map = Command.parseMap(line);
+		HashMap<String, String> map = CommandModel.parseMap(line);
 		
 		System.out.println("Received closing connection: " + line);
 	}
@@ -280,7 +280,7 @@ public class Command {
 		newLine = newLine.replace("\"", "");
 		
 		if (newLine == null) {
-			Command.printClientLine("The parsed map is empty!");
+			CommandModel.printClientLine("The parsed map is empty!");
 			return null;
 		}
 
@@ -313,7 +313,7 @@ public class Command {
 	 * 
 	 * @return
 	 */
-	public Network getNetwork() {
+	public NetworkModel getNetwork() {
 		return this.network;
 	}	
 }

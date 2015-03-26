@@ -7,7 +7,7 @@ import java.util.HashMap;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import main.java.org.hanzet23.gameframework.models.Command;
+import main.java.org.hanzet23.gameframework.models.CommandModel;
 
 /**
  * Unit test for the Command class
@@ -28,10 +28,10 @@ public class CommandTest extends TestCase {
 		String testStringNull3 = "tstdtsdt [";
 		String testStringNull4 = "tstdtsdt ]";
 
-		assertNull(Command.parseList(testStringNull1));
-		assertNull(Command.parseList(testStringNull2));
-		assertNull(Command.parseList(testStringNull3));
-		assertNull(Command.parseList(testStringNull4));
+		assertNull(CommandModel.parseList(testStringNull1));
+		assertNull(CommandModel.parseList(testStringNull2));
+		assertNull(CommandModel.parseList(testStringNull3));
+		assertNull(CommandModel.parseList(testStringNull4));
 	}
 	
 	public void testParseListTrue() {
@@ -40,10 +40,10 @@ public class CommandTest extends TestCase {
 		String testStringTrue3 = "testing test [test1,test2]";
 		String testStringTrue4 = "testing test [test1 , test2]";
 		
-		String[] actual1 = Command.parseList(testStringTrue1);
-		String[] actual2 = Command.parseList(testStringTrue2);
-		String[] actual3 = Command.parseList(testStringTrue3);
-		String[] actual4 = Command.parseList(testStringTrue4);
+		String[] actual1 = CommandModel.parseList(testStringTrue1);
+		String[] actual2 = CommandModel.parseList(testStringTrue2);
+		String[] actual3 = CommandModel.parseList(testStringTrue3);
+		String[] actual4 = CommandModel.parseList(testStringTrue4);
 		
 		String[] expected1 = {"test1", "test2"};
 		String[] expected2 = {"test1", "test2"};
@@ -63,10 +63,10 @@ public class CommandTest extends TestCase {
 		String testStringNull3 = "tstdtsdt {";
 		String testStringNull4 = "tstdtsdt }";
 
-		assertNull(Command.parseMap(testStringNull1));
-		assertNull(Command.parseMap(testStringNull2));
-		assertNull(Command.parseMap(testStringNull3));
-		assertNull(Command.parseMap(testStringNull4));
+		assertNull(CommandModel.parseMap(testStringNull1));
+		assertNull(CommandModel.parseMap(testStringNull2));
+		assertNull(CommandModel.parseMap(testStringNull3));
+		assertNull(CommandModel.parseMap(testStringNull4));
 	}
 	
 	public void testParseMapTrue() {
@@ -79,8 +79,8 @@ public class CommandTest extends TestCase {
 		String[] actualSecond1 = new String[]{"<score speler1>", "<score speler2>", "<commentaar op resultaat>"};
 		String[] actualSecond2 = new String[]{"<score speler1>", "<score speler2>", "<commentaar op resultaat>"};
 		
-		HashMap<String, String> map1 = Command.parseMap(testStringTrue1);
-		HashMap<String, String> map2 = Command.parseMap(testStringTrue2);
+		HashMap<String, String> map1 = CommandModel.parseMap(testStringTrue1);
+		HashMap<String, String> map2 = CommandModel.parseMap(testStringTrue2);
 
 		for (int i = 0; i < actualFirst1.length; i++) {
 			assertTrue(map1.containsKey(actualFirst1[i]));

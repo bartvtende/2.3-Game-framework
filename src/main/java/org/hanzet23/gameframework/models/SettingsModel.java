@@ -48,7 +48,7 @@ public class SettingsModel {
 	
 	public boolean writeSettings(String key, String value) {
 		// Get the settings
-		LinkedHashMap<String, String> map = getSettings();
+		HashMap<String, String> map = getSettings();
 		
 		// Check if the map even contains the key
 		if (!map.containsKey(key)) {

@@ -1,6 +1,6 @@
 package test.java.org.hanzet23.gameframework;
 
-import main.java.org.hanzet23.gameframework.models.Network;
+import main.java.org.hanzet23.gameframework.models.NetworkModel;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -19,7 +19,7 @@ public class NetworkTest extends TestCase {
 	}
 	
 	public void testMakingTheConnection() {
-		Network network = new Network(0, null);
+		NetworkModel network = new NetworkModel(0, null);
 		
 		// Network object shouldn't be empty
 		assertNotNull(network);
