@@ -14,40 +14,58 @@ public class MenuBar extends JMenuBar {
 
 	public MenuBar() {
 		// Maak menu 1
-		JMenu file = new JMenu("File");
+		JMenu options = new JMenu("Options");
+		
+		//menu 2
+		JMenu about = new JMenu("About");
+		
+		
 
-		// Menu items
-		JMenuItem newConnection = new JMenuItem("New connection");
-		JMenuItem newGame = new JMenuItem("New game");
-
-		newConnection.addActionListener(new ActionListener() {
+		// Menu1 items
+		JMenuItem settings = new JMenuItem("Settings");
+		JMenuItem exit = new JMenuItem("Exit");
+		
+		//Menu2 items
+		JMenuItem help = new JMenuItem("Help");
+		
+		
+		settings.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				JFrame popup = new NewConnection();
-				popup.setVisible(true);
-				popup.pack();
+				//TODO MAKE SETTINGS FRAME
 			}
 
 		});
 
-		newGame.addActionListener(new ActionListener() {
+		exit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				JFrame popup = new NewGame();
-				popup.setVisible(true);
-				popup.pack();
+				System.exit(0);
+			}
+
+		});
+		
+		help.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				//TODO HELP FRAME
 			}
 
 		});
 
-		file.add(newConnection);
-		file.add(newGame);
+		options.add(settings);
+		options.add(exit);
+		
+		about.add(help);
 
-		this.add(file);
+		this.add(options);
+		this.add(about);
 
 	}
 }
