@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -24,6 +25,7 @@ public class ConnectionPanel extends JPanel {
 	private JButton connect;
 	
 	public ConnectionPanel(){
+		
 		//setups
 		this.setupLocal();
 		this.setupNetwork();
@@ -32,8 +34,8 @@ public class ConnectionPanel extends JPanel {
 		
 		//layout
 		
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.add(new JPanel().add(title),.setBackground(Color.black));
+		this.setLayout(new BorderLayout());
+		this.add(title, BorderLayout.NORTH);
 		this.setBackground(Color.pink);
 		JPanel center = new JPanel();
 		center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
@@ -52,8 +54,8 @@ public class ConnectionPanel extends JPanel {
 		text.setBackground(Color.magenta);
 		center.add(text);
 		
-		this.add(center);
-		this.add(connect);
+		this.add(center, BorderLayout.CENTER);
+		this.add(connect, BorderLayout.SOUTH);
 		
 	}
 	
