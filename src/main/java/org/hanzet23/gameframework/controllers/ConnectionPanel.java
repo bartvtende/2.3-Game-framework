@@ -3,6 +3,8 @@ package main.java.org.hanzet23.gameframework.controllers;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -35,23 +37,26 @@ public class ConnectionPanel extends JPanel {
 		//layout
 		
 		this.setLayout(new BorderLayout());
-		this.add(title, BorderLayout.NORTH);
-		this.setBackground(Color.pink);
+		JPanel titlePanel = new JPanel();
+		titlePanel.setLayout(new GridBagLayout());
+		titlePanel.add(title);
+		
+		
+		this.add(titlePanel, BorderLayout.NORTH);
+		
 		JPanel center = new JPanel();
 		center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
-		center.setBackground(Color.CYAN);
 		JPanel buttons = new JPanel();
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
 		buttons.add(local);
 		buttons.add(Box.createRigidArea(new Dimension(5,0)));
 		buttons.add(network);
-		buttons.setBackground(Color.GREEN);
 		
 		center.add(buttons);
 		
 		JPanel text = new JPanel();
+		text.setLayout(new BoxLayout(text, BoxLayout.X_AXIS));
 		text.add(name);
-		text.setBackground(Color.magenta);
 		center.add(text);
 		
 		this.add(center, BorderLayout.CENTER);
