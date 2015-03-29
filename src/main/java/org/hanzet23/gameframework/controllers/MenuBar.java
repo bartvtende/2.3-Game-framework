@@ -13,42 +13,45 @@ public class MenuBar extends JMenuBar {
 	private static final long serialVersionUID = 1L;
 
 	public MenuBar() {
-		// Maak menu 1
+		// Menu 1
 		JMenu options = new JMenu("Options");
 		
-		//menu 2
+		// Menu 2
 		JMenu about = new JMenu("About");
-		
-		
 
-		// Menu1 items
+		// Menu 1 items
 		JMenuItem settings = new JMenuItem("Settings");
 		JMenuItem exit = new JMenuItem("Exit");
 		
-		//Menu2 items
+		// Menu 2 items
 		JMenuItem help = new JMenuItem("Help");
 		
-		
+		/**
+		 * ActionListener for the menu item "Settings"
+		 */
 		settings.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				//TODO MAKE SETTINGS FRAME
+				JFrame popup = new SettingsController();
+				popup.setVisible(true);
+				popup.pack();
+				
 			}
-
 		});
 
+		/**
+		 * ActionListener for the menu item "Exit"
+		 */
 		exit.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				System.exit(0);
 			}
-
 		});
 		
+		/**
+		 * ActionListener for the menu item "Help"
+		 */
 		help.addActionListener(new ActionListener() {
 
 			@Override
