@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
 
+import main.java.org.hanzet23.gameframework.views.GamePanel;
+
 public class GamesPanel extends JPanel {
 	
 	private ArrayList<JButton> games;
@@ -86,6 +88,7 @@ public class GamesPanel extends JPanel {
 					// TODO Auto-generated method stub
 					System.out.println("Start"
 							+ ((JButton) arg0.getSource()).getText());
+					GamePanel.gamePanel.getPlayers().setVisible(true);
 				}
 			});
 
