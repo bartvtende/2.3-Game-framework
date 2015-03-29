@@ -19,7 +19,7 @@ public class NetworkTest extends TestCase {
 	}
 	
 	public void testMakingTheConnection() {
-		NetworkModel network = new NetworkModel(0, null);
+		NetworkModel network = new NetworkModel(7789, "bartvantende.nl");
 		
 		// Network object shouldn't be empty
 		assertNotNull(network);
