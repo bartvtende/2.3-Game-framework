@@ -7,7 +7,7 @@ public class QUICKANDDIRTYTEST_DELETE_THIS {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		JFrame frame = new JFrame();
-		frame.add(new ConnectionPanel());
+		frame.add(new GamesPanel());
 		
 		frame.setVisible(true);
 		frame.pack();

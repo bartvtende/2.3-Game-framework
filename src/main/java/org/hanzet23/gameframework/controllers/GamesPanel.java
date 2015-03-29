@@ -1,0 +1,123 @@
+package main.java.org.hanzet23.gameframework.controllers;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JToggleButton;
+
+public class GamesPanel extends JPanel {
+	
+	private ArrayList<JButton> games;
+	private JToggleButton human;
+	private JToggleButton computer;
+	private static final String[] DEMOGAMES ={"Tic-Tac-Toe", "Othello", "Connect Four"}; 
+	private boolean isHuman = true;
+	private JLabel title = new JLabel("Games");
+	private JLabel playerLabel = new JLabel("Play as");
+	
+	public GamesPanel(){
+		//setups
+		setupGames();
+		setupHuman();
+		setupComputer();
+		
+		//layout
+		this.setLayout(new BorderLayout());
+		JPanel titlePanel = new JPanel();
+		titlePanel.setLayout(new GridBagLayout());
+		titlePanel.add(title);
+
+		this.add(titlePanel, BorderLayout.NORTH);
+		
+		
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new GridLayout(0,1));
+		for(JButton game:games){
+			centerPanel.add(game);
+		}
+		
+		JScrollPane scrollPane = new JScrollPane(centerPanel);
+		
+		this.add(scrollPane, BorderLayout.CENTER);
+		
+		
+		
+		
+		
+		JPanel southPanel = new JPanel();
+		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));
+		
+		JPanel playerLabelPanel = new JPanel();
+		playerLabelPanel.setLayout(new GridBagLayout());
+		playerLabelPanel.add(playerLabel);
+		
+		JPanel playerButtonPanel = new JPanel();
+		playerButtonPanel.setLayout(new BoxLayout(playerButtonPanel, BoxLayout.X_AXIS));
+		playerButtonPanel.add(human);
+		playerButtonPanel.add(Box.createRigidArea(new Dimension(5, 0)));
+		playerButtonPanel.add(computer);
+		
+		southPanel.add(playerLabelPanel);
+		southPanel.add(playerButtonPanel);
+		
+		this.add(southPanel, BorderLayout.SOUTH);
+	}
+	
+	private void setupGames() {
+		// TODO update reference
+		games = new ArrayList<JButton>();
+		for (String game : DEMOGAMES) {
+			JButton gameButton = new JButton(game);
+			gameButton.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					System.out.println("Start"
+							+ ((JButton) arg0.getSource()).getText());
+				}
+			});
+
+			games.add(gameButton);
+		}
+		
+		
+	}
+	
+	private void setupHuman() {
+		human = new JToggleButton("Human");
+		human.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				human.setSelected(true);
+				computer.setSelected(false);
+				isHuman = true;
+			}
+		});
+
+		human.setSelected(true);
+	}
+
+	private void setupComputer() {
+		computer = new JToggleButton("Computer");
+		computer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				computer.setSelected(true);
+				human.setSelected(false);
+				isHuman = false;
+			}
+		});
+	}
+}
