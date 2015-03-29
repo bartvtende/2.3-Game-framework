@@ -19,9 +19,9 @@ import main.java.org.hanzet23.gameframework.models.SettingsModel;
 public class SettingsController extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JButton connect;
+	private JButton update;
 	private JFrame frame;
-	
+
 	private LinkedHashMap<String, String> map;
 	private ArrayList<JTextField> textFieldList;
 
@@ -36,24 +36,24 @@ public class SettingsController extends JFrame {
 
 		this.add(center, BorderLayout.CENTER);
 
-		this.add(connect, BorderLayout.SOUTH);
+		this.add(update, BorderLayout.SOUTH);
 	}
 
 	private void setupButton() {
-		connect = new JButton("Connect");
-		
-		connect.addActionListener(new ActionListener() {
+		update = new JButton("Update settings");
+
+		update.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
-	
+
 				SettingsModel settingsModel = new SettingsModel();
-	
+
 				int i = 0;
 				for (Entry<String, String> setting : map.entrySet()) {
 					String newValue = textFieldList.get(i).getText();
 					String oldValue = setting.getValue();
-					
+
 					// If values don't match, update them
 					if (!newValue.equals(oldValue)) {
 						settingsModel.writeSettings(setting.getKey(), newValue);
@@ -63,22 +63,22 @@ public class SettingsController extends JFrame {
 			}
 		});
 	}
-	
+
 	private JPanel setupPanels(JPanel center) {
 		// Get all the settings from the settings file
 		SettingsModel settingsModel = new SettingsModel();
 		map = settingsModel.getSettings();
 		textFieldList = new ArrayList<JTextField>();
-		
+
 		// Iterate through the HashMap and add new panels for each entry
 		for (Entry<String, String> setting : map.entrySet()) {
-		    String key = setting.getKey();
-		    String value = setting.getValue();
+			String key = setting.getKey();
+			String value = setting.getValue();
 
-		    // Save the TextField in an ArrayList
+			// Save the TextField in an ArrayList
 			JTextField textField = new JTextField(value);
 			textFieldList.add(textField);
-			
+
 			JPanel newPanel = new JPanel();
 			newPanel.setLayout(new BoxLayout(newPanel, BoxLayout.Y_AXIS));
 			newPanel.add(new JLabel(key));

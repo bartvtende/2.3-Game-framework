@@ -9,7 +9,7 @@ import java.net.Socket;
 public class NetworkModel implements Runnable {
 	
 	private int serverPort = 7789;
-	private String serverName = "bartvantende.nl";
+	private String serverName = "localhost";
 	
 	protected PrintWriter output = null;
 	protected BufferedReader input = null;
