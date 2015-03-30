@@ -1,12 +1,12 @@
 package main.java.org.hanzet23.gameframework.games.tictactoe;
 
-import main.java.org.hanzet23.gameframework.games.BoardGame;
+import main.java.org.hanzet23.gameframework.games.BoardGameModel;
 
 /**
  * Dit is een child klasse die de tictactoe game functies bevalt
  * Created by Joz Reijnevweld on 26/03/15.
  */
-public class TicTacToeModel extends BoardGame {
+public class TicTacToeModel extends BoardGameModel {
     /**
      * Deze methode check of een player een win heeft in het diagonale.
      * @return boolean wanneer er een win is
