@@ -44,7 +44,7 @@ public class CommandModel {
 		gamesPanel.setGamesList(games);
 		gamesPanel.setupGames();
 		gamesPanel.revalidate();
-				
+		
 		printServerLine(line);
 	}
 	

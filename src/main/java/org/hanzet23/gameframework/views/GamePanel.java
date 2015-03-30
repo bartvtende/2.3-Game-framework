@@ -12,10 +12,11 @@ public class GamePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
+	public static GamePanel gamePanel;
+	
 	public ConnectionPanel connection = new ConnectionPanel();
 	public GamesPanel games = new GamesPanel();
-	public PlayerPanel players = new PlayerPanel(); 
-	public static GamePanel gamePanel;
+	public PlayerPanel players = new PlayerPanel();
 	
 	public GamePanel() {
 		gamePanel = this;
