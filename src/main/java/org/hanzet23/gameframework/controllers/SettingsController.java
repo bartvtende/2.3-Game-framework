@@ -1,12 +1,14 @@
 package main.java.org.hanzet23.gameframework.controllers;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -69,22 +71,26 @@ public class SettingsController extends JFrame {
 		SettingsModel settingsModel = new SettingsModel();
 		map = settingsModel.getSettings();
 		textFieldList = new ArrayList<JTextField>();
+		center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
 
 		// Iterate through the HashMap and add new panels for each entry
 		for (Entry<String, String> setting : map.entrySet()) {
-			String key = setting.getKey();
+			String key = setting.getKey().replaceAll("_", " ");
+			key = key.substring(0, 1).toUpperCase() + key.substring(1);
 			String value = setting.getValue();
 
 			// Save the TextField in an ArrayList
 			JTextField textField = new JTextField(value);
 			textFieldList.add(textField);
-
 			JPanel newPanel = new JPanel();
 			newPanel.setLayout(new BoxLayout(newPanel, BoxLayout.Y_AXIS));
 			newPanel.add(new JLabel(key));
-			newPanel.add(textField);
+			newPanel.add(textField);			
 
+			// Add the panel
 			center.add(newPanel);
+			// Add some spacing
+			center.add(Box.createRigidArea(new Dimension(0,5)));
 		}
 		return center;
 	}
