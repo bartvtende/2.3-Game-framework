@@ -21,8 +21,7 @@ import main.java.org.hanzet23.gameframework.views.GamePanel;
 public class GamesPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static final String[] AVAILABLE_GAMES = { "Tic-Tac-Toe", "Othello",
-			"Connect Four" };
+	private static final String[] AVAILABLE_GAMES = {"Tic-Tac-Toe", "Othello"};
 	private String[] gamesList = AVAILABLE_GAMES;
 	private boolean isHuman = true;
 

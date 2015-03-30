@@ -23,7 +23,7 @@ public class ConnectionPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private JLabel title = new JLabel("Connection");
-	private JLabel nameLabel = new JLabel("Name:");
+	private JLabel nameLabel = new JLabel("Name");
 	private JTextField name;
 	private JToggleButton local;
 	private JToggleButton network;
