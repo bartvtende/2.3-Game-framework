@@ -17,7 +17,7 @@ public class GameFrame extends JFrame {
 
 		this.setJMenuBar(new MenuBar());
 		this.add(gamePanel, BorderLayout.CENTER);
-		this.add(new GameControls(), BorderLayout.EAST);
+		//this.add(new GameControls(), BorderLayout.EAST);
 	}
 
 }

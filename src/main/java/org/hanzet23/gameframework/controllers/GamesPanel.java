@@ -88,7 +88,7 @@ public class GamesPanel extends JPanel {
 					// TODO Auto-generated method stub
 					System.out.println("Start"
 							+ ((JButton) arg0.getSource()).getText());
-					GamePanel.gamePanel.getPlayers().setVisible(true);
+					GamePanel.gamePanel.activatePlayers();
 				}
 			});
 

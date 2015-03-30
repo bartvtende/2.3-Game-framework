@@ -25,11 +25,26 @@ public class GamePanel extends JPanel {
 		this.setLayout(new GridLayout(1,0, 5, 0));
 		this.add(connection);
 		this.add(games);
-		this.add(players);
+		
 	}
 	
 	public PlayerPanel getPlayers(){
 		return players;
+	}
+	
+	public void activatePlayers(){
+		System.out.println("Fire activate");
+		if (!this.isAncestorOf(players)) {
+			this.add(players, 2);
+			this.getRootPane().revalidate();
+		}
+	}
+	
+	public void removePlayers(){
+		if(this.isAncestorOf(players)){
+			this.remove(2);
+			this.getRootPane().revalidate();
+		}
 	}
 
 }

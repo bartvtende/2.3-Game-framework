@@ -17,7 +17,7 @@ public class PlayerPanel extends JPanel {
 	private ArrayList<String> players;
 	private static final String[] DEMO_PLAYERS = {"BUB1", "Leroy_Jenkins", "Carl_Say_Again"};
 	private JButton connect;
-	private JList playerList;
+	private JList<String> playerList;
 	
 	
 	public PlayerPanel(){
@@ -25,7 +25,7 @@ public class PlayerPanel extends JPanel {
 		setupPlayers();
 		setupConnect();
 		
-		JList<String> playerList = new JList(players.toArray()); 
+		playerList = new JList<String>(DEMO_PLAYERS); 
 		
 		// layout
 		this.setLayout(new BorderLayout());
@@ -39,7 +39,6 @@ public class PlayerPanel extends JPanel {
 
 		this.add(connect, BorderLayout.SOUTH);
 		
-		this.setVisible(false);
 	}
 	
 	private void setupPlayers(){
@@ -56,7 +55,7 @@ public class PlayerPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				System.out.println("Started a game with "+((String)playerList.getSelectedValue()));
+				System.out.println("Started a game with "+(playerList.getSelectedValue().toString()));
 			}
 			
 		});
