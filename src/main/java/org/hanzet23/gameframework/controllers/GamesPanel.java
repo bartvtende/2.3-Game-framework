@@ -31,6 +31,7 @@ public class GamesPanel extends JPanel {
 	private JToggleButton computer;
 	private JLabel title = new JLabel("Games");
 	private JLabel playerLabel = new JLabel("Play as");
+	private JPanel centerPanel = new JPanel();;
 
 	public GamesPanel() {
 		// Setups
@@ -45,12 +46,6 @@ public class GamesPanel extends JPanel {
 		titlePanel.add(title);
 
 		this.add(titlePanel, BorderLayout.NORTH);
-
-		JPanel centerPanel = new JPanel();
-		centerPanel.setLayout(new GridLayout(0, 1));
-		for (JButton game : games) {
-			centerPanel.add(game);
-		}
 
 		JScrollPane scrollPane = new JScrollPane(centerPanel);
 
@@ -77,6 +72,11 @@ public class GamesPanel extends JPanel {
 	}
 
 	public void setupGames() {
+		
+		centerPanel.removeAll();
+		centerPanel.setLayout(new GridLayout(0, 1));
+		
+		
 		games = new ArrayList<JButton>();
 		for (String game : gamesList) {
 			JButton gameButton = new JButton(game);
@@ -91,6 +91,9 @@ public class GamesPanel extends JPanel {
 			games.add(gameButton);
 		}
 
+		for (JButton game : games) {
+			centerPanel.add(game);
+		}
 	}
 
 	private void setupHuman() {
