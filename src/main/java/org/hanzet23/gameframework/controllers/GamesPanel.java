@@ -20,28 +20,29 @@ import main.java.org.hanzet23.gameframework.views.GamePanel;
 
 public class GamesPanel extends JPanel {
 	
+	private static final long serialVersionUID = 1L;
+	private static final String[] DEMOGAMES ={"Tic-Tac-Toe", "Othello", "Connect Four"}; 
+	private boolean isHuman = true;
+	
 	private ArrayList<JButton> games;
 	private JToggleButton human;
 	private JToggleButton computer;
-	private static final String[] DEMOGAMES ={"Tic-Tac-Toe", "Othello", "Connect Four"}; 
-	private boolean isHuman = true;
 	private JLabel title = new JLabel("Games");
 	private JLabel playerLabel = new JLabel("Play as");
 	
 	public GamesPanel(){
-		//setups
+		// Setups
 		setupGames();
 		setupHuman();
 		setupComputer();
 		
-		//layout
+		// Layout
 		this.setLayout(new BorderLayout());
 		JPanel titlePanel = new JPanel();
 		titlePanel.setLayout(new GridBagLayout());
 		titlePanel.add(title);
 
 		this.add(titlePanel, BorderLayout.NORTH);
-		
 		
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(0,1));
@@ -51,11 +52,7 @@ public class GamesPanel extends JPanel {
 		
 		JScrollPane scrollPane = new JScrollPane(centerPanel);
 		
-		this.add(scrollPane, BorderLayout.CENTER);
-		
-		
-		
-		
+		this.add(scrollPane, BorderLayout.CENTER);		
 		
 		JPanel southPanel = new JPanel();
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));
@@ -77,7 +74,6 @@ public class GamesPanel extends JPanel {
 	}
 	
 	private void setupGames() {
-		// TODO update reference
 		games = new ArrayList<JButton>();
 		for (String game : DEMOGAMES) {
 			JButton gameButton = new JButton(game);
@@ -85,7 +81,6 @@ public class GamesPanel extends JPanel {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
 					System.out.println("Start"
 							+ ((JButton) arg0.getSource()).getText());
 					GamePanel.gamePanel.activatePlayers();

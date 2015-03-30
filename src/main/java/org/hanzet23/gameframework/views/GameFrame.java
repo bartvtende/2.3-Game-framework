@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import main.java.org.hanzet23.gameframework.controllers.GameControls;
 import main.java.org.hanzet23.gameframework.controllers.MenuBar;
 
 public class GameFrame extends JFrame {
@@ -17,7 +16,7 @@ public class GameFrame extends JFrame {
 
 		this.setJMenuBar(new MenuBar());
 		this.add(gamePanel, BorderLayout.CENTER);
-		//this.add(new GameControls(), BorderLayout.EAST);
+
 	}
 
 }

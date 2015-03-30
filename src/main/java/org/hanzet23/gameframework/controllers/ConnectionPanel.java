@@ -62,7 +62,6 @@ public class ConnectionPanel extends JPanel {
 
 		this.add(center, BorderLayout.CENTER);
 		this.add(connect, BorderLayout.SOUTH);
-
 	}
 
 	private JToggleButton setupLocal() {
@@ -116,8 +115,8 @@ public class ConnectionPanel extends JPanel {
 				if (isLocal == false) {
 					SettingsModel settings = new SettingsModel();
 					LinkedHashMap<String, String> map = settings.getSettings();
-					serverPort = Integer.parseInt(map.get("network_server_ip"));
-					serverName = map.get("network_server_port");
+					serverPort = Integer.parseInt(map.get("network_server_port"));
+					serverName = map.get("network_server_ip");
 				}
 				
 				// Connect to the server with the credentials
@@ -125,6 +124,9 @@ public class ConnectionPanel extends JPanel {
 				
 				// Login with the selected username
 				String playerName = name.getText();
+				if (playerName.equals("")) {
+					playerName = "Winnaar";
+				}
 				command.login(playerName);
 			}
 		});
