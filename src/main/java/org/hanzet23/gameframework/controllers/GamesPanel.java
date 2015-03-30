@@ -120,7 +120,7 @@ public class GamesPanel extends JPanel {
 		});
 	}
 	
-	private void setGamesList(String[] list){
+	public void setGamesList(String[] list){
 		gamesList = list;
 	}
 }
