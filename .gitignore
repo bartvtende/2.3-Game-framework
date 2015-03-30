@@ -1,6 +1,3 @@
 /bin/
 *.classpath
 *.project
-src/main/java/org/hanzet23/gameframework/models/ComputerModel.java
-src/main/java/org/hanzet23/gameframework/models/HumanModel.java
-src/main/java/org/hanzet23/gameframework/models/PlayerModel.java
