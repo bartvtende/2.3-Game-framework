@@ -28,6 +28,10 @@ public class GamePanel extends JPanel {
 		
 	}
 	
+	public GamesPanel getGamesPanel(){
+		return games;
+	}
+	
 	public PlayerPanel getPlayers(){
 		return players;
 	}

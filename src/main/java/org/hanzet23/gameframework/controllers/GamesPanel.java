@@ -22,6 +22,7 @@ public class GamesPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private static final String[] DEMOGAMES ={"Tic-Tac-Toe", "Othello", "Connect Four"}; 
+	private String[] gamesList = DEMOGAMES;
 	private boolean isHuman = true;
 	
 	private ArrayList<JButton> games;
@@ -73,9 +74,9 @@ public class GamesPanel extends JPanel {
 		this.add(southPanel, BorderLayout.SOUTH);
 	}
 	
-	private void setupGames() {
+	public void setupGames() {
 		games = new ArrayList<JButton>();
-		for (String game : DEMOGAMES) {
+		for (String game : gamesList) {
 			JButton gameButton = new JButton(game);
 			gameButton.addActionListener(new ActionListener() {
 
@@ -117,5 +118,9 @@ public class GamesPanel extends JPanel {
 				isHuman = false;
 			}
 		});
+	}
+	
+	private void setGamesList(String[] list){
+		gamesList = list;
 	}
 }
