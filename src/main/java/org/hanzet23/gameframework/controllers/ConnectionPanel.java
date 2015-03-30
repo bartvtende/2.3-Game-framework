@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
-import main.java.org.hanzet23.gameframework.models.CommandModel;
+import main.java.org.hanzet23.gameframework.models.NetworkModel;
 import main.java.org.hanzet23.gameframework.models.SettingsModel;
 
 public class ConnectionPanel extends JPanel {
@@ -120,14 +120,17 @@ public class ConnectionPanel extends JPanel {
 				}
 				
 				// Connect to the server with the credentials
-				CommandModel command = new CommandModel(serverPort, serverName);
+				NetworkModel network = new NetworkModel(serverPort, serverName);
 				
 				// Login with the selected username
 				String playerName = name.getText();
 				if (playerName.equals("")) {
 					playerName = "Winnaar";
 				}
-				command.login(playerName);
+				network.login(playerName);
+				
+				// Get the list of games available on the server
+				network.getGamelist();
 			}
 		});
 		return connect;

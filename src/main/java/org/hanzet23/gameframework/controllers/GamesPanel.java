@@ -19,24 +19,25 @@ import javax.swing.JToggleButton;
 import main.java.org.hanzet23.gameframework.views.GamePanel;
 
 public class GamesPanel extends JPanel {
-	
+
 	private static final long serialVersionUID = 1L;
-	private static final String[] DEMOGAMES ={"Tic-Tac-Toe", "Othello", "Connect Four"}; 
+	private static final String[] DEMOGAMES = { "Tic-Tac-Toe", "Othello",
+			"Connect Four" };
 	private String[] gamesList = DEMOGAMES;
 	private boolean isHuman = true;
-	
+
 	private ArrayList<JButton> games;
 	private JToggleButton human;
 	private JToggleButton computer;
 	private JLabel title = new JLabel("Games");
 	private JLabel playerLabel = new JLabel("Play as");
-	
-	public GamesPanel(){
+
+	public GamesPanel() {
 		// Setups
 		setupGames();
 		setupHuman();
 		setupComputer();
-		
+
 		// Layout
 		this.setLayout(new BorderLayout());
 		JPanel titlePanel = new JPanel();
@@ -44,42 +45,42 @@ public class GamesPanel extends JPanel {
 		titlePanel.add(title);
 
 		this.add(titlePanel, BorderLayout.NORTH);
-		
+
 		JPanel centerPanel = new JPanel();
-		centerPanel.setLayout(new GridLayout(0,1));
-		for(JButton game:games){
+		centerPanel.setLayout(new GridLayout(0, 1));
+		for (JButton game : games) {
 			centerPanel.add(game);
 		}
-		
+
 		JScrollPane scrollPane = new JScrollPane(centerPanel);
-		
-		this.add(scrollPane, BorderLayout.CENTER);		
-		
+
+		this.add(scrollPane, BorderLayout.CENTER);
+
 		JPanel southPanel = new JPanel();
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));
-		
+
 		JPanel playerLabelPanel = new JPanel();
 		playerLabelPanel.setLayout(new GridBagLayout());
 		playerLabelPanel.add(playerLabel);
-		
+
 		JPanel playerButtonPanel = new JPanel();
-		playerButtonPanel.setLayout(new BoxLayout(playerButtonPanel, BoxLayout.X_AXIS));
+		playerButtonPanel.setLayout(new BoxLayout(playerButtonPanel,
+				BoxLayout.X_AXIS));
 		playerButtonPanel.add(human);
 		playerButtonPanel.add(Box.createRigidArea(new Dimension(5, 0)));
 		playerButtonPanel.add(computer);
-		
+
 		southPanel.add(playerLabelPanel);
 		southPanel.add(playerButtonPanel);
-		
+
 		this.add(southPanel, BorderLayout.SOUTH);
 	}
-	
+
 	public void setupGames() {
 		games = new ArrayList<JButton>();
 		for (String game : gamesList) {
 			JButton gameButton = new JButton(game);
 			gameButton.addActionListener(new ActionListener() {
-
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					System.out.println("Start"
@@ -87,13 +88,11 @@ public class GamesPanel extends JPanel {
 					GamePanel.gamePanel.activatePlayers();
 				}
 			});
-
 			games.add(gameButton);
 		}
-		
-		
+
 	}
-	
+
 	private void setupHuman() {
 		human = new JToggleButton("Human");
 		human.addActionListener(new ActionListener() {
@@ -119,8 +118,8 @@ public class GamesPanel extends JPanel {
 			}
 		});
 	}
-	
-	public void setGamesList(String[] list){
+
+	public void setGamesList(String[] list) {
 		gamesList = list;
 	}
 }

@@ -1,10 +1,7 @@
 package main.java.org.hanzet23.gameframework.views;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 
-import javax.swing.Box;
 import javax.swing.JPanel;
 
 import main.java.org.hanzet23.gameframework.controllers.ConnectionPanel;
