@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import main.java.org.hanzet23.gameframework.models.Board;
+import main.java.org.hanzet23.gameframework.models.BoardModel;
 
 public class BoardView extends Canvas implements MouseListener{
 	
@@ -52,7 +52,7 @@ public class BoardView extends Canvas implements MouseListener{
 		
 	}
 	
-	public BoardView(Board board){
+	public BoardView(BoardModel board){
 		//TODO
 	}
 	
