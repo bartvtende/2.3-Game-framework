@@ -4,19 +4,17 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import main.java.org.hanzet23.gameframework.controllers.MenuBar;
+import main.java.org.hanzet23.gameframework.controllers.MenuBarController;
 
-public class GameFrame extends JFrame {
+public class MainView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private GamePanel gamePanel = new GamePanel();
 
-	public GameFrame() {
+	public MainView() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		this.setJMenuBar(new MenuBar());
+		this.setJMenuBar(new MenuBarController());
 		this.add(gamePanel, BorderLayout.CENTER);
-
 	}
-
 }

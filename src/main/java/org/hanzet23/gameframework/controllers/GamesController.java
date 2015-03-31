@@ -18,10 +18,10 @@ import javax.swing.JToggleButton;
 
 import main.java.org.hanzet23.gameframework.views.GamePanel;
 
-public class GamesPanel extends JPanel {
+public class GamesController extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static final String[] AVAILABLE_GAMES = {"Tic-Tac-Toe", "Othello"};
+	private static final String[] AVAILABLE_GAMES = { "Tic-Tac-Toe", "Othello" };
 	private String[] gamesList = AVAILABLE_GAMES;
 	private boolean isHuman = true;
 
@@ -32,7 +32,7 @@ public class GamesPanel extends JPanel {
 	private JLabel playerLabel = new JLabel("Play as");
 	private JPanel centerPanel = new JPanel();;
 
-	public GamesPanel() {
+	public GamesController() {
 		// Setups
 		setupGames();
 		setupHuman();
@@ -73,12 +73,13 @@ public class GamesPanel extends JPanel {
 	public void setupGames() {
 		centerPanel.removeAll();
 		centerPanel.setLayout(new GridLayout(0, 1));
-		
+
 		games = new ArrayList<JButton>();
 		for (String game : gamesList) {
 			JButton gameButton = new JButton(game);
 			String key = game.toLowerCase();
-			if (key.contains("tic") || key.contains("othello") || key.contains("reversi")) {
+			if (key.contains("tic") || key.contains("othello")
+					|| key.contains("reversi")) {
 				gameButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
@@ -90,7 +91,6 @@ public class GamesPanel extends JPanel {
 			} else {
 				gameButton.setEnabled(false);
 			}
-			
 			games.add(gameButton);
 		}
 

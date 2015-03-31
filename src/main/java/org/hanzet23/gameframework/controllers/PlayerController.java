@@ -1,17 +1,20 @@
 package main.java.org.hanzet23.gameframework.controllers;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
-public class PlayerPanel extends JPanel {
+public class PlayerController extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private static final String[] DEMO_PLAYERS = { "BUB1", "Leroy_Jenkins",
@@ -19,14 +22,16 @@ public class PlayerPanel extends JPanel {
 
 	private JLabel title = new JLabel("Players");
 	private JButton connect;
+	private JButton refresh;
 	private JList<String> playerList;
 
 	private ArrayList<String> players;
 
-	public PlayerPanel() {
+	public PlayerController() {
 		// Setups
 		setupPlayers();
 		setupConnect();
+		setupRefresh();
 
 		playerList = new JList<String>(DEMO_PLAYERS);
 
@@ -40,7 +45,12 @@ public class PlayerPanel extends JPanel {
 
 		this.add(playerList, BorderLayout.CENTER);
 
-		this.add(connect, BorderLayout.SOUTH);
+		JPanel connectPanel = new JPanel();
+		connectPanel.setLayout(new BoxLayout(connectPanel, BoxLayout.X_AXIS));
+		connectPanel.add(connect);
+		connectPanel.add(Box.createRigidArea(new Dimension(5, 0)));
+		connectPanel.add(refresh);
+		this.add(connectPanel, BorderLayout.SOUTH);
 
 	}
 
@@ -59,6 +69,18 @@ public class PlayerPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Started a game with "
 						+ (playerList.getSelectedValue().toString()));
+			}
+
+		});
+	}
+
+	private void setupRefresh() {
+		refresh = new JButton("Refresh");
+		refresh.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Refresh player list please");
 			}
 
 		});

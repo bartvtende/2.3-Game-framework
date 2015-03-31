@@ -2,7 +2,7 @@ package main.java.org.hanzet23.gameframework.models;
 
 import java.util.HashMap;
 
-import main.java.org.hanzet23.gameframework.controllers.GamesPanel;
+import main.java.org.hanzet23.gameframework.controllers.GamesController;
 import main.java.org.hanzet23.gameframework.views.GamePanel;
 
 public class CommandModel {
@@ -40,7 +40,7 @@ public class CommandModel {
 		String[] games = parseList(line);
 		
 		// Setup the games in the GUI
-		GamesPanel gamesPanel = GamePanel.gamePanel.getGamesPanel();
+		GamesController gamesPanel = GamePanel.gamePanel.getGamesPanel();
 		gamesPanel.setGamesList(games);
 		gamesPanel.setupGames();
 		gamesPanel.revalidate();

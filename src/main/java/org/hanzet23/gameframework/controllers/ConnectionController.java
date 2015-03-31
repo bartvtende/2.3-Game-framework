@@ -18,7 +18,7 @@ import javax.swing.JToggleButton;
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
 import main.java.org.hanzet23.gameframework.models.SettingsModel;
 
-public class ConnectionPanel extends JPanel {
+public class ConnectionController extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -31,7 +31,7 @@ public class ConnectionPanel extends JPanel {
 
 	private boolean isLocal = true;
 
-	public ConnectionPanel() {
+	public ConnectionController() {
 		// Setups
 		this.setupLocal();
 		this.setupNetwork();

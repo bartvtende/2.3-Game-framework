@@ -8,11 +8,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-public class MenuBar extends JMenuBar {
+public class MenuBarController extends JMenuBar {
 
 	private static final long serialVersionUID = 1L;
 
-	public MenuBar() {
+	public MenuBarController() {
 		// Menu 1
 		JMenu options = new JMenu("Options");
 		

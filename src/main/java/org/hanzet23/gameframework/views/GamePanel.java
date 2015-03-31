@@ -4,9 +4,9 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import main.java.org.hanzet23.gameframework.controllers.ConnectionPanel;
-import main.java.org.hanzet23.gameframework.controllers.GamesPanel;
-import main.java.org.hanzet23.gameframework.controllers.PlayerPanel;
+import main.java.org.hanzet23.gameframework.controllers.ConnectionController;
+import main.java.org.hanzet23.gameframework.controllers.GamesController;
+import main.java.org.hanzet23.gameframework.controllers.PlayerController;
 
 public class GamePanel extends JPanel {
 
@@ -14,23 +14,22 @@ public class GamePanel extends JPanel {
 
 	public static GamePanel gamePanel;
 	
-	public ConnectionPanel connection = new ConnectionPanel();
-	public GamesPanel games = new GamesPanel();
-	public PlayerPanel players = new PlayerPanel();
+	public ConnectionController connection = new ConnectionController();
+	public GamesController games = new GamesController();
+	public PlayerController players = new PlayerController();
 	
 	public GamePanel() {
 		gamePanel = this;
 		this.setLayout(new GridLayout(1,0, 5, 0));
 		this.add(connection);
 		this.add(games);
-		
 	}
 	
-	public GamesPanel getGamesPanel(){
+	public GamesController getGamesPanel(){
 		return games;
 	}
 	
-	public PlayerPanel getPlayers(){
+	public PlayerController getPlayers(){
 		return players;
 	}
 	
