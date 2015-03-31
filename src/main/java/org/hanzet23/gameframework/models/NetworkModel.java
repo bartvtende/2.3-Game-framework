@@ -4,12 +4,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.Socket;
+
+import javax.swing.JOptionPane;
+
+import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class NetworkModel implements Runnable {
 	
+	public static NetworkModel instance = null;
+	
 	private int serverPort = 7789;
-	private String serverName = "localhost";
+	private String serverName = "bartvantende.nl";
 	
 	protected PrintWriter output = null;
 	protected BufferedReader input = null;
@@ -18,12 +25,26 @@ public class NetworkModel implements Runnable {
 	
 	private Socket client;
 
-	public NetworkModel(int port, String serverName) {
+	private NetworkModel(int port, String serverName) {
 		if (port != 0)
 			this.serverPort = port;
 		if (serverName != null)
 			this.serverName = serverName;
 		connectToServer();
+	}
+	
+	public static NetworkModel getInstance() {
+		if (instance == null) {
+			instance = new NetworkModel(0, null);
+		}
+		return instance;
+	}
+	
+	public static NetworkModel setInstance(int port, String serverName) {
+		if (instance == null) {
+			instance = new NetworkModel(port, serverName);
+		}
+		return instance;
 	}
 	
 	/**
@@ -54,8 +75,9 @@ public class NetworkModel implements Runnable {
 
 			this.thread = new Thread(this);
 			this.thread.start();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException e) {	
+			JOptionPane.showMessageDialog(MainView.mainview, "Can't connect to the server, please try again.");
+			System.out.println(e.getMessage());
 		}
 	}
 

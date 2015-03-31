@@ -3,6 +3,7 @@ package main.java.org.hanzet23.gameframework.models;
 import java.util.HashMap;
 
 import main.java.org.hanzet23.gameframework.controllers.GamesController;
+import main.java.org.hanzet23.gameframework.controllers.PlayersController;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class CommandModel {
@@ -55,6 +56,12 @@ public class CommandModel {
 	 */
 	public void getPlayerlist(String line) {
 		String[] players = parseList(line);
+		
+		// Setup the games in the GUI
+		PlayersController playerPanel = MainView.mainview.players;
+		playerPanel.setPlayersList(players);
+		playerPanel.setupPlayers();
+		playerPanel.revalidate();
 		
 		System.out.println("Received playerlist: " + line);
 	}

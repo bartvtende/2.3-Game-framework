@@ -14,26 +14,25 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
-public class PlayerController extends JPanel {
+import main.java.org.hanzet23.gameframework.models.NetworkModel;
+
+public class PlayersController extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static final String[] DEMO_PLAYERS = { "BUB1", "Leroy_Jenkins",
-			"Carl_Say_Again" };
+	private static String[] playersList = {"No players connected"};
 
 	private JLabel title = new JLabel("Players");
 	private JButton connect;
 	private JButton refresh;
 	private JList<String> playerList;
 
-	private ArrayList<String> players;
-
-	public PlayerController() {
+	public PlayersController() {
 		// Setups
 		setupPlayers();
 		setupConnect();
 		setupRefresh();
 
-		playerList = new JList<String>(DEMO_PLAYERS);
+		playerList = new JList<String>(playersList);
 
 		// Layout
 		this.setLayout(new BorderLayout());
@@ -54,35 +53,36 @@ public class PlayerController extends JPanel {
 
 	}
 
-	private void setupPlayers() {
-		players = new ArrayList<String>();
-		for (String player : DEMO_PLAYERS) {
-			players.add(player);
+	public void setupPlayers() {
+		if (playerList != null) {
+			playerList.setListData(playersList);
 		}
 	}
 
 	private void setupConnect() {
 		connect = new JButton("Connect");
 		connect.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Started a game with "
 						+ (playerList.getSelectedValue().toString()));
 			}
-
 		});
 	}
 
 	private void setupRefresh() {
 		refresh = new JButton("Refresh");
 		refresh.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Refresh player list please");
+				// Get the list of players on the server
+				NetworkModel network = NetworkModel.getInstance();
+				network.getPlayerlist();
 			}
-
 		});
+	}
+	
+	public void setPlayersList(String[] players) {
+		playersList = players;
 	}
 }

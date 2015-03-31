@@ -21,7 +21,7 @@ import main.java.org.hanzet23.gameframework.views.MainView;
 public class GamesController extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static final String[] AVAILABLE_GAMES = { "Tic-Tac-Toe", "Othello" };
+	private static final String[] AVAILABLE_GAMES = {"Tic-Tac-Toe", "Othello", "Guess Game"};
 	private String[] gamesList = AVAILABLE_GAMES;
 	private boolean isHuman = true;
 
@@ -79,7 +79,7 @@ public class GamesController extends JPanel {
 			JButton gameButton = new JButton(game);
 			String key = game.toLowerCase();
 			if (key.contains("tic") || key.contains("othello")
-					|| key.contains("reversi")) {
+					|| key.contains("reversi") || key.contains("guess")) {
 				gameButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent arg0) {

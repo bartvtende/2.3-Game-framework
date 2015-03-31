@@ -115,8 +115,8 @@ public class ConnectionController extends JPanel {
 		connect.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int serverPort = 0;
-				String serverName = null;
+				int serverPort = 7789;
+				String serverName = "localhost";
 				
 				// Connect to the network
 				if (isLocal == false) {
@@ -127,17 +127,22 @@ public class ConnectionController extends JPanel {
 				}
 				
 				// Connect to the server with the credentials
-				NetworkModel network = new NetworkModel(serverPort, serverName);
-				
-				// Login with the selected username
-				String playerName = name.getText();
-				if (playerName.equals("")) {
-					playerName = "Winnaar";
+				NetworkModel network = NetworkModel.setInstance(serverPort, serverName);
+
+				if (network.getSocket() != null) {
+					// Login with the selected username
+					String playerName = name.getText();
+					if (playerName.equals("")) {
+						playerName = "Winnaar";
+					}
+					network.login(playerName);
+					
+					// Get the list of games available on the server
+					network.getGamelist();
+	
+					// Get the list of players on the server
+					network.getPlayerlist();
 				}
-				network.login(playerName);
-				
-				// Get the list of games available on the server
-				network.getGamelist();
 			}
 		});
 		return connect;
