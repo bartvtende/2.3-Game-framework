@@ -1,10 +1,14 @@
 package main.java.org.hanzet23.gameframework;
 
-import main.java.org.hanzet23.gameframework.views.GameFrame;
+import java.awt.Dimension;
+
+import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class Main {
 	public static void main(String[] args) {
-		GameFrame frame = new GameFrame();
+		MainView frame = new MainView();
+		frame.setPreferredSize(new Dimension(520, 165));
+		frame.setResizable(false);
 		frame.setVisible(true);
 		frame.pack();
 	}

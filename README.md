@@ -6,7 +6,7 @@ Het game framework is een herbruikbare en flexibele applicatie waarmee diverse s
 
 ### Trello scrum board
 
-[Link naar het Trello board](https://trello.com/b/hAOMn9QR/t2-3-bassie-game-framework-project)
+[Link naar het Trello board](https://trello.com/b/hAOMn9QR/t2-3-game-framework-project-groep-2)
 
 ### Contributors
 * Jonathan Berends

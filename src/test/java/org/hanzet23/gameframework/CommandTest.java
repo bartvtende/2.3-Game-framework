@@ -7,10 +7,10 @@ import java.util.HashMap;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import main.java.org.hanzet23.gameframework.models.Command;
+import main.java.org.hanzet23.gameframework.models.CommandModel;
 
 /**
- * Unit test for the Network class
+ * Unit test for the Command class
  */
 public class CommandTest extends TestCase {
 
@@ -23,27 +23,31 @@ public class CommandTest extends TestCase {
 	}
 	
 	public void testParseListNull() {
+		CommandModel command = new CommandModel();
+		
 		String testStringNull1 = "";
 		String testStringNull2 = "testing but no list, oops";
 		String testStringNull3 = "tstdtsdt [";
 		String testStringNull4 = "tstdtsdt ]";
 
-		assertNull(Command.parseList(testStringNull1));
-		assertNull(Command.parseList(testStringNull2));
-		assertNull(Command.parseList(testStringNull3));
-		assertNull(Command.parseList(testStringNull4));
+		assertNull(command.parseList(testStringNull1));
+		assertNull(command.parseList(testStringNull2));
+		assertNull(command.parseList(testStringNull3));
+		assertNull(command.parseList(testStringNull4));
 	}
 	
 	public void testParseListTrue() {
+		CommandModel command = new CommandModel();
+		
 		String testStringTrue1 = "testing test [\"test1\", \"test2\"]";
 		String testStringTrue2 = "testing test [test1, test2]";
 		String testStringTrue3 = "testing test [test1,test2]";
 		String testStringTrue4 = "testing test [test1 , test2]";
 		
-		String[] actual1 = Command.parseList(testStringTrue1);
-		String[] actual2 = Command.parseList(testStringTrue2);
-		String[] actual3 = Command.parseList(testStringTrue3);
-		String[] actual4 = Command.parseList(testStringTrue4);
+		String[] actual1 = command.parseList(testStringTrue1);
+		String[] actual2 = command.parseList(testStringTrue2);
+		String[] actual3 = command.parseList(testStringTrue3);
+		String[] actual4 = command.parseList(testStringTrue4);
 		
 		String[] expected1 = {"test1", "test2"};
 		String[] expected2 = {"test1", "test2"};
@@ -58,18 +62,22 @@ public class CommandTest extends TestCase {
 	}
 	
 	public void testParseMapNull() {
+		CommandModel command = new CommandModel();
+		
 		String testStringNull1 = "";
 		String testStringNull2 = "testing but no list, oops";
 		String testStringNull3 = "tstdtsdt {";
 		String testStringNull4 = "tstdtsdt }";
 
-		assertNull(Command.parseMap(testStringNull1));
-		assertNull(Command.parseMap(testStringNull2));
-		assertNull(Command.parseMap(testStringNull3));
-		assertNull(Command.parseMap(testStringNull4));
+		assertNull(command.parseMap(testStringNull1));
+		assertNull(command.parseMap(testStringNull2));
+		assertNull(command.parseMap(testStringNull3));
+		assertNull(command.parseMap(testStringNull4));
 	}
 	
 	public void testParseMapTrue() {
+		CommandModel command = new CommandModel();
+		
 		String testStringTrue1 = "SVR GAME <speler resultaat> {PLAYERONESCORE: \"<score speler1>\", PLAYERTWOSCORE: \"<score speler2>\", COMMENT: \"<commentaar op resultaat>\"}";
 		String testStringTrue2 = "SVR GAME <speler resultaat> {PLAYERONESCORE:\"<score speler1>\",PLAYERTWOSCORE:\"<score speler2>\",COMMENT:\"<commentaar op resultaat>\"}";
 
@@ -79,21 +87,15 @@ public class CommandTest extends TestCase {
 		String[] actualSecond1 = new String[]{"<score speler1>", "<score speler2>", "<commentaar op resultaat>"};
 		String[] actualSecond2 = new String[]{"<score speler1>", "<score speler2>", "<commentaar op resultaat>"};
 		
-		HashMap<String, String> map1 = Command.parseMap(testStringTrue1);
-		HashMap<String, String> map2 = Command.parseMap(testStringTrue2);
+		HashMap<String, String> map1 = command.parseMap(testStringTrue1);
+		HashMap<String, String> map2 = command.parseMap(testStringTrue2);
 
-		int i = 0;
-		for (String key : map1.keySet()) {
-			assertEquals(actualFirst1[i], key);
-			assertEquals(actualSecond1[i], map1.get(key));
-		    i++;
-		}
-
-		i = 0;
-		for (String key : map2.keySet()) {
-			assertEquals(actualFirst2[i], key);
-			assertEquals(actualSecond2[i], map2.get(key));
-		    i++;
+		for (int i = 0; i < actualFirst1.length; i++) {
+			assertTrue(map1.containsKey(actualFirst1[i]));
+			assertTrue(map1.containsValue(actualSecond1[i]));
+			
+			assertTrue(map2.containsKey(actualFirst2[i]));
+			assertTrue(map2.containsValue(actualSecond2[i]));
 		}
 	}
 }

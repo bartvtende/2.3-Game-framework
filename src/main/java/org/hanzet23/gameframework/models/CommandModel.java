@@ -2,15 +2,12 @@ package main.java.org.hanzet23.gameframework.models;
 
 import java.util.HashMap;
 
-public class Command {
-	
-	private Network network = null;
-	
-	public Command(int serverPort, String serverName) {
-		this.network = new Network(serverPort, serverName);
-	}
+import main.java.org.hanzet23.gameframework.controllers.GamesController;
+import main.java.org.hanzet23.gameframework.views.GamePanel;
 
-	public static void receiveCommand(String line) {		
+public class CommandModel {
+
+	public void receiveCommand(String line) {		
 		if (line.startsWith("SVR GAMELIST ")) {
 			getGamelist(line);
 		} else if (line.startsWith("SVR PLAYERLIST ")) {
@@ -30,7 +27,7 @@ public class Command {
 		} else if (line.startsWith("SVR GAME ")) {
 			getClose(line);
 		} else {
-			Command.printServerLine(line);
+			printServerLine(line);
 		}
 	}
 	
@@ -39,10 +36,16 @@ public class Command {
 	 * 
 	 * @param line
 	 */
-	public static void getGamelist(String line) {
-		String[] games = Command.parseList(line);
+	public void getGamelist(String line) {
+		String[] games = parseList(line);
 		
-		System.out.println("Received gamelist: " + line);
+		// Setup the games in the GUI
+		GamesController gamesPanel = GamePanel.gamePanel.getGamesPanel();
+		gamesPanel.setGamesList(games);
+		gamesPanel.setupGames();
+		gamesPanel.revalidate();
+		
+		printServerLine(line);
 	}
 	
 	/**
@@ -50,8 +53,8 @@ public class Command {
 	 * 
 	 * @param line
 	 */
-	public static void getPlayerlist(String line) {
-		String[] players = Command.parseList(line);
+	public  void getPlayerlist(String line) {
+		String[] players = parseList(line);
 		
 		System.out.println("Received playerlist: " + line);
 	}
@@ -61,8 +64,8 @@ public class Command {
 	 * 
 	 * @param line
 	 */
-	public static void getMatch(String line) {
-		HashMap<String, String> map = Command.parseMap(line);
+	public  void getMatch(String line) {
+		HashMap<String, String> map = parseMap(line);
 		
 		System.out.println("Received match: " + line);
 	}
@@ -72,8 +75,8 @@ public class Command {
 	 * 
 	 * @param line
 	 */
-	public static void getTurn(String line) {
-		HashMap<String, String> map = Command.parseMap(line);
+	public  void getTurn(String line) {
+		HashMap<String, String> map = parseMap(line);
 		
 		System.out.println("Received turn: " + line);
 	}
@@ -83,8 +86,8 @@ public class Command {
 	 * 
 	 * @param line
 	 */
-	public static void getMove(String line) {
-		HashMap<String, String> map = Command.parseMap(line);
+	public  void getMove(String line) {
+		HashMap<String, String> map = parseMap(line);
 		
 		System.out.println("Received move: " + line);
 	}
@@ -94,8 +97,8 @@ public class Command {
 	 * 
 	 * @param line
 	 */
-	public static void getResult(String line) {
-		HashMap<String, String> map = Command.parseMap(line);
+	public  void getResult(String line) {
+		HashMap<String, String> map = parseMap(line);
 		
 		String[] splitted = line.split("\\s");
 		String result = splitted[2];
@@ -106,8 +109,8 @@ public class Command {
 	 * 
 	 * @param line
 	 */
-	public static void getChallenge(String line) {
-		HashMap<String, String> map = Command.parseMap(line);
+	public  void getChallenge(String line) {
+		HashMap<String, String> map = parseMap(line);
 		
 		System.out.println("Received challenge: " + line);
 	}
@@ -117,8 +120,8 @@ public class Command {
 	 * 
 	 * @param line
 	 */
-	public static void getChallengeCancelled(String line) {
-		HashMap<String, String> map = Command.parseMap(line);
+	public  void getChallengeCancelled(String line) {
+		HashMap<String, String> map = parseMap(line);
 		
 		System.out.println("Received challenge cancelled: " + line);
 	}
@@ -128,93 +131,10 @@ public class Command {
 	 * 
 	 * @param line
 	 */
-	public static void getClose(String line) {
-		HashMap<String, String> map = Command.parseMap(line);
+	public  void getClose(String line) {
+		HashMap<String, String> map = parseMap(line);
 		
 		System.out.println("Received closing connection: " + line);
-	}
-	
-	/**
-	 * Login with an username
-	 * 
-	 * @param name
-	 */
-	public void login(String name) {
-		String command = "login " + name;
-		network.sendCommand(command);
-	}
-	
-	/**
-	 * Logs the user out and closes the client's connection
-	 */
-	public void logout() {
-		network.sendCommand("logout");
-	}
-	
-	/**
-	 * Get a list of all the games on the server
-	 * 
-	 * @return
-	 */
-	public void getGamelist() {
-		network.sendCommand("get gamelist");
-	}
-	
-	/**
-	 * Get a list of all the players connected to the server
-	 * 
-	 * @return
-	 */
-	public void getPlayerlist() {
-		network.sendCommand("get playerlist");
-	}
-	
-	/**
-	 * Subscribe for a game
-	 * 
-	 * @param name
-	 */
-	public void subscribe(String name) {
-		String command = "subscribe " + name;
-		network.sendCommand(command);
-	}
-	
-	/**
-	 * Make a game move
-	 * 
-	 * @param move
-	 */
-	public void move(String move) {
-		String command = "move " + move;
-		network.sendCommand(command);
-	}
-	
-	/**
-	 * Challenge a player for a game
-	 * 
-	 * @param player
-	 * @param game
-	 */
-	public void challenge(String player, String game) {
-		String command = "challenge \"" + player + "\" \"" + game + "\"";
-		network.sendCommand(command);
-	}
-	
-	/**
-	 * Accept a challenge from an user
-	 * 
-	 * @param challengeNumber
-	 */
-	public void challengeAccept(String challengeNumber) {
-		String command = "challenge accept " + challengeNumber;
-		network.sendCommand(command);
-	}
-	
-	/**
-	 * Forfeit a match 
-	 */
-	public void forfeit() {
-		network.sendCommand("forfeit");
 	}
 	
 
@@ -224,7 +144,7 @@ public class Command {
 	 * @param line
 	 * @return
 	 */
-	public static String[] parseList(String line) {
+	public  String[] parseList(String line) {
 		// Split the string with comma's
 		String[] result = parseString(line, '[', ']');
 		
@@ -237,7 +157,7 @@ public class Command {
 	 * @param line
 	 * @return
 	 */
-	public static HashMap<String, String> parseMap(String line) {
+	public  HashMap<String, String> parseMap(String line) {
 		// Split the string with comma's
 		String[] result = parseString(line, '{', '}');
 
@@ -263,7 +183,7 @@ public class Command {
 	 * @param endIdentifier
 	 * @return
 	 */
-	private static String[] parseString(String line, char firstIdentifier, char endIdentifier) {
+	private  String[] parseString(String line, char firstIdentifier, char endIdentifier) {
 		int firstBracket = line.indexOf(firstIdentifier);
 		int lastBracket = line.indexOf(endIdentifier);
 
@@ -280,7 +200,7 @@ public class Command {
 		newLine = newLine.replace("\"", "");
 		
 		if (newLine == null) {
-			Command.printClientLine("The parsed map is empty!");
+			printClientLine("The parsed map is empty!");
 			return null;
 		}
 
@@ -295,7 +215,7 @@ public class Command {
 	 * 
 	 * @param line
 	 */
-	public static void printServerLine(String line) {
+	public  void printServerLine(String line) {
 		System.out.println("Server: " + line);
 	}
 
@@ -304,16 +224,7 @@ public class Command {
 	 * 
 	 * @param line
 	 */
-	public static void printClientLine(String line) {
+	public  void printClientLine(String line) {
 		System.out.println("Client: " + line);
 	}
-	
-	/**
-	 * Getter for the Network object
-	 * 
-	 * @return
-	 */
-	public Network getNetwork() {
-		return this.network;
-	}	
 }
