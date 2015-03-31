@@ -76,7 +76,7 @@ public class NetworkModel implements Runnable {
 			this.thread = new Thread(this);
 			this.thread.start();
 		} catch (IOException e) {	
-			JOptionPane.showMessageDialog(MainView.mainview, "Can't connect to the server, please try again.");
+			JOptionPane.showMessageDialog(MainView.mainview, "Can't connect to the server, please try again.", "Can't connect!", JOptionPane.ERROR_MESSAGE);
 			System.out.println(e.getMessage());
 		}
 	}
