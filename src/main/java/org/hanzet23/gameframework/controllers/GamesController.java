@@ -85,7 +85,6 @@ public class GamesController extends JPanel {
 					public void actionPerformed(ActionEvent arg0) {
 						System.out.println("Start"
 								+ ((JButton) arg0.getSource()).getText());
-						MainView.mainview.activatePlayers();
 					}
 				});
 			} else {

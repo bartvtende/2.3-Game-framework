@@ -29,7 +29,6 @@ public class MainView extends JFrame {
 		
 		this.setupContentPane();
 		this.activateConnection();
-		this.activateGames();
 		
 	}
 	

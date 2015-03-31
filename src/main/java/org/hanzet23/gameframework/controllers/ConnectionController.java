@@ -17,6 +17,7 @@ import javax.swing.JToggleButton;
 
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
 import main.java.org.hanzet23.gameframework.models.SettingsModel;
+import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class ConnectionController extends JPanel {
 
@@ -124,6 +125,8 @@ public class ConnectionController extends JPanel {
 					LinkedHashMap<String, String> map = settings.getSettings();
 					serverPort = Integer.parseInt(map.get("network_server_port"));
 					serverName = map.get("network_server_ip");
+					MainView.mainview.activateGames();
+					MainView.mainview.activatePlayers();
 				}
 				
 				// Connect to the server with the credentials
