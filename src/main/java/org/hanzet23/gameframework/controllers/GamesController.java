@@ -25,7 +25,7 @@ public class GamesController extends JPanel {
 	private String[] gamesList = AVAILABLE_GAMES;
 	private boolean isHuman = true;
 
-	private ArrayList<JButton> games;
+	private ArrayList<JToggleButton> games;
 	private JToggleButton human;
 	private JToggleButton computer;
 	private JLabel title = new JLabel("Games");
@@ -71,20 +71,26 @@ public class GamesController extends JPanel {
 	}
 
 	public void setupGames() {
+		//TODO onclick this.setselected for(JButton gameButton:games){if ! self gameButton.setSelected(false)}
 		centerPanel.removeAll();
 		centerPanel.setLayout(new GridLayout(0, 1));
 
-		games = new ArrayList<JButton>();
+		games = new ArrayList<JToggleButton>();
 		for (String game : gamesList) {
-			JButton gameButton = new JButton(game);
+			JToggleButton gameButton = new JToggleButton(game);
 			String key = game.toLowerCase();
 			if (key.contains("tic") || key.contains("othello")
 					|| key.contains("reversi") || key.contains("guess")) {
 				gameButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
+						
+						for(JToggleButton button:games){
+							button.setSelected(false);
+						}
+						((JToggleButton)arg0.getSource()).setSelected(true);
 						System.out.println("Start"
-								+ ((JButton) arg0.getSource()).getText());
+								+ ((JToggleButton) arg0.getSource()).getText());
 					}
 				});
 			} else {
@@ -93,7 +99,7 @@ public class GamesController extends JPanel {
 			games.add(gameButton);
 		}
 
-		for (JButton game : games) {
+		for (JToggleButton game : games) {
 			centerPanel.add(game);
 		}
 	}
@@ -126,5 +132,18 @@ public class GamesController extends JPanel {
 
 	public void setGamesList(String[] list) {
 		gamesList = list;
+	}
+	
+	/**
+	 * Returns the selected game
+	 * @return
+	 */
+	public String getSelectedGame(){
+		for(JToggleButton gameButton : games){
+			if(gameButton.isSelected()){
+				return gameButton.getText();
+			}
+		}
+		return null;
 	}
 }
