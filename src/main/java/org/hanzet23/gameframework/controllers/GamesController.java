@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
 
-import main.java.org.hanzet23.gameframework.views.GamePanel;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class GamesController extends JPanel {
