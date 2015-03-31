@@ -22,9 +22,10 @@ public class MainView extends JFrame {
 	public PlayerController players = new PlayerController();
 	
 	//deprecated
-	private GamePanel gamePanel = new GamePanel();
+	//private GamePanel gamePanel = new GamePanel();
 
 	public MainView() {
+		mainview = this;
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.setJMenuBar(new MenuBarController());
@@ -32,6 +33,7 @@ public class MainView extends JFrame {
 		this.setupContentPane();
 		this.activateConnection();
 		this.activateGames();
+		
 	}
 	
 	private void setupContentPane(){

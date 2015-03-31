@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import main.java.org.hanzet23.gameframework.controllers.GamesController;
 import main.java.org.hanzet23.gameframework.views.GamePanel;
+import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class CommandModel {
 
@@ -40,7 +41,7 @@ public class CommandModel {
 		String[] games = parseList(line);
 		
 		// Setup the games in the GUI
-		GamesController gamesPanel = GamePanel.gamePanel.getGamesPanel();
+		GamesController gamesPanel = MainView.mainview.games;
 		gamesPanel.setGamesList(games);
 		gamesPanel.setupGames();
 		gamesPanel.revalidate();
