@@ -1,6 +1,9 @@
 package main.java.org.hanzet23.gameframework.models;
 
 import java.util.HashMap;
+import java.util.Random;
+
+import javax.swing.JOptionPane;
 
 import main.java.org.hanzet23.gameframework.controllers.GamesController;
 import main.java.org.hanzet23.gameframework.controllers.PlayersController;
@@ -27,6 +30,8 @@ public class CommandModel {
 			getChallengeCancelled(line);
 		} else if (line.startsWith("SVR GAME ")) {
 			getClose(line);
+		} else if (line.equals("ERR Duplicate name exists")) {
+			getTakenUsername();
 		} else {
 			printServerLine(line);
 		}
@@ -144,6 +149,16 @@ public class CommandModel {
 		System.out.println("Received closing connection: " + line);
 	}
 	
+	
+	public void getTakenUsername() {
+		JOptionPane.showMessageDialog(MainView.mainview, "Your username has been taken, trying another username.", "Username has been taken!", JOptionPane.ERROR_MESSAGE);
+		NetworkModel network = NetworkModel.getInstance();
+		
+		int randomNumber = (new Random()).nextInt(999);
+		network.login("Winnaar #" + randomNumber);
+		
+		network.getPlayerlist();
+	}
 
 	/**
 	 * Parse the string that includes a list and return an array

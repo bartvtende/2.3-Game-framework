@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedHashMap;
+import java.util.Random;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -125,18 +126,22 @@ public class ConnectionController extends JPanel {
 					LinkedHashMap<String, String> map = settings.getSettings();
 					serverPort = Integer.parseInt(map.get("network_server_port"));
 					serverName = map.get("network_server_ip");
-					MainView.mainview.activateGames();
-					MainView.mainview.activatePlayers();
 				}
 				
 				// Connect to the server with the credentials
 				NetworkModel network = NetworkModel.setInstance(serverPort, serverName);
+				System.out.println(network);
 
 				if (network.getSocket() != null) {
+					// Activate views
+					MainView.mainview.activateGames();
+					MainView.mainview.activatePlayers();
+					
 					// Login with the selected username
 					String playerName = name.getText();
 					if (playerName.equals("")) {
-						playerName = "Winnaar";
+						int randomNumber = (new Random()).nextInt(999);
+						playerName = "Winnaar #" + randomNumber;
 					}
 					network.login(playerName);
 					
@@ -145,6 +150,7 @@ public class ConnectionController extends JPanel {
 	
 					// Get the list of players on the server
 					network.getPlayerlist();
+
 				}
 			}
 		});

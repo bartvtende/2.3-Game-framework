@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ConnectException;
 import java.net.Socket;
 
 import javax.swing.JOptionPane;
@@ -34,14 +33,14 @@ public class NetworkModel implements Runnable {
 	}
 	
 	public static NetworkModel getInstance() {
-		if (instance == null) {
+		if (instance == null || instance.getSocket() == null) {
 			instance = new NetworkModel(0, null);
 		}
 		return instance;
 	}
 	
 	public static NetworkModel setInstance(int port, String serverName) {
-		if (instance == null) {
+		if (instance == null || instance.getSocket() == null) {
 			instance = new NetworkModel(port, serverName);
 		}
 		return instance;
