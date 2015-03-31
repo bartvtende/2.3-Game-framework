@@ -3,7 +3,6 @@ package main.java.org.hanzet23.gameframework.models;
 import java.util.HashMap;
 
 import main.java.org.hanzet23.gameframework.controllers.GamesController;
-import main.java.org.hanzet23.gameframework.views.GamePanel;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class CommandModel {
@@ -54,7 +53,7 @@ public class CommandModel {
 	 * 
 	 * @param line
 	 */
-	public  void getPlayerlist(String line) {
+	public void getPlayerlist(String line) {
 		String[] players = parseList(line);
 		
 		System.out.println("Received playerlist: " + line);
@@ -65,7 +64,7 @@ public class CommandModel {
 	 * 
 	 * @param line
 	 */
-	public  void getMatch(String line) {
+	public void getMatch(String line) {
 		HashMap<String, String> map = parseMap(line);
 		
 		System.out.println("Received match: " + line);
@@ -76,7 +75,7 @@ public class CommandModel {
 	 * 
 	 * @param line
 	 */
-	public  void getTurn(String line) {
+	public void getTurn(String line) {
 		HashMap<String, String> map = parseMap(line);
 		
 		System.out.println("Received turn: " + line);
@@ -87,7 +86,7 @@ public class CommandModel {
 	 * 
 	 * @param line
 	 */
-	public  void getMove(String line) {
+	public void getMove(String line) {
 		HashMap<String, String> map = parseMap(line);
 		
 		System.out.println("Received move: " + line);
@@ -98,7 +97,7 @@ public class CommandModel {
 	 * 
 	 * @param line
 	 */
-	public  void getResult(String line) {
+	public void getResult(String line) {
 		HashMap<String, String> map = parseMap(line);
 		
 		String[] splitted = line.split("\\s");
@@ -110,7 +109,7 @@ public class CommandModel {
 	 * 
 	 * @param line
 	 */
-	public  void getChallenge(String line) {
+	public void getChallenge(String line) {
 		HashMap<String, String> map = parseMap(line);
 		
 		System.out.println("Received challenge: " + line);
@@ -121,7 +120,7 @@ public class CommandModel {
 	 * 
 	 * @param line
 	 */
-	public  void getChallengeCancelled(String line) {
+	public void getChallengeCancelled(String line) {
 		HashMap<String, String> map = parseMap(line);
 		
 		System.out.println("Received challenge cancelled: " + line);
@@ -132,7 +131,7 @@ public class CommandModel {
 	 * 
 	 * @param line
 	 */
-	public  void getClose(String line) {
+	public void getClose(String line) {
 		HashMap<String, String> map = parseMap(line);
 		
 		System.out.println("Received closing connection: " + line);
@@ -145,7 +144,7 @@ public class CommandModel {
 	 * @param line
 	 * @return
 	 */
-	public  String[] parseList(String line) {
+	public String[] parseList(String line) {
 		// Split the string with comma's
 		String[] result = parseString(line, '[', ']');
 		
@@ -158,7 +157,7 @@ public class CommandModel {
 	 * @param line
 	 * @return
 	 */
-	public  HashMap<String, String> parseMap(String line) {
+	public HashMap<String, String> parseMap(String line) {
 		// Split the string with comma's
 		String[] result = parseString(line, '{', '}');
 
@@ -184,7 +183,7 @@ public class CommandModel {
 	 * @param endIdentifier
 	 * @return
 	 */
-	private  String[] parseString(String line, char firstIdentifier, char endIdentifier) {
+	private String[] parseString(String line, char firstIdentifier, char endIdentifier) {
 		int firstBracket = line.indexOf(firstIdentifier);
 		int lastBracket = line.indexOf(endIdentifier);
 
@@ -216,7 +215,7 @@ public class CommandModel {
 	 * 
 	 * @param line
 	 */
-	public  void printServerLine(String line) {
+	public void printServerLine(String line) {
 		System.out.println("Server: " + line);
 	}
 
@@ -225,7 +224,7 @@ public class CommandModel {
 	 * 
 	 * @param line
 	 */
-	public  void printClientLine(String line) {
+	public void printClientLine(String line) {
 		System.out.println("Client: " + line);
 	}
 }
