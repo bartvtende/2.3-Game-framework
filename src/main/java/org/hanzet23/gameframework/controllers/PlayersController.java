@@ -14,7 +14,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
-import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class PlayersController extends JPanel {
 
@@ -78,7 +77,6 @@ public class PlayersController extends JPanel {
 				// Get the list of players on the server
 				NetworkModel network = NetworkModel.getInstance();
 				network.getPlayerlist();
-				System.out.println("Getting players for: "+ MainView.mainview.games.getSelectedGame());
 			}
 		});
 	}
