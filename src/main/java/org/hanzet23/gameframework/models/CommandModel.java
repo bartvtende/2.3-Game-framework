@@ -1,5 +1,6 @@
 package main.java.org.hanzet23.gameframework.models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -61,10 +62,24 @@ public class CommandModel {
 	 */
 	public void getPlayerlist(String line) {
 		String[] players = parseList(line);
+		ArrayList<String> allPlayers = new ArrayList<String>();
+		String name = MainView.connection.getSelectedName();
+		
+		System.out.println("Your loginname is: " + name);
+
+		// Remove your name off the list
+		for (String key : players) {
+			if (!key.equals(name)) {
+				allPlayers.add(key);
+			}
+		}
+		
+		String[] newPlayers = new String[allPlayers.size()];
+		allPlayers.toArray(newPlayers);
 		
 		// Setup the games in the GUI
 		PlayersController playerPanel = MainView.mainview.players;
-		playerPanel.setPlayersList(players);
+		playerPanel.setPlayersList(newPlayers);
 		playerPanel.setupPlayers();
 		playerPanel.revalidate();
 		
@@ -151,6 +166,10 @@ public class CommandModel {
 	
 	
 	public void getTakenUsername() {
+		// Remove views
+		MainView.mainview.removeGames();
+		MainView.mainview.removePlayers();
+		
 		JOptionPane.showMessageDialog(MainView.mainview, "Your username has been taken, trying another username.", "Username has been taken!", JOptionPane.ERROR_MESSAGE);
 		NetworkModel network = NetworkModel.getInstance();
 		

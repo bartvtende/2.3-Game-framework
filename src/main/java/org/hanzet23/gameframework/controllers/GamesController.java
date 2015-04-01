@@ -1,4 +1,4 @@
-package main.java.org.hanzet23.gameframework.controllers;
+ package main.java.org.hanzet23.gameframework.controllers;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -21,7 +21,8 @@ import main.java.org.hanzet23.gameframework.views.MainView;
 public class GamesController extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static final String[] AVAILABLE_GAMES = {"Tic-Tac-Toe", "Othello", "Guess Game"};
+	private static final String[] AVAILABLE_GAMES = { "Tic-Tac-Toe", "Othello",
+			"Guess Game" };
 	private String[] gamesList = AVAILABLE_GAMES;
 	private boolean isHuman = true;
 
@@ -71,7 +72,8 @@ public class GamesController extends JPanel {
 	}
 
 	public void setupGames() {
-		//TODO onclick this.setselected for(JButton gameButton:games){if ! self gameButton.setSelected(false)}
+		// TODO onclick this.setselected for(JButton gameButton:games){if ! self
+		// gameButton.setSelected(false)}
 		centerPanel.removeAll();
 		centerPanel.setLayout(new GridLayout(0, 1));
 
@@ -84,11 +86,11 @@ public class GamesController extends JPanel {
 				gameButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						
-						for(JToggleButton button:games){
+
+						for (JToggleButton button : games) {
 							button.setSelected(false);
 						}
-						((JToggleButton)arg0.getSource()).setSelected(true);
+						((JToggleButton) arg0.getSource()).setSelected(true);
 						System.out.println("Start"
 								+ ((JToggleButton) arg0.getSource()).getText());
 					}
@@ -133,17 +135,28 @@ public class GamesController extends JPanel {
 	public void setGamesList(String[] list) {
 		gamesList = list;
 	}
-	
+
 	/**
 	 * Returns the selected game
+	 * 
 	 * @return
 	 */
-	public String getSelectedGame(){
-		for(JToggleButton gameButton : games){
-			if(gameButton.isSelected()){
+	public String getSelectedGame() {
+		for (JToggleButton gameButton : games) {
+			if (gameButton.isSelected()) {
 				return gameButton.getText();
 			}
 		}
 		return null;
+	}
+	
+	public String getPlayerType() {
+		String playerType = null;
+		if (isHuman) {
+			playerType = "Human";
+		} else {
+			playerType = "Computer";
+		}
+		return playerType;
 	}
 }

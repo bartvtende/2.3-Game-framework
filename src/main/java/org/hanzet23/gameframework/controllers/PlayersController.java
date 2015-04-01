@@ -11,9 +11,11 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
+import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class PlayersController extends JPanel {
 
@@ -63,8 +65,29 @@ public class PlayersController extends JPanel {
 		connect.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Started a game with "
-						+ (playerList.getSelectedValue().toString()));
+				// Check if a player is selected
+				String player = null;
+				if (playerList.getSelectedValue() != null) {
+					player = playerList.getSelectedValue().toString();
+				} else {
+					JOptionPane.showMessageDialog(MainView.mainview, "You didn't select a player, please try again.", "Select a player!", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				String game = null;
+				if (MainView.games.getSelectedGame() != null) {
+					game = MainView.games.getSelectedGame();
+				} else {
+					JOptionPane.showMessageDialog(MainView.mainview, "You didn't select a game, please try again.", "Select a game!", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				String playerType = null;
+				if (MainView.games.getPlayerType() != null) {
+					playerType = MainView.games.getPlayerType();
+				} else {
+					JOptionPane.showMessageDialog(MainView.mainview, "You didn't select a player type, please try again.", "Select a player type!", JOptionPane.ERROR_MESSAGE);
+				}
+				System.out.println(player);
+				System.out.println(playerType);
 			}
 		});
 	}
