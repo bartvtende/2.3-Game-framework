@@ -47,7 +47,7 @@ public class MainView extends JFrame {
 	
 	public void removeConnection(){
 		if(cp.isAncestorOf(connection)){
-			cp.remove(0);
+			cp.remove(connection);
 			this.getRootPane().revalidate();
 		}
 	}
@@ -61,7 +61,7 @@ public class MainView extends JFrame {
 	
 	public void removeGames(){
 		if(cp.isAncestorOf(games)){
-			cp.remove(1);
+			cp.remove(games);
 			this.getRootPane().revalidate();
 		}
 	}
@@ -75,7 +75,7 @@ public class MainView extends JFrame {
 	
 	public void removePlayers(){
 		if(cp.isAncestorOf(players)){
-			cp.remove(2);
+			cp.remove(players);
 			this.getRootPane().revalidate();
 		}
 	}
