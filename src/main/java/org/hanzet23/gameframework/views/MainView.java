@@ -17,9 +17,9 @@ public class MainView extends JFrame {
 	public static Container cp;
 	
 	// Panels
-	public ConnectionController connection = new ConnectionController();
-	public GamesController games = new GamesController();
-	public PlayersController players = new PlayersController();
+	public static ConnectionController connection = new ConnectionController();
+	public static GamesController games = new GamesController();
+	public static PlayersController players = new PlayersController();
 
 	public MainView() {
 		mainview = this;
@@ -29,7 +29,6 @@ public class MainView extends JFrame {
 		
 		this.setupContentPane();
 		this.activateConnection();
-		
 	}
 	
 	private void setupContentPane(){

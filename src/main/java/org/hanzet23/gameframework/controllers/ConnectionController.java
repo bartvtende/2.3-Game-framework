@@ -23,6 +23,8 @@ import main.java.org.hanzet23.gameframework.views.MainView;
 public class ConnectionController extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	
+	public String selectedName = null;
 
 	private JLabel title = new JLabel("Connection");
 	private JLabel nameLabel = new JLabel("Name");
@@ -143,6 +145,7 @@ public class ConnectionController extends JPanel {
 						int randomNumber = (new Random()).nextInt(999);
 						playerName = "Winnaar #" + randomNumber;
 					}
+					selectedName = playerName;
 					network.login(playerName);
 					
 					// Get the list of games available on the server
@@ -155,5 +158,9 @@ public class ConnectionController extends JPanel {
 			}
 		});
 		return connect;
+	}
+	
+	public String getSelectedName() {
+		return selectedName;
 	}
 }
