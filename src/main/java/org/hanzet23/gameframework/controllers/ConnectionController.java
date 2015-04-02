@@ -163,4 +163,12 @@ public class ConnectionController extends JPanel {
 	public String getSelectedName() {
 		return selectedName;
 	}
+	
+	public String getConnectionType() {
+		if (local.isSelected()) {
+			return "local";
+		} else {
+			return "network";
+		}
+	}
 }

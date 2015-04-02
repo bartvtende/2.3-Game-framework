@@ -14,7 +14,10 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import main.java.org.hanzet23.gameframework.models.ComputerModel;
+import main.java.org.hanzet23.gameframework.models.HumanModel;
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
+import main.java.org.hanzet23.gameframework.models.PlayerModel;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class PlayersController extends JPanel {
@@ -66,16 +69,16 @@ public class PlayersController extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// Check if a player is selected
-				String player = null;
+				String playingAgainst = null;
 				if (playerList.getSelectedValue() != null) {
-					player = playerList.getSelectedValue().toString();
+					playingAgainst = playerList.getSelectedValue().toString();
 				} else {
 					JOptionPane.showMessageDialog(MainView.mainview, "You didn't select a player, please try again.", "Select a player!", JOptionPane.ERROR_MESSAGE);
 				}
 				
-				String game = null;
+				String gamePlaying = null;
 				if (MainView.games.getSelectedGame() != null) {
-					game = MainView.games.getSelectedGame();
+					gamePlaying = MainView.games.getSelectedGame();
 				} else {
 					JOptionPane.showMessageDialog(MainView.mainview, "You didn't select a game, please try again.", "Select a game!", JOptionPane.ERROR_MESSAGE);
 				}
@@ -86,8 +89,21 @@ public class PlayersController extends JPanel {
 				} else {
 					JOptionPane.showMessageDialog(MainView.mainview, "You didn't select a player type, please try again.", "Select a player type!", JOptionPane.ERROR_MESSAGE);
 				}
-				System.out.println(player);
-				System.out.println(playerType);
+
+				NetworkModel network = NetworkModel.getInstance();
+				network.challenge(playingAgainst, gamePlaying);
+				
+				String connectionType = MainView.connection.getConnectionType();
+				String playingAs = MainView.connection.getSelectedName();
+				
+				PlayerModel playerModel = null;
+				if (playerType.equals("Human")) {
+					playerModel = new HumanModel(connectionType, playerType, gamePlaying, playingAs, playingAgainst);
+				} else {
+					playerModel = new ComputerModel(connectionType, playerType, gamePlaying, playingAs, playingAgainst);
+				}
+				
+				System.out.println(PlayerModel.playerType);
 			}
 		});
 	}
