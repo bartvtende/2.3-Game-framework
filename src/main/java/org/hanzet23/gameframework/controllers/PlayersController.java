@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 import main.java.org.hanzet23.gameframework.models.ComputerModel;
 import main.java.org.hanzet23.gameframework.models.HumanModel;
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
-import main.java.org.hanzet23.gameframework.models.PlayerModel;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class PlayersController extends JPanel {
@@ -96,14 +95,11 @@ public class PlayersController extends JPanel {
 				String connectionType = MainView.connection.getConnectionType();
 				String playingAs = MainView.connection.getSelectedName();
 				
-				PlayerModel playerModel = null;
 				if (playerType.equals("Human")) {
-					playerModel = new HumanModel(connectionType, playerType, gamePlaying, playingAs, playingAgainst);
+					new HumanModel(connectionType, playerType, gamePlaying, playingAs, playingAgainst);
 				} else {
-					playerModel = new ComputerModel(connectionType, playerType, gamePlaying, playingAs, playingAgainst);
+					new ComputerModel(connectionType, playerType, gamePlaying, playingAs, playingAgainst);
 				}
-				
-				System.out.println(PlayerModel.playerType);
 			}
 		});
 	}

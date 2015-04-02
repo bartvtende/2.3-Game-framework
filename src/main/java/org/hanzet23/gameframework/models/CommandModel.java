@@ -139,6 +139,12 @@ public class CommandModel {
 	public void getChallenge(String line) {
 		HashMap<String, String> map = parseMap(line);
 		
+		String challengeNumber = map.get("CHALLENGENUMBER");
+		
+		NetworkModel network = NetworkModel.getInstance();
+		
+		network.challengeAccept(challengeNumber);
+		
 		System.out.println("Received challenge: " + line);
 	}
 	
