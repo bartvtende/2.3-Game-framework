@@ -143,6 +143,7 @@ public class CommandModel {
 		
 		NetworkModel network = NetworkModel.getInstance();
 		
+		
 		network.challengeAccept(challengeNumber);
 		
 		System.out.println("Received challenge: " + line);
