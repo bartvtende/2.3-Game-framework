@@ -2,16 +2,27 @@ package main.java.org.hanzet23.gameframework.models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
 
 import main.java.org.hanzet23.gameframework.controllers.GamesController;
 import main.java.org.hanzet23.gameframework.controllers.PlayersController;
+import main.java.org.hanzet23.gameframework.games.BoardModel;
+import main.java.org.hanzet23.gameframework.games.GameModel;
+import main.java.org.hanzet23.gameframework.games.GuessModel;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
+/**
+ * Class that receives commands send by the game server
+ * 
+ * @author Bart
+ */
 public class CommandModel {
-
+	
+	public static BoardModel board = null;
+	
 	public void receiveCommand(String line) {		
 		if (line.startsWith("SVR GAMELIST ")) {
 			getGamelist(line);
@@ -94,6 +105,29 @@ public class CommandModel {
 	public void getMatch(String line) {
 		HashMap<String, String> map = parseMap(line);
 		
+		// Get the variables
+		String gameName = map.get("GAMTYPE");
+		String opponent = map.get("OPPONENT");
+		String playerToMove = map.get("PLAYERTOMOVE");
+		
+		String playerType = MainView.games.getPlayerType();
+		String playingAs = MainView.connection.getSelectedName();
+		
+		// Make a player and game class
+		PlayerModel player = new PlayerModel(playerType, playingAs, opponent);
+		GameModel game = new GuessModel("Guess");
+		
+		// Initialize the board
+		BoardModel newBoard = new BoardModel(player, game);
+		this.board = newBoard;
+		System.out.println(board);
+		
+		// Do a move?
+		if (!playerToMove.equals(opponent)) {
+			// Make a move
+			board.move();
+		}
+		
 		System.out.println("Received match: " + line);
 	}
 		
@@ -104,6 +138,8 @@ public class CommandModel {
 	 */
 	public void getTurn(String line) {
 		HashMap<String, String> map = parseMap(line);
+		
+		board.move();
 		
 		System.out.println("Received turn: " + line);
 	}
@@ -116,6 +152,17 @@ public class CommandModel {
 	public void getMove(String line) {
 		HashMap<String, String> map = parseMap(line);
 		
+		// Check the input
+		printServerLine("Got a move back, info:");
+		
+		for (Map.Entry<String, String> entry : map.entrySet()) {
+		    String key = entry.getKey();
+		    String value = entry.getValue();
+		    printServerLine(key + ": " + value);
+		}
+		
+		// If error: make move again
+		
 		System.out.println("Received move: " + line);
 	}
 	
@@ -127,12 +174,14 @@ public class CommandModel {
 	public void getResult(String line) {
 		HashMap<String, String> map = parseMap(line);
 		
+		// Send the result to the game class and stop the game
+		
 		String[] splitted = line.split("\\s");
 		String result = splitted[2];
 	}
 	
 	/**
-	 * Challenge a player for a game
+	 * Accept a challenge from a player for a game
 	 * 
 	 * @param line
 	 */
@@ -145,6 +194,8 @@ public class CommandModel {
 		
 		network.challengeAccept(challengeNumber);
 		
+		// Create a new static game class (and make a move)?
+		
 		System.out.println("Received challenge: " + line);
 	}
 	
@@ -156,6 +207,8 @@ public class CommandModel {
 	public void getChallengeCancelled(String line) {
 		HashMap<String, String> map = parseMap(line);
 		
+		// Delete the game class and stop the games view
+		
 		System.out.println("Received challenge cancelled: " + line);
 	}
 	
@@ -166,6 +219,8 @@ public class CommandModel {
 	 */
 	public void getClose(String line) {
 		HashMap<String, String> map = parseMap(line);
+		
+		// Delete the game class and stop the games view
 		
 		System.out.println("Received closing connection: " + line);
 	}

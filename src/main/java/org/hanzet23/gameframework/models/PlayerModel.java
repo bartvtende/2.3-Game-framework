@@ -1,25 +1,31 @@
 package main.java.org.hanzet23.gameframework.models;
 
-public abstract class PlayerModel {
+public class PlayerModel {
 
-	// Either local or network
-	public static String connectionType = "";
 	// Either human or computer
-	public static String playerType = "";
-	// Chosen game
-	public static String gamePlaying = "";
+	public String playerType = "";
 	// You
-	public static String playingAs = "";
+	public String playingAs = "";
 	// Your opponent
-	public static String playingAgainst = "";
+	public String playingAgainst = "";
 
-	public PlayerModel(String connectionType, String playerType,
-			String gamePlaying, String playingAs, String playingAgainst) {
-		PlayerModel.connectionType = connectionType;
-		PlayerModel.playerType = playerType;
-		PlayerModel.gamePlaying = gamePlaying;
-		PlayerModel.playingAs = playingAs;
-		PlayerModel.playingAgainst = playingAgainst;
+	public PlayerModel(String playerType, String playingAs,
+			String playingAgainst) {
+		this.playerType = playerType;
+		this.playingAs = playingAs;
+		this.playingAgainst = playingAgainst;
+	}
+
+	public String getPlayerType() {
+		return playerType;
+	}
+
+	public String getPlayingAs() {
+		return playingAs;
+	}
+
+	public String getPlayingAgainst() {
+		return playingAgainst;
 	}
 
 }

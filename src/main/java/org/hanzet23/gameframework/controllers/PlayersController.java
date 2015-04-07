@@ -14,9 +14,9 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import main.java.org.hanzet23.gameframework.models.ComputerModel;
-import main.java.org.hanzet23.gameframework.models.HumanModel;
+import main.java.org.hanzet23.gameframework.models.CommandModel;
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
+import main.java.org.hanzet23.gameframework.models.PlayerModel;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class PlayersController extends JPanel {
@@ -89,17 +89,9 @@ public class PlayersController extends JPanel {
 					JOptionPane.showMessageDialog(MainView.mainview, "You didn't select a player type, please try again.", "Select a player type!", JOptionPane.ERROR_MESSAGE);
 				}
 
+				// Send the challenge to the server
 				NetworkModel network = NetworkModel.getInstance();
 				network.challenge(playingAgainst, gamePlaying);
-				
-				String connectionType = MainView.connection.getConnectionType();
-				String playingAs = MainView.connection.getSelectedName();
-				
-				if (playerType.equals("Human")) {
-					new HumanModel(connectionType, playerType, gamePlaying, playingAs, playingAgainst);
-				} else {
-					new ComputerModel(connectionType, playerType, gamePlaying, playingAs, playingAgainst);
-				}
 			}
 		});
 	}

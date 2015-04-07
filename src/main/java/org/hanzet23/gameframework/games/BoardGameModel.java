@@ -8,9 +8,12 @@ package main.java.org.hanzet23.gameframework.games;
  * 26/03/15.
  */
 public abstract class BoardGameModel {
-	private char[][] board;
-	private int playerState = -1; // -1 staat voor dat er nog geen player is
-									// geselecteerd
+	public final int GAME_STOPPED = -1;
+	public final int GAME_INITIALIZED = 0;
+	public final int GAME_STARTED = 1;
+	
+	protected char[][] board;
+	protected int state = GAME_INITIALIZED;
 
 	public BoardGameModel() {
 		// TODO BoardGameModel moet nog geimplementeerd worden
