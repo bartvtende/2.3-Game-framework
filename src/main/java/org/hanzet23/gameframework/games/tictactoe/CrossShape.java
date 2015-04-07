@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 public class CrossShape extends JPanel {
@@ -26,6 +27,7 @@ public class CrossShape extends JPanel {
 		this.color = color;
 		updatePoints(width, height);
 		this.setPreferredSize(new Dimension(new Double( width).intValue(), new Double(height).intValue()));
+		
 	}
 
 	private void updatePoints(double width, double height) {
@@ -46,7 +48,7 @@ public class CrossShape extends JPanel {
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
 				RenderingHints.VALUE_RENDER_QUALITY);
 
-		g2d.translate(25, 5);
+		//g2d.translate(25, 5);
 
 		GeneralPath cross = new GeneralPath();
 
