@@ -1,14 +1,26 @@
 package main.java.org.hanzet23.gameframework.models;
 
+/**
+ * This class represents the output stream to the game server. Sends commands to
+ * the server through a socket connection
+ * 
+ * @authors Groep 2: Jonathan Berends, Bart van 't Ende, Joz Reijneveld en
+ *          Jan-Bert van Slochteren
+ */
 public class OutputModel {
 
+	/**
+	 * Sends the command string through the writer
+	 * 
+	 * @param command
+	 */
 	public synchronized void sendCommand(String command) {
 		// Print the command
 		System.out.println("Client: " + command);
 		// Send the command
 		NetworkModel.getWriter().println(command);
 	}
-	
+
 	/**
 	 * Login with an username
 	 * 
@@ -18,14 +30,14 @@ public class OutputModel {
 		String command = "login " + name;
 		sendCommand(command);
 	}
-	
+
 	/**
 	 * Logs the user out and closes the client's connection
 	 */
 	public void logout() {
 		sendCommand("logout");
 	}
-	
+
 	/**
 	 * Get a list of all the games on the server
 	 * 
@@ -34,7 +46,7 @@ public class OutputModel {
 	public void getGamelist() {
 		sendCommand("get gamelist");
 	}
-	
+
 	/**
 	 * Get a list of all the players connected to the server
 	 * 
@@ -43,7 +55,7 @@ public class OutputModel {
 	public void getPlayerlist() {
 		sendCommand("get playerlist");
 	}
-	
+
 	/**
 	 * Subscribe for a game
 	 * 
@@ -53,7 +65,7 @@ public class OutputModel {
 		String command = "subscribe " + name;
 		sendCommand(command);
 	}
-	
+
 	/**
 	 * Make a game move
 	 * 
@@ -63,7 +75,7 @@ public class OutputModel {
 		String command = "move " + move;
 		sendCommand(command);
 	}
-	
+
 	/**
 	 * Challenge a player for a game
 	 * 
@@ -74,7 +86,7 @@ public class OutputModel {
 		String command = "challenge \"" + player + "\" \"" + game + "\"";
 		sendCommand(command);
 	}
-	
+
 	/**
 	 * Accept a challenge from an user
 	 * 
@@ -84,12 +96,12 @@ public class OutputModel {
 		String command = "challenge accept " + challengeNumber;
 		sendCommand(command);
 	}
-	
+
 	/**
-	 * Forfeit a match 
+	 * Forfeit a match
 	 */
 	public void forfeit() {
 		sendCommand("forfeit");
 	}
-	
+
 }

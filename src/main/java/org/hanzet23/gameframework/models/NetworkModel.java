@@ -8,11 +8,15 @@ import java.net.Socket;
 
 import javax.swing.JOptionPane;
 
+import main.java.org.hanzet23.gameframework.games.BoardModel;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class NetworkModel implements Runnable {
 	
 	public static NetworkModel instance = null;
+	
+	// The BoardModel for this connection
+	public static BoardModel board = null;
 	
 	private int serverPort = 7789;
 	private String serverName = "bartvantende.nl";

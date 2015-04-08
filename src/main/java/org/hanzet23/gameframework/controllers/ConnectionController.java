@@ -132,7 +132,6 @@ public class ConnectionController extends JPanel {
 				
 				// Connect to the server with the credentials
 				NetworkModel network = NetworkModel.setInstance(serverPort, serverName);
-				System.out.println(network);
 
 				if (network.getSocket() != null) {
 					// Activate views
@@ -146,13 +145,13 @@ public class ConnectionController extends JPanel {
 						playerName = "Winnaar #" + randomNumber;
 					}
 					selectedName = playerName;
-					network.login(playerName);
+					network.getOutput().login(playerName);
 					
 					// Get the list of games available on the server
-					network.getGamelist();
+					network.getOutput().getGamelist();
 	
 					// Get the list of players on the server
-					network.getPlayerlist();
+					network.getOutput().getPlayerlist();
 
 				}
 			}

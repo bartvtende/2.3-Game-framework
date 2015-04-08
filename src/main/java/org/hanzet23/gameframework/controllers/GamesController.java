@@ -10,13 +10,10 @@ import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
-
-import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class GamesController extends JPanel {
 
@@ -72,8 +69,6 @@ public class GamesController extends JPanel {
 	}
 
 	public void setupGames() {
-		// TODO onclick this.setselected for(JButton gameButton:games){if ! self
-		// gameButton.setSelected(false)}
 		centerPanel.removeAll();
 		centerPanel.setLayout(new GridLayout(0, 1));
 
@@ -91,8 +86,6 @@ public class GamesController extends JPanel {
 							button.setSelected(false);
 						}
 						((JToggleButton) arg0.getSource()).setSelected(true);
-						System.out.println("Start"
-								+ ((JToggleButton) arg0.getSource()).getText());
 					}
 				});
 			} else {

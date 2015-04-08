@@ -56,8 +56,7 @@ public class MenuBarController extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				//TODO HELP FRAME
+				// TODO: Help menu frame should be called here
 			}
 
 		});

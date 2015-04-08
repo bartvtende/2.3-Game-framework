@@ -14,9 +14,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import main.java.org.hanzet23.gameframework.models.InputModel;
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
-import main.java.org.hanzet23.gameframework.models.PlayerModel;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class PlayersController extends JPanel {
@@ -82,16 +80,13 @@ public class PlayersController extends JPanel {
 					JOptionPane.showMessageDialog(MainView.mainview, "You didn't select a game, please try again.", "Select a game!", JOptionPane.ERROR_MESSAGE);
 				}
 				
-				String playerType = null;
-				if (MainView.games.getPlayerType() != null) {
-					playerType = MainView.games.getPlayerType();
-				} else {
+				if (MainView.games.getPlayerType() == null) {
 					JOptionPane.showMessageDialog(MainView.mainview, "You didn't select a player type, please try again.", "Select a player type!", JOptionPane.ERROR_MESSAGE);
 				}
 
 				// Send the challenge to the server
 				NetworkModel network = NetworkModel.getInstance();
-				network.challenge(playingAgainst, gamePlaying);
+				network.getOutput().challenge(playingAgainst, gamePlaying);
 			}
 		});
 	}
@@ -103,7 +98,7 @@ public class PlayersController extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				// Get the list of players on the server
 				NetworkModel network = NetworkModel.getInstance();
-				network.getPlayerlist();
+				network.getOutput().getPlayerlist();
 			}
 		});
 	}
