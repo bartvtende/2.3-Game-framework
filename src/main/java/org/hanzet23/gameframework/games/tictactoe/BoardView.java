@@ -18,7 +18,6 @@ public class BoardView extends JPanel {
 				this.add(tile);
 			}
 			
-			
 		}
 		
 		this.setPreferredSize(new Dimension(150, 150));

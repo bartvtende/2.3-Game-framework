@@ -24,7 +24,6 @@ public class Tile extends JButton{
 
 		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
-
 		Border compound = BorderFactory.createCompoundBorder(
 				raisedbevel, loweredbevel);
 		
@@ -35,7 +34,9 @@ public class Tile extends JButton{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				//Something with get player or
 				System.out.println("Tile got clicked");
+				setContent("X");
 			}
 			
 		});
