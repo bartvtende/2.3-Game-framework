@@ -14,7 +14,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import main.java.org.hanzet23.gameframework.models.CommandModel;
+import main.java.org.hanzet23.gameframework.models.InputModel;
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
 import main.java.org.hanzet23.gameframework.models.PlayerModel;
 import main.java.org.hanzet23.gameframework.views.MainView;

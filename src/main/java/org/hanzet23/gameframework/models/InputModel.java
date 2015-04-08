@@ -19,7 +19,7 @@ import main.java.org.hanzet23.gameframework.views.MainView;
  * 
  * @author Bart
  */
-public class CommandModel {
+public class InputModel {
 	
 	public static BoardModel board = null;
 	
@@ -115,12 +115,11 @@ public class CommandModel {
 		
 		// Make a player and game class
 		PlayerModel player = new PlayerModel(playerType, playingAs, opponent);
-		GameModel game = new GuessModel("Guess");
+		GameModel game = new GuessModel(gameName);
 		
 		// Initialize the board
 		BoardModel newBoard = new BoardModel(player, game);
 		this.board = newBoard;
-		System.out.println(board);
 		
 		// Do a move?
 		if (!playerToMove.equals(opponent)) {
@@ -192,7 +191,7 @@ public class CommandModel {
 		
 		NetworkModel network = NetworkModel.getInstance();
 		
-		network.challengeAccept(challengeNumber);
+		network.getOutput().challengeAccept(challengeNumber);
 		
 		// Create a new static game class (and make a move)?
 		
@@ -235,9 +234,9 @@ public class CommandModel {
 		NetworkModel network = NetworkModel.getInstance();
 		
 		int randomNumber = (new Random()).nextInt(999);
-		network.login("Winnaar #" + randomNumber);
+		network.getOutput().login("Winnaar #" + randomNumber);
 		
-		network.getPlayerlist();
+		network.getOutput().getPlayerlist();
 	}
 
 	/**

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import main.java.org.hanzet23.gameframework.models.CommandModel;
+import main.java.org.hanzet23.gameframework.models.InputModel;
 
 /**
  * Unit test for the Command class
@@ -23,7 +23,7 @@ public class CommandTest extends TestCase {
 	}
 	
 	public void testParseListNull() {
-		CommandModel command = new CommandModel();
+		InputModel command = new InputModel();
 		
 		String testStringNull1 = "";
 		String testStringNull2 = "testing but no list, oops";
@@ -37,7 +37,7 @@ public class CommandTest extends TestCase {
 	}
 	
 	public void testParseListTrue() {
-		CommandModel command = new CommandModel();
+		InputModel command = new InputModel();
 		
 		String testStringTrue1 = "testing test [\"test1\", \"test2\"]";
 		String testStringTrue2 = "testing test [test1, test2]";
@@ -62,7 +62,7 @@ public class CommandTest extends TestCase {
 	}
 	
 	public void testParseMapNull() {
-		CommandModel command = new CommandModel();
+		InputModel command = new InputModel();
 		
 		String testStringNull1 = "";
 		String testStringNull2 = "testing but no list, oops";
@@ -76,7 +76,7 @@ public class CommandTest extends TestCase {
 	}
 	
 	public void testParseMapTrue() {
-		CommandModel command = new CommandModel();
+		InputModel command = new InputModel();
 		
 		String testStringTrue1 = "SVR GAME <speler resultaat> {PLAYERONESCORE: \"<score speler1>\", PLAYERTWOSCORE: \"<score speler2>\", COMMENT: \"<commentaar op resultaat>\"}";
 		String testStringTrue2 = "SVR GAME <speler resultaat> {PLAYERONESCORE:\"<score speler1>\",PLAYERTWOSCORE:\"<score speler2>\",COMMENT:\"<commentaar op resultaat>\"}";
