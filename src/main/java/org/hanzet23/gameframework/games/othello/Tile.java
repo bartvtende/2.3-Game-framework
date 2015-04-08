@@ -21,7 +21,6 @@ public class Tile extends JButton{
 		JPanel empty = new JPanel();
 		empty.setSize(tileSize, tileSize);
 		this.content = empty;
-		this.setBackground(Color.GREEN);
 		
 		this.setContent("Player1");
 		//border
@@ -48,7 +47,7 @@ public class Tile extends JButton{
 	
 	
 	private void setContent(String command){
-		this.setBackground(Color.GREEN);
+		this.setBackground(new Color(0,100,0));
 		if(command.equals("Empty")){
 			this.remove(content);
 			JPanel empty = new JPanel();
