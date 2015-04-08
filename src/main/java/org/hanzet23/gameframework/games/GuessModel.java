@@ -26,7 +26,7 @@ public class GuessModel extends GameModel {
 		// Select a random number and send it
 		String randomNumber = Integer.toString(new Random().nextInt(10) + 1);
 		
-		NetworkModel.getInstance().move(randomNumber);
+		NetworkModel.getInstance().getOutput().move(randomNumber);
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class GuessModel extends GameModel {
 		int i = in.nextInt();
 		String s = in.next();
 		
-		NetworkModel.getInstance().move(s);
+		NetworkModel.getInstance().getOutput().move(s);
 	}
 	
 }

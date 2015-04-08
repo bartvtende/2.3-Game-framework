@@ -8,6 +8,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import main.java.org.hanzet23.gameframework.models.InputModel;
+import main.java.org.hanzet23.gameframework.models.NetworkModel;
 
 /**
  * Unit test for the Command class
@@ -23,7 +24,8 @@ public class CommandTest extends TestCase {
 	}
 	
 	public void testParseListNull() {
-		InputModel command = new InputModel();
+		NetworkModel network = NetworkModel.getInstance();
+		InputModel command = network.getInput();
 		
 		String testStringNull1 = "";
 		String testStringNull2 = "testing but no list, oops";
@@ -37,7 +39,8 @@ public class CommandTest extends TestCase {
 	}
 	
 	public void testParseListTrue() {
-		InputModel command = new InputModel();
+		NetworkModel network = NetworkModel.getInstance();
+		InputModel command = network.getInput();
 		
 		String testStringTrue1 = "testing test [\"test1\", \"test2\"]";
 		String testStringTrue2 = "testing test [test1, test2]";
@@ -62,7 +65,8 @@ public class CommandTest extends TestCase {
 	}
 	
 	public void testParseMapNull() {
-		InputModel command = new InputModel();
+		NetworkModel network = NetworkModel.getInstance();
+		InputModel command = network.getInput();
 		
 		String testStringNull1 = "";
 		String testStringNull2 = "testing but no list, oops";
@@ -76,7 +80,8 @@ public class CommandTest extends TestCase {
 	}
 	
 	public void testParseMapTrue() {
-		InputModel command = new InputModel();
+		NetworkModel network = NetworkModel.getInstance();
+		InputModel command = network.getInput();
 		
 		String testStringTrue1 = "SVR GAME <speler resultaat> {PLAYERONESCORE: \"<score speler1>\", PLAYERTWOSCORE: \"<score speler2>\", COMMENT: \"<commentaar op resultaat>\"}";
 		String testStringTrue2 = "SVR GAME <speler resultaat> {PLAYERONESCORE:\"<score speler1>\",PLAYERTWOSCORE:\"<score speler2>\",COMMENT:\"<commentaar op resultaat>\"}";
