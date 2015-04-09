@@ -23,5 +23,7 @@ public class BoardView extends JPanel {
 		this.setPreferredSize(new Dimension(150, 150));
 	}
 	
-	
+	public Tile getTile(int x, int y){
+		return tiles[x][y];
+	}
 }

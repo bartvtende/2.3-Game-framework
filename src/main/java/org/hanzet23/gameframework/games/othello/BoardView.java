@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
+import main.java.org.hanzet23.gameframework.games.tictactoe.Tile;
+
 public class BoardView extends JPanel {
 
 	private Tile[][] tiles = new Tile[8][8];
@@ -25,5 +27,7 @@ public class BoardView extends JPanel {
 		this.setPreferredSize(new Dimension(400, 400));
 	}
 	
-	
+	public Tile getTile(int x, int y){
+		return tiles[x][y];
+	}
 }
