@@ -20,10 +20,12 @@ public class BoardModel {
 	
 	public void startGame() {
 		state = GAME_STARTED;
+		game.startGame();
 	}
 	
 	public void stopGame() {
 		state = GAME_STOPPED;
+		game.stopGame();
 	}
 
 	public void move() {

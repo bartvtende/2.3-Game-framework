@@ -39,5 +39,17 @@ public class GuessModel extends GameModel {
 		
 		NetworkModel.getInstance().getOutput().move(s);
 	}
+
+	@Override
+	public void startGame() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void stopGame() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
