@@ -15,6 +15,7 @@ public class Tile extends JButton{
 	private final int tileSize = 50;
 	private final static Color  COLOR_1 = Color.BLACK;
 	private final static Color  COLOR_2 = Color.WHITE;
+	private String state = "Empty";
 	
 	
 	public Tile(){
@@ -55,6 +56,7 @@ public class Tile extends JButton{
 			content = empty;
 			this.add(content);
 			this.revalidate();
+			this.setState(command);
 		}
 		else if(command.equals("Player1")){
 			this.remove(content);
@@ -62,6 +64,7 @@ public class Tile extends JButton{
 			content = p1;
 			this.add(content);
 			this.revalidate();
+			this.setState(command);
 		}
 		else if(command.equals("Player2")){
 			this.remove(content);
@@ -69,10 +72,19 @@ public class Tile extends JButton{
 			content = p2;
 			this.add(content);
 			this.revalidate();
+			this.setState(command);
 		}
 		else{
 			System.out.println("Error: Wrong command, shutting down.");
 			System.exit(0);
 		}
+	}
+	
+	public void setState(String state){
+		this.state = state;
+	}
+	
+	public String getState(){
+		return state;
 	}
 }
