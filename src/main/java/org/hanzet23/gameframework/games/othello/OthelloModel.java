@@ -45,7 +45,10 @@ public class OthelloModel extends GameModel {
 	public void startGame() {
 		// TODO: doesn't work!
 		JFrame frame = new JFrame();
-		frame.getContentPane().add(new BoardView());
+		this.boardFrame = frame;
+		BoardView boardView = new BoardView();
+		this.boardView = boardView;
+		frame.getContentPane().add(boardView);
 		frame.setVisible(true);
 		frame.pack();
 	}
