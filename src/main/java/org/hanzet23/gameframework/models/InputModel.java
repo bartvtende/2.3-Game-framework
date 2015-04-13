@@ -36,6 +36,7 @@ public class InputModel {
 		} else if (line.startsWith("SVR GAME YOURTURN ")) {
 			getTurn(line);
 		} else if (line.startsWith("SVR GAME MOVE ")) {
+			System.out.println(line);
 			getMove(line);
 		} else if (line.startsWith("SVR GAME WIN ")
 				|| line.startsWith("SVR GAME LOSS ")
@@ -274,7 +275,8 @@ public class InputModel {
 
 		for (String entry : result) {
 			String[] splitted = entry.split("\\s*:\\s*");
-			map.put(splitted[0], splitted[1]);
+			if (splitted.length == 2)
+				map.put(splitted[0], splitted[1]);
 		}
 
 		return map;

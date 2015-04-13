@@ -21,7 +21,7 @@ public class GamesController extends JPanel {
 	private static final String[] AVAILABLE_GAMES = { "Tic-Tac-Toe", "Othello",
 			"Guess Game" };
 	private String[] gamesList = AVAILABLE_GAMES;
-	private boolean isHuman = true;
+	private boolean isHuman = false;
 
 	private ArrayList<JToggleButton> games;
 	private JToggleButton human;
@@ -33,8 +33,8 @@ public class GamesController extends JPanel {
 	public GamesController() {
 		// Setups
 		setupGames();
-		setupHuman();
 		setupComputer();
+		setupHuman();
 
 		// Layout
 		this.setLayout(new BorderLayout());
@@ -58,9 +58,9 @@ public class GamesController extends JPanel {
 		JPanel playerButtonPanel = new JPanel();
 		playerButtonPanel.setLayout(new BoxLayout(playerButtonPanel,
 				BoxLayout.X_AXIS));
-		playerButtonPanel.add(human);
-		playerButtonPanel.add(Box.createRigidArea(new Dimension(5, 0)));
 		playerButtonPanel.add(computer);
+		playerButtonPanel.add(Box.createRigidArea(new Dimension(5, 0)));
+		playerButtonPanel.add(human);
 
 		southPanel.add(playerLabelPanel);
 		southPanel.add(playerButtonPanel);
@@ -109,8 +109,6 @@ public class GamesController extends JPanel {
 				isHuman = true;
 			}
 		});
-
-		human.setSelected(true);
 	}
 
 	private void setupComputer() {
@@ -123,6 +121,8 @@ public class GamesController extends JPanel {
 				isHuman = false;
 			}
 		});
+
+		computer.setSelected(true);
 	}
 
 	public void setGamesList(String[] list) {

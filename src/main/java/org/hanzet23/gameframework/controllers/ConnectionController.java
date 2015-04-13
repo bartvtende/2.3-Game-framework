@@ -33,12 +33,12 @@ public class ConnectionController extends JPanel {
 	private JToggleButton network;
 	private JButton connect;
 
-	private boolean isLocal = true;
+	private boolean isLocal = false;
 
 	public ConnectionController() {
 		// Setups
-		this.setupLocal();
 		this.setupNetwork();
+		this.setupLocal();
 		this.setupName();
 		this.setupConnect();
 
@@ -53,10 +53,10 @@ public class ConnectionController extends JPanel {
 		JPanel center = new JPanel();
 		center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
 		JPanel buttons = new JPanel();
-		buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
-		buttons.add(local);
-		buttons.add(Box.createRigidArea(new Dimension(5, 0)));
 		buttons.add(network);
+		buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
+		buttons.add(Box.createRigidArea(new Dimension(5, 0)));
+		buttons.add(local);
 
 		center.add(buttons);
 
@@ -87,7 +87,7 @@ public class ConnectionController extends JPanel {
 			}
 		});
 
-		local.setSelected(true);
+		local.setSelected(false);
 		return local;
 	}
 
@@ -103,7 +103,7 @@ public class ConnectionController extends JPanel {
 			}
 		});
 
-		network.setSelected(false);
+		network.setSelected(true);
 		return network;
 	}
 
