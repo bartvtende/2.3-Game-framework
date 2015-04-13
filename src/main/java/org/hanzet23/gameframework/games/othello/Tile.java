@@ -45,9 +45,7 @@ public class Tile extends JButton{
 		});
 	}
 	
-	
-	
-	private void setContent(String command){
+	void setContent(String command){
 		this.setBackground(new Color(0,100,0));
 		if(command.equals("Empty")){
 			this.remove(content);

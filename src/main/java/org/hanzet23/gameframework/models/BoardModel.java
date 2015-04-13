@@ -1,6 +1,5 @@
 package main.java.org.hanzet23.gameframework.models;
 
-
 public class BoardModel {
 	
 	public final int GAME_STOPPED = -1;

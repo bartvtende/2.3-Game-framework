@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 import main.java.org.hanzet23.gameframework.games.othello.BoardView;
 import main.java.org.hanzet23.gameframework.models.GameModel;
+import main.java.org.hanzet23.gameframework.models.NetworkModel;
 
 public class OthelloModel extends GameModel {
 	
@@ -29,11 +30,20 @@ public class OthelloModel extends GameModel {
 	@Override
 	public void moveComputer() {
 		// TODO Auto-generated method stub
-		// boardFrame.refresh(board);		
+		boardView.refresh(board);
+		// Send to server
+		NetworkModel network = NetworkModel.getInstance();
+		network.getOutput().move("1");
+
+		// Add to board
+		addItemToBoard("1", 'X');
+
+		boardView.refresh(board);
 	}
 
 	@Override
 	public void startGame() {
+		// TODO: doesn't work!
 		JFrame frame = new JFrame();
 		frame.getContentPane().add(new BoardView());
 		frame.setVisible(true);
