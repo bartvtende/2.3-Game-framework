@@ -28,33 +28,7 @@ public class TicTacToeAI {
 
 	// Constructor
 	public TicTacToeAI(char[][] board) {
-		
-		
-		initSide();
-	}
-
-	private void initSide() {
-		if (this.side == COMPUTER) {
-			computerChar = 'X';
-			humanChar = 'O';
-		} else {
-			computerChar = 'O';
-			humanChar = 'X';
-		}
-	}
-
-	public void setComputerPlays() {
-		this.side = COMPUTER;
-		initSide();
-	}
-
-	public void setHumanPlays() {
-		this.side = ENEMY;
-		initSide();
-	}
-
-	public boolean computerPlays() {
-		return side == COMPUTER;
+		this.board = board;
 	}
 
 	public int chooseMove() {
