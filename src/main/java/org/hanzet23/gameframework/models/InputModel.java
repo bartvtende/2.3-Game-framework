@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import main.java.org.hanzet23.gameframework.controllers.GamesController;
 import main.java.org.hanzet23.gameframework.controllers.PlayersController;
+import main.java.org.hanzet23.gameframework.games.tictactoe.TicTacToeModel;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
 /**
@@ -116,7 +117,7 @@ public class InputModel {
 
 		// Make a player and game class
 		PlayerModel player = new PlayerModel(playerType, playingAs, opponent);
-		GameModel game = new GuessModel(gameName);
+		GameModel game = new TicTacToeModel(gameName);
 
 		// Initialize the board
 		BoardModel newBoard = new BoardModel(player, game);
