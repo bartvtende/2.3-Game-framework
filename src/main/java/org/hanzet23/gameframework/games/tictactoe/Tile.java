@@ -20,7 +20,7 @@ public class Tile extends JButton {
 		empty.setSize(tileSize, tileSize);
 		this.content = empty;
 
-		this.setContent("O");
+        this.setContent("Empty");
 		// border
 
 		Border raisedBevel = BorderFactory.createRaisedBevelBorder();
@@ -37,7 +37,6 @@ public class Tile extends JButton {
 				System.out.println("Tile got clicked");
 				setContent("X");
 			}
-
 		});
 	}
 
