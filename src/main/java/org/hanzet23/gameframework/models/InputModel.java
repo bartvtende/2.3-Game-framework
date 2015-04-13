@@ -118,16 +118,19 @@ public class InputModel {
 		// Make a player and game class
 		PlayerModel player = new PlayerModel(playerType, playingAs, opponent);
 		GameModel game = new TicTacToeModel(gameName);
+		
+		game.startGame();
 
 		// Initialize the board
 		BoardModel newBoard = new BoardModel(player, game);
 		NetworkModel.board = newBoard;
 
 		// Check if we have to start first
+		/*
 		if (!playerToMove.equals(opponent)) {
 			// Make a move
 			NetworkModel.board.move();
-		}
+		}*/
 	}
 
 	/**
@@ -136,8 +139,6 @@ public class InputModel {
 	 * @param line
 	 */
 	public void getTurn(String line) {
-		HashMap<String, String> map = parseMap(line);
-
 		NetworkModel.board.move();
 	}
 
@@ -173,6 +174,11 @@ public class InputModel {
 
 		String[] splitted = line.split("\\s");
 		String result = splitted[2];
+		System.out.println(result);
+
+		// Delete the game class and stop the games view
+		NetworkModel.board.stopGame();
+		NetworkModel.board = null;
 	}
 
 	/**
@@ -210,8 +216,12 @@ public class InputModel {
 	 */
 	public void getClose(String line) {
 		HashMap<String, String> map = parseMap(line);
+		
+		System.out.println("Test close");
 
 		// Delete the game class and stop the games view
+		NetworkModel.board.stopGame();
+		NetworkModel.board = null;
 	}
 
 	/**

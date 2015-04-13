@@ -15,6 +15,7 @@ public class TicTacToeModel extends GameModel {
 	public TicTacToeModel(String gameName) {
 		super(gameName);
 		this.board = new char[BOARD_RANGE][BOARD_RANGE];
+		initializeBoard();
 		TTTModel = this;
 	}
 
@@ -37,7 +38,7 @@ public class TicTacToeModel extends GameModel {
 		
 		// Gebruik minimax AI
 		for (int i = 0; i < BOARD_RANGE; i++) {
-			for (int j = 0; j < BOARD_RANGE; i++) {
+			for (int j = 0; j < BOARD_RANGE; j++) {
 				if (board[i][j] == 'E') {
 					position = Integer.toString(i * board.length + j);
 				}
@@ -61,6 +62,7 @@ public class TicTacToeModel extends GameModel {
 
 	@Override
 	public void startGame() {
+		System.out.println("Gameview wordt aangemaakt");
 		// Maak view
 		boardFrame = new JFrame();
 		boardView = new BoardView();
