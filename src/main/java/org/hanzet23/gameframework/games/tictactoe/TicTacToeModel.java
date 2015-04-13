@@ -3,9 +3,10 @@ package main.java.org.hanzet23.gameframework.games.tictactoe;
 import javax.swing.JFrame;
 
 import main.java.org.hanzet23.gameframework.models.GameModel;
+import main.java.org.hanzet23.gameframework.models.NetworkModel;
 
 public class TicTacToeModel extends GameModel {
-	
+
 	private final int BOARD_RANGE = 3;
 	private JFrame boardFrame;
 	private BoardView boardView;
@@ -20,8 +21,8 @@ public class TicTacToeModel extends GameModel {
 	@Override
 	public void moveHuman() {
 		// Luister naar de actionlisteners
-		for(int i = 0; i<BOARD_RANGE;i++){
-			for(int j = 0; j<BOARD_RANGE; i++){
+		for (int i = 0; i < BOARD_RANGE; i++) {
+			for (int j = 0; j < BOARD_RANGE; i++) {
 				boardView.getTile(i, j).setEnabled(true);
 			}
 		}
@@ -29,7 +30,33 @@ public class TicTacToeModel extends GameModel {
 
 	@Override
 	public void moveComputer() {
+		// Refresh board
+		boardView.refresh(board);
+		
+		String position = null;
+		
 		// Gebruik minimax AI
+		for (int i = 0; i < BOARD_RANGE; i++) {
+			for (int j = 0; j < BOARD_RANGE; i++) {
+				if (board[i][j] == 'E') {
+					position = Integer.toString(i * board.length + j);
+				}
+			}
+		}
+
+		if (position != null) {		
+			// Send to server
+			NetworkModel network = NetworkModel.getInstance();
+			network.getOutput().move(position);
+			
+			// Add to board
+			addItemToBoard(position, 'X');
+			
+			// Refresh board
+			boardView.refresh(board);
+		}
+		
+		System.out.println("No moves available.");
 	}
 
 	@Override
@@ -38,25 +65,25 @@ public class TicTacToeModel extends GameModel {
 		boardFrame = new JFrame();
 		boardView = new BoardView();
 		boardFrame.getContentPane().add(boardView);
-		
+
 		boardFrame.setVisible(true);
 		boardFrame.pack();
-		//yea, yea, hardcoded vars, i know, bad me
-		boardFrame.getContentPane().setSize(BOARD_RANGE*50, BOARD_RANGE*50);
+		// yea, yea, hardcoded vars, i know, bad me
+		boardFrame.getContentPane().setSize(BOARD_RANGE * 50, BOARD_RANGE * 50);
 		boardFrame.setResizable(false);
 	}
 
 	@Override
 	public void stopGame() {
 		// Remove the view
-		if(boardFrame != null){
+		if (boardFrame != null) {
 			boardFrame.dispose();
 			boardFrame = null;
 		}
 	}
-	
-	public BoardView getBoardView(){
+
+	public BoardView getBoardView() {
 		return boardView;
 	}
-	
+
 }

@@ -4,7 +4,7 @@ public abstract class GameModel {
 	
 	public final int BOARD_RANGE = 0;
 	
-	protected char[][] board = null;
+	public char[][] board = null;
 	
 	private String gameName = null;
 	
@@ -18,7 +18,8 @@ public abstract class GameModel {
 	 * @param position
 	 * @param identifier
 	 */
-	public void addItemToBoard(int position, char identifier) {
+	public void addItemToBoard(String positionString, char identifier) {
+		int position = (int) Integer.parseInt(positionString);
 		int x = (int) Math.floor(position / board.length);
 		int y = position % board.length;
 		

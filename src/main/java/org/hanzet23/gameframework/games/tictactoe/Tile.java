@@ -41,7 +41,7 @@ public class Tile extends JButton {
 		});
 	}
 
-	private void setContent(String command) {
+	void setContent(String command) {
 		if (command.equals("Empty")) {
 			this.remove(content);
 			JPanel empty = new JPanel();
