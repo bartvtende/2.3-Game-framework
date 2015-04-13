@@ -1,5 +1,7 @@
 package main.java.org.hanzet23.gameframework.games.othello;
 
+
+
 import javax.swing.JFrame;
 
 import main.java.org.hanzet23.gameframework.games.othello.BoardView;
@@ -7,6 +9,13 @@ import main.java.org.hanzet23.gameframework.models.GameModel;
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
 
 public class OthelloModel extends GameModel {
+	
+	public static final int PLAYER_ONE = 0;
+	public static final int PLAYER_TWO = 1;
+	
+	public static final int STATE_DRAW = 2;
+	public static final int STATE_UNKNOWN = 3; //Hierbij is de uitkomst van het spel nog niet bepaald, zie OthelloMove
+	public static final int EMPTY = 2;
 	
 	private final int BOARD_RANGE = 8;
 	
@@ -57,6 +66,20 @@ public class OthelloModel extends GameModel {
 			boardFrame.dispose();
 			boardFrame = null;
 		}
+	}
+	
+	/**
+	 * Method to clone the board.
+	 * @return OthelloModel
+	 */
+	public OthelloModel clone() {
+		OthelloModel clone = new OthelloModel(this.getGameName());
+		for(int x = 0; x < BOARD_RANGE; x++) {
+			for(int y = 0; y < BOARD_RANGE; y++) {
+				clone.board[x][y] = board[x][y];
+			}
+		}
+		return clone;
 	}
 
 }
