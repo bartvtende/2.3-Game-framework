@@ -130,6 +130,7 @@ public class InputModel {
 			if (gameName.equalsIgnoreCase(key)) {
 				System.out.println(key + " - " + value);
 				try {
+					// Dynamically load the game class from the settings file
 					Class<?> gameClass = Class.forName(value);
 					Constructor<?> constructor = gameClass.getConstructor(String.class);
 					Object instance = constructor.newInstance(gameName);
@@ -140,6 +141,7 @@ public class InputModel {
 			}
 		}
 		
+		// Start the game
 		game.startGame();
 
 		// Initialize the board
@@ -176,7 +178,7 @@ public class InputModel {
 			printServerLine(key + ": " + value);
 		}
 
-		// If error: make move again
+		// TODO: If error: make move again
 	}
 
 	/**
@@ -185,17 +187,13 @@ public class InputModel {
 	 * @param line
 	 */
 	public void getResult(String line) {
-		HashMap<String, String> map = parseMap(line);
-
 		// Send the result to the game class and stop the game
-
 		String[] splitted = line.split("\\s");
 		String result = splitted[2];
 		System.out.println(result);
 
 		// Delete the game class and stop the games view
-		NetworkModel.board.stopGame();
-		NetworkModel.board = null;
+		closeBoard();
 	}
 
 	/**
@@ -221,9 +219,8 @@ public class InputModel {
 	 * @param line
 	 */
 	public void getChallengeCancelled(String line) {
-		HashMap<String, String> map = parseMap(line);
-
 		// Delete the game class and stop the games view
+		closeBoard();
 	}
 
 	/**
@@ -232,13 +229,8 @@ public class InputModel {
 	 * @param line
 	 */
 	public void getClose(String line) {
-		HashMap<String, String> map = parseMap(line);
-		
-		System.out.println("Test close");
-
 		// Delete the game class and stop the games view
-		NetworkModel.board.stopGame();
-		NetworkModel.board = null;
+		closeBoard();
 	}
 
 	/**
@@ -350,5 +342,10 @@ public class InputModel {
 	 */
 	public void printClientLine(String line) {
 		System.out.println("Client: " + line);
+	}
+	
+	private void closeBoard() {
+		NetworkModel.board.stopGame();
+		NetworkModel.board = null;
 	}
 }
