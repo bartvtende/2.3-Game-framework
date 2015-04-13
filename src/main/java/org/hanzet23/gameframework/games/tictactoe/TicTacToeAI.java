@@ -167,18 +167,18 @@ public class TicTacToeAI {
 		
 		// Check for column wins
 		for (int i = 0; i < 3; i++) {
-			if (rows[i].equals("111") || columns[i].equals("111")) {
+			if (rows[i].equals("XXX") || columns[i].equals("XXX")) {
 				return COMPUTER_WIN;
-			} else if (rows[i].equals("000") || columns[i].equals("000")) {
+			} else if (rows[i].equals("OOO") || columns[i].equals("OOO")) {
 				return HUMAN_WIN;
 			}
 		}
 		
 		// Check for diagonal wins
 		for (int i = 0; i < 2; i++) {
-			if (diagonals[i].equals("111")) {
+			if (diagonals[i].equals("XXX")) {
 				return COMPUTER_WIN;
-			} else if (diagonals[i].equals("000")) {
+			} else if (diagonals[i].equals("OOO")) {
 				return HUMAN_WIN;
 			}
 		}
