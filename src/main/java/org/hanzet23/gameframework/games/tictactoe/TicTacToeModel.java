@@ -35,21 +35,16 @@ public class TicTacToeModel extends GameModel {
 		// Refresh board
 		boardView.refresh(board);
 
-		String position = null;
-
+		// Sleep for 2 seconds
 		try {
-			Thread.sleep(4000);
+			Thread.sleep(2000);
 		} catch (InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}
 
-		// Minimax AI
-
-		// Gebruik minimax AI
-		int position;
+		// Call to the AI
 		TicTacToeAI AI = new TicTacToeAI(board);
-		position = AI.chooseMove();
-		
+		String position = Integer.toString(AI.chooseMove());
 
 		if (position != null) {
 			// Send to server
@@ -63,6 +58,7 @@ public class TicTacToeModel extends GameModel {
 			boardView.refresh(board);
 		}
 
+		// Print the board in the console for testing purposes
 		printBoard();
 	}
 
