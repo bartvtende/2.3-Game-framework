@@ -8,7 +8,6 @@ import java.net.Socket;
 
 import javax.swing.JOptionPane;
 
-import main.java.org.hanzet23.gameframework.games.BoardModel;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
 /**

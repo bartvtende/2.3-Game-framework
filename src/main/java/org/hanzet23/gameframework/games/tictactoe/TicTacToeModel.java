@@ -1,60 +1,62 @@
 package main.java.org.hanzet23.gameframework.games.tictactoe;
 
-import main.java.org.hanzet23.gameframework.games.BoardGameModel;
+import javax.swing.JFrame;
 
-/**
- * Dit is een child klasse die de tictactoe game functies bevalt Created by Joz
- * Reijnevweld on 26/03/15.
- */
-public class TicTacToeModel extends BoardGameModel {
+import main.java.org.hanzet23.gameframework.models.GameModel;
+
+public class TicTacToeModel extends GameModel {
 	
-	private final int TIC_TAC_TOE_RANGE = 3;
+	private final int BOARD_RANGE = 3;
+	private JFrame boardFrame;
+	private BoardView boardView;
+	public static TicTacToeModel TTTModel;
 
-	public TicTacToeModel() {
-		this.board = new char[TIC_TAC_TOE_RANGE][TIC_TAC_TOE_RANGE];
-	}
-
-	/**
-	 * Deze methode check of een player een win heeft in het diagonale.
-	 * 
-	 * @return boolean wanneer er een win is
-	 */
-	private boolean checkDiagnalWin() {
-		// TODO CheckDiagnalWin moet nog geimplementeerd worden.
-		return false;
-	}
-
-	/**
-	 * Deze methode checked of een player een win heeft in het horizontale.
-	 * 
-	 * @return boolean wanneer er een win is.
-	 */
-	private boolean checkHorizontalWin() {
-		// TODO CheckHorizontalWin moet nog geimplementeerd worden.
-		return false;
-	}
-
-	/**
-	 * Deze methode checked of een player een win heeft in het verticale.
-	 * 
-	 * @return boolean wanneer er een win is.
-	 */
-	private boolean checkVerticalWin() {
-		// TODO CheckVerticalWin moet nog geimplementeerd worden.
-		return false;
+	public TicTacToeModel(String gameName) {
+		super(gameName);
+		this.board = new char[BOARD_RANGE][BOARD_RANGE];
+		TTTModel = this;
 	}
 
 	@Override
-	public boolean checkIfThereIsAWin() {
-		if (checkDiagnalWin() && checkHorizontalWin() && checkVerticalWin()) {
-			return true;
-		} else {
-			return false;
+	public void moveHuman() {
+		// Luister naar de actionlisteners
+		for(int i = 0; i<BOARD_RANGE;i++){
+			for(int j = 0; j<BOARD_RANGE; i++){
+				boardView.getTile(i, j).setEnabled(true);
+			}
 		}
 	}
 
 	@Override
-	public void setMarker() {
-		// TODO setMarker moet nog geimplementeerd worden
+	public void moveComputer() {
+		// Gebruik minimax AI
 	}
+
+	@Override
+	public void startGame() {
+		// Maak view
+		boardFrame = new JFrame();
+		boardView = new BoardView();
+		boardFrame.getContentPane().add(boardView);
+		
+		boardFrame.setVisible(true);
+		boardFrame.pack();
+		//yea, yea, hardcoded vars, i know, bad me
+		boardFrame.getContentPane().setSize(BOARD_RANGE*50, BOARD_RANGE*50);
+		boardFrame.setResizable(false);
+	}
+
+	@Override
+	public void stopGame() {
+		// Remove the view
+		if(boardFrame != null){
+			boardFrame.dispose();
+			boardFrame = null;
+		}
+	}
+	
+	public BoardView getBoardView(){
+		return boardView;
+	}
+	
 }

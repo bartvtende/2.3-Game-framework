@@ -1,6 +1,5 @@
-package main.java.org.hanzet23.gameframework.games;
+package main.java.org.hanzet23.gameframework.models;
 
-import main.java.org.hanzet23.gameframework.models.PlayerModel;
 
 public class BoardModel {
 	

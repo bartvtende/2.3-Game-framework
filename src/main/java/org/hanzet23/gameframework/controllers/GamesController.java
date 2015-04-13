@@ -77,7 +77,7 @@ public class GamesController extends JPanel {
 			JToggleButton gameButton = new JToggleButton(game);
 			String key = game.toLowerCase();
 			if (key.contains("tic") || key.contains("othello")
-					|| key.contains("reversi") || key.contains("guess")) {
+					|| key.contains("reversi")) {
 				gameButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent arg0) {

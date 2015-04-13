@@ -9,9 +9,6 @@ import javax.swing.JOptionPane;
 
 import main.java.org.hanzet23.gameframework.controllers.GamesController;
 import main.java.org.hanzet23.gameframework.controllers.PlayersController;
-import main.java.org.hanzet23.gameframework.games.BoardModel;
-import main.java.org.hanzet23.gameframework.games.GameModel;
-import main.java.org.hanzet23.gameframework.games.GuessModel;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
 /**
