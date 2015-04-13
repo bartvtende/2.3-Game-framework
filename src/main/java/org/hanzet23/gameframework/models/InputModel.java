@@ -1,7 +1,9 @@
 package main.java.org.hanzet23.gameframework.models;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -9,7 +11,6 @@ import javax.swing.JOptionPane;
 
 import main.java.org.hanzet23.gameframework.controllers.GamesController;
 import main.java.org.hanzet23.gameframework.controllers.PlayersController;
-import main.java.org.hanzet23.gameframework.games.tictactoe.TicTacToeModel;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
 /**
@@ -64,7 +65,7 @@ public class InputModel {
 		String[] games = parseList(line);
 
 		// Setup the games in the GUI
-		GamesController gamesPanel = MainView.mainview.games;
+		GamesController gamesPanel = MainView.games;
 		gamesPanel.setGamesList(games);
 		gamesPanel.setupGames();
 		gamesPanel.revalidate();
@@ -93,7 +94,7 @@ public class InputModel {
 		allPlayers.toArray(newPlayers);
 
 		// Setup the players in the GUI
-		PlayersController playerPanel = MainView.mainview.players;
+		PlayersController playerPanel = MainView.players;
 		playerPanel.setPlayersList(newPlayers);
 		playerPanel.setupPlayers();
 		playerPanel.revalidate();
@@ -109,29 +110,41 @@ public class InputModel {
 		HashMap<String, String> map = parseMap(line);
 
 		// Get the variables
-		String gameName = map.get("GAMTYPE");
+		String gameName = map.get("GAMETYPE");
 		String opponent = map.get("OPPONENT");
-		String playerToMove = map.get("PLAYERTOMOVE");
 
 		String playerType = MainView.games.getPlayerType();
 		String playingAs = MainView.connection.getSelectedName();
 
 		// Make a player and game class
 		PlayerModel player = new PlayerModel(playerType, playingAs, opponent);
-		GameModel game = new TicTacToeModel(gameName);
+		GameModel game = null;
+		
+		SettingsModel settings = new SettingsModel();
+		LinkedHashMap<String, String> settingsMap = settings.getGames();
+		
+		for (Map.Entry<String, String> entry : settingsMap.entrySet()) {
+			String key = entry.getKey();
+			String value = entry.getValue();
+			
+			if (gameName.equalsIgnoreCase(key)) {
+				System.out.println(key + " - " + value);
+				try {
+					Class<?> gameClass = Class.forName(value);
+					Constructor<?> constructor = gameClass.getConstructor(String.class);
+					Object instance = constructor.newInstance(gameName);
+					game = (GameModel) instance;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		
 		game.startGame();
 
 		// Initialize the board
 		BoardModel newBoard = new BoardModel(player, game);
 		NetworkModel.board = newBoard;
-
-		// Check if we have to start first
-		/*
-		if (!playerToMove.equals(opponent)) {
-			// Make a move
-			NetworkModel.board.move();
-		}*/
 	}
 
 	/**

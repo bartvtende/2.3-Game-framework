@@ -75,4 +75,19 @@ public class SettingsModel {
 			System.out.println("Something went wrong saving the settings file!");
 		}
 	}
+	
+	public LinkedHashMap<String, String> getGames() {
+		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+		LinkedHashMap<String, String> settingsMap = getSettings();
+		
+		String gamesString = settingsMap.get("games");
+		String[] gamesSplitted = gamesString.split(",");
+		
+		for (String value : gamesSplitted) {
+			String[] array = value.split(":");
+			map.put(array[0], array[1]);
+		}
+		
+		return map;		
+	}
 }

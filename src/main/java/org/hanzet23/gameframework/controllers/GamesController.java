@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -14,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
+
+import main.java.org.hanzet23.gameframework.models.SettingsModel;
 
 public class GamesController extends JPanel {
 
@@ -76,19 +80,28 @@ public class GamesController extends JPanel {
 		for (String game : gamesList) {
 			JToggleButton gameButton = new JToggleButton(game);
 			String key = game.toLowerCase();
-			if (key.contains("tic") || key.contains("othello")
-					|| key.contains("reversi")) {
-				gameButton.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
+			
+			SettingsModel settings = new SettingsModel();
+			LinkedHashMap<String, String> map = settings.getGames();
+			
+			boolean counter = false;
+			for (Map.Entry<String, String> entry : map.entrySet()) {
+				String gameName = entry.getKey();
+				if (key.equalsIgnoreCase(gameName)) {
+					counter = true;
+					gameButton.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
 
-						for (JToggleButton button : games) {
-							button.setSelected(false);
+							for (JToggleButton button : games) {
+								button.setSelected(false);
+							}
+							((JToggleButton) arg0.getSource()).setSelected(true);
 						}
-						((JToggleButton) arg0.getSource()).setSelected(true);
-					}
-				});
-			} else {
+					});
+				}
+			}
+			if (!counter) {
 				gameButton.setEnabled(false);
 			}
 			games.add(gameButton);

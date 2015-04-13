@@ -8,6 +8,7 @@ import main.java.org.hanzet23.gameframework.models.NetworkModel;
 public class TicTacToeModel extends GameModel {
 
 	private final int BOARD_RANGE = 3;
+
 	private JFrame boardFrame;
 	private BoardView boardView;
 	public static TicTacToeModel TTTModel;
@@ -33,15 +34,17 @@ public class TicTacToeModel extends GameModel {
 	public void moveComputer() {
 		// Refresh board
 		boardView.refresh(board);
-		
+
 		String position = null;
-		
+
 		try {
-		    Thread.sleep(4000);
-		} catch(InterruptedException ex) {
-		    Thread.currentThread().interrupt();
+			Thread.sleep(4000);
+		} catch (InterruptedException ex) {
+			Thread.currentThread().interrupt();
 		}
-		
+
+		// Minimax AI
+
 		// Gebruik minimax AI
 		for (int i = 0; i < BOARD_RANGE; i++) {
 			for (int j = 0; j < BOARD_RANGE; j++) {
@@ -51,14 +54,14 @@ public class TicTacToeModel extends GameModel {
 			}
 		}
 
-		if (position != null) {		
+		if (position != null) {
 			// Send to server
 			NetworkModel network = NetworkModel.getInstance();
 			network.getOutput().move(position);
-			
+
 			// Add to board
 			addItemToBoard(position, 'X');
-			
+
 			// Refresh board
 			boardView.refresh(board);
 		}
