@@ -7,8 +7,9 @@ public class BoardModel {
 	public final int GAME_INITIALIZED = 0;
 	public final int GAME_STARTED = 1;
 	
-	private PlayerModel player = null;
-	private GameModel game = null;
+	public PlayerModel player = null;
+	public GameModel game = null;
+	
 	private int state = GAME_STOPPED;
 	
 	public BoardModel(PlayerModel player, GameModel game) {

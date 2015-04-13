@@ -150,7 +150,10 @@ public class InputModel {
 	 */
 	public void getMove(String line) {
 		HashMap<String, String> map = parseMap(line);
-
+		
+		String position = map.get("MOVE");
+		NetworkModel.board.game.addItemToBoard(position, 'O');
+		
 		// Check the input
 		printServerLine("Got a move back, info:");
 

@@ -23,7 +23,7 @@ public class TicTacToeModel extends GameModel {
 	public void moveHuman() {
 		// Luister naar de actionlisteners
 		for (int i = 0; i < BOARD_RANGE; i++) {
-			for (int j = 0; j < BOARD_RANGE; i++) {
+			for (int j = 0; j < BOARD_RANGE; j++) {
 				boardView.getTile(i, j).setEnabled(true);
 			}
 		}
@@ -35,6 +35,12 @@ public class TicTacToeModel extends GameModel {
 		boardView.refresh(board);
 		
 		String position = null;
+		
+		try {
+		    Thread.sleep(4000);
+		} catch(InterruptedException ex) {
+		    Thread.currentThread().interrupt();
+		}
 		
 		// Gebruik minimax AI
 		for (int i = 0; i < BOARD_RANGE; i++) {
