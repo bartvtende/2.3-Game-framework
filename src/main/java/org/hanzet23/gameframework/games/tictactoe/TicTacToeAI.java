@@ -1,131 +1,268 @@
 package main.java.org.hanzet23.gameframework.games.tictactoe;
 
-import extended.gameInterface.AbstractGameAI;
-import game.tictactoe.TicTacToeGame;
+
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
-import model.Settings;
 
 /**
  * AI for TicTacToe
  */
-public class TicTacToeAI extends AbstractGameAI {
-	
-	private final double difficulty;
-	private final int DRAW = 2;				// Value representing a draw
-	private final int STATE_UNKNOWN = 3;	// Value representing that the game is yet undecided
-	
-	private int[][] board;					// Playing field
-	
-	public TicTacToeAI(int[][] board) {
-		this.board = board;
+public class TicTacToeAI {
+	public static final char ENEMY = 'X';
+	public static final char COMPUTER = 'O';
+	public static final char EMPTY = 'E';
+
+	public static final int HUMAN_WIN = 0;
+	public static final int DRAW = 1;
+	public static final int UNCLEAR = 2;
+	public static final int COMPUTER_WIN = 3;
+
+	private char[][] board = new char[3][3];
+	private Random random = new Random();
+	private char side = COMPUTER;
+	private int position = UNCLEAR;
+	private char computerChar, humanChar;
+
+	// Constructor
+	public TicTacToeAI(char[][] board) {
 		
-		difficulty = 1 - (Math.pow(Settings.DIFFICULTY, 0.4) / Math.pow(Settings.HARD, 0.4));
+		
+		initSide();
 	}
-	
-	/**
-	 * Compute the best move available for player
-	 * @param player
-	 * @return best move (ie: "1,1")
-	 */
-	public void getBestMove(int player) {
-		boolean getRandom;
-		double random = Math.random();
-		getRandom = (random < difficulty);
-		notifyListeners(bestMove(player, getRandom).toString());
-	}
-	
-	/**
-	 * Method to recursively compute the best move for a player
-	 * @param player
-	 * @return Best Move
-	 */
-	private Move bestMove(int player, boolean getRandom) {
-		
-		int opp = TicTacToeGame.getOtherPlayerInt(player);
-		
-		Move bestMove = null;
-		
-		ArrayList<Move> moves = getLegalMoves();
-		if(getRandom) {
-			return moves.get((int) (Math.random() * moves.size()));
+
+	private void initSide() {
+		if (this.side == COMPUTER) {
+			computerChar = 'X';
+			humanChar = 'O';
+		} else {
+			computerChar = 'O';
+			humanChar = 'X';
 		}
-		
-		for(Move move : moves) {
-			board[move.x][move.y] = player;
-			move.setValue(evaluateGame());
-			
-			// Recursive
-			if(move.value == STATE_UNKNOWN) {
-				// If the value of the current move is unknown, the value of the move
-				// can be evaluated by evaluating the opponent's best follow up move
-				move.value = bestMove(opp, false).value;
+	}
+
+	public void setComputerPlays() {
+		this.side = COMPUTER;
+		initSide();
+	}
+
+	public void setHumanPlays() {
+		this.side = ENEMY;
+		initSide();
+	}
+
+	public boolean computerPlays() {
+		return side == COMPUTER;
+	}
+
+	public int chooseMove() {
+		Best best = chooseMove(COMPUTER);
+		return best.row * 3 + best.column;
+	}
+
+	// Find optimal move
+	private Best chooseMove(char side) {
+		char opp; // The other side
+
+		if (side == COMPUTER)
+			opp = ENEMY;
+		else
+			opp = COMPUTER;
+
+		Best reply; // Opponent's best reply
+
+		if (side == COMPUTER)
+			reply = new Best(HUMAN_WIN);
+		else
+			reply = new Best(COMPUTER_WIN);
+
+		int simpleEval; // Result of an immediate evaluation
+		int bestRow = 0;
+		int bestColumn = 0;
+		int value;
+
+		if ((simpleEval = positionValue()) != UNCLEAR)
+			return new Best(simpleEval);
+
+		for (int i = 0; i < 9; i++) {
+			if (moveOk(i)) {
+				// Place it on the board temporary
+				place(i / 3, i % 3, side);
+				Best turn = chooseMove(opp);
+
+				// Check the side
+				if (side == COMPUTER) {
+					if (reply.val < turn.val) {
+						reply.val = turn.val;
+						reply.row = i / 3;
+						reply.column = i % 3;
+					}
+				} else {
+					if (reply.val > turn.val) {
+						reply.val = turn.val;
+						reply.row = i / 3;
+						reply.column = i % 3;
+					}
+				}
+				// Reset the board
+				place(i / 3, i % 3, EMPTY);
 			}
-			
-			if(bestMove == null) {
-				bestMove = move;
+		}
+
+		return reply;
+	}
+
+	// check if move ok
+	public boolean moveOk(int move) {
+		return (move >= 0 && move <= 8 && board[move / 3][move % 3] == EMPTY);
+	}
+
+	// play move
+	public void playMove(int move) {
+		board[move / 3][move % 3] = this.side;
+		if (side == COMPUTER)
+			this.side = ENEMY;
+		else
+			this.side = COMPUTER;
+	}
+
+	// Simple supporting routines
+	public void clearBoard() {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				board[i][j] = EMPTY;
 			}
-			else if(move.value != opp) {
-				// The move is the new best move if either the previous best was a loss, or the current move is a win
-				if(bestMove.value == opp || move.value == player) {
-					bestMove = move;
+		}
+	}
+
+	// Check if the board is full
+	private boolean boardIsFull() {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				// Return false if there's an empty spot
+				if (board[i][j] == EMPTY) {
+					return false;
 				}
 			}
-			// Remove our move from the board
-			board[move.x][move.y] = TicTacToeGame.EMPTY;
-			// No need to keep looking if we've found a winning move
-			if(bestMove.value == player) break;
 		}
-		return bestMove;
+		return true;
 	}
-	
-	/**
-	 * Gets an iterator over all legal moves
-	 * @return legal moves
-	 */
-	private ArrayList<Move> getLegalMoves() {
-		ArrayList<Move> legalMoves = new ArrayList<Move>();
-		for(int x = 0; x < board.length; x++) {
-			for(int y = 0; y < board[x].length; y++) {
-				if(board[x][y] == TicTacToeGame.EMPTY) legalMoves.add(new Move(x, y));
+
+	// Returns whether 'side' has won in this position
+	public boolean isAWin(int side) {
+		int pos = positionValue();
+		if ((pos == COMPUTER_WIN && side == COMPUTER)
+				|| (pos == HUMAN_WIN && side == ENEMY)) {
+			return true;
+		}
+		return false;
+	}
+
+	// Play a move, possibly clearing a square
+	private void place(int row, int column, char piece) {
+		board[row][column] = piece;
+	}
+
+	private boolean squareIsEmpty(int row, int column) {
+		return board[row][column] == EMPTY;
+	}
+
+	// Compute static value of current position (win, draw, etc.)
+	public int positionValue() {
+		// Initialize arrays for the sums of rows, columns and diagonals
+		String[] columns = new String[3];
+		String[] rows = new String[3];
+		String[] diagonals = new String[2];
+
+		// Fill the arrays with an empty string
+		Arrays.fill(columns, "");
+		Arrays.fill(rows, "");
+		Arrays.fill(diagonals, "");
+		
+		// Check column and row wins
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				columns[i] += board[j][i];
+				rows[i] += board[i][j];
+			}
+		    diagonals[0] += board[i][i];
+		    diagonals[1] += board[2-i][2-i];
+		}
+		
+		// Check for column wins
+		for (int i = 0; i < 3; i++) {
+			if (rows[i].equals("111") || columns[i].equals("111")) {
+				return COMPUTER_WIN;
+			} else if (rows[i].equals("000") || columns[i].equals("000")) {
+				return HUMAN_WIN;
 			}
 		}
-		return legalMoves;
-	}
-	
-	/**
-	 * Determine if someone has won, lost, it's a draw or the game isnt over
-	 * @return true/false
-	 */
-	private int evaluateGame() {
-		if(TicTacToeGame.isAWin(board, TicTacToeGame.PLAYER_ONE)) return TicTacToeGame.PLAYER_ONE;
-		if(TicTacToeGame.isAWin(board, TicTacToeGame.PLAYER_TWO)) return TicTacToeGame.PLAYER_TWO;
-		if(TicTacToeGame.boardIsFull(board)) return DRAW;
-		return STATE_UNKNOWN;
-	}
-	
-	/**
-	 * Class to describe a move and it's value
-	 * @author Wim, Mart, Bas, Jurrian
-	 *
-	 */
-	private class Move {
-		public int x;
-		public int y;
-		public int value = STATE_UNKNOWN;
 		
-		public Move(int x, int y) {
-			this.x = x;
-			this.y = y;
+		// Check for diagonal wins
+		for (int i = 0; i < 2; i++) {
+			if (diagonals[i].equals("111")) {
+				return COMPUTER_WIN;
+			} else if (diagonals[i].equals("000")) {
+				return HUMAN_WIN;
+			}
 		}
-		
-		public void setValue(int value){
-			this.value = value;
+
+		// Check if board is full (draw)
+		if (boardIsFull()) {
+			return DRAW;
 		}
-		
-		public String toString() {
-			return x + "," + y;
+
+		return UNCLEAR;
+	}
+
+	// Prints the board in a string
+	public String toString() {
+		String str = "";
+
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (board[i][j] == COMPUTER)
+					str += computerChar;
+				else if (board[i][j] == ENEMY)
+					str += humanChar;
+				else
+					str += ".";
+			}
+			str += '\n'; // Start new row
+		}
+		return str;
+	}
+
+	public boolean gameOver() {
+		this.position = positionValue();
+		return this.position != UNCLEAR;
+	}
+
+	public String winner() {
+		if (this.position == COMPUTER_WIN)
+			return "computer";
+		else if (this.position == HUMAN_WIN)
+			return "human";
+		else
+			return "nobody";
+	}
+
+	private class Best {
+		int row;
+		int column;
+		int val;
+
+		public Best(int v) {
+			this(v, 0, 0);
+		}
+
+		public Best(int v, int r, int c) {
+			val = v;
+			row = r;
+			column = c;
 		}
 	}
+
 }
