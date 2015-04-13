@@ -128,7 +128,6 @@ public class InputModel {
 			String value = entry.getValue();
 			
 			if (gameName.equalsIgnoreCase(key)) {
-				System.out.println(key + " - " + value);
 				try {
 					// Dynamically load the game class from the settings file
 					Class<?> gameClass = Class.forName(value);

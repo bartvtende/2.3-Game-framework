@@ -79,7 +79,7 @@ public class TicTacToeModel extends GameModel {
 
 		boardFrame.setVisible(true);
 		boardFrame.pack();
-		// yea, yea, hardcoded vars, i know, bad me
+		// Set the fixed size
 		boardFrame.getContentPane().setSize(BOARD_RANGE * 50, BOARD_RANGE * 50);
 		boardFrame.setResizable(false);
 	}

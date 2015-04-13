@@ -6,7 +6,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import main.java.org.hanzet23.gameframework.games.tictactoe.Tile;
+import main.java.org.hanzet23.gameframework.games.othello.Tile;
 
 public class BoardView extends JPanel {
 
