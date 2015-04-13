@@ -35,9 +35,12 @@ public class BoardView extends JPanel {
 	public void refresh(char[][] board){
 		this.removeAll();
 		
+		this.setLayout(new GridLayout(3,3));
+		
 		for(int i = 0; i<board.length; i++){
-			for(int j = 0; j>board[0].length; j++){
+			for(int j = 0; j<board[0].length; j++){
 				char boardChar = board[i][j];
+				System.out.println(boardChar);
 				if(boardChar == 'X' || boardChar == 'x'){
 					Tile tile = new Tile();
 					tile.setContent("X");
