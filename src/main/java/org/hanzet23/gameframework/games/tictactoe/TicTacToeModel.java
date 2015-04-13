@@ -62,8 +62,8 @@ public class TicTacToeModel extends GameModel {
 			// Refresh board
 			boardView.refresh(board);
 		}
-		
-		System.out.println("No moves available.");
+
+		printBoard();
 	}
 
 	@Override
