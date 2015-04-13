@@ -46,13 +46,10 @@ public class TicTacToeModel extends GameModel {
 		// Minimax AI
 
 		// Gebruik minimax AI
-		for (int i = 0; i < BOARD_RANGE; i++) {
-			for (int j = 0; j < BOARD_RANGE; j++) {
-				if (board[i][j] == 'E') {
-					position = Integer.toString(i * board.length + j);
-				}
-			}
-		}
+		int position;
+		TicTacToeAI AI = new TicTacToeAI(board);
+		position = AI.chooseMove();
+		
 
 		if (position != null) {
 			// Send to server
