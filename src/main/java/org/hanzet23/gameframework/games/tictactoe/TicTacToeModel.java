@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 import main.java.org.hanzet23.gameframework.models.GameModel;
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
+import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class TicTacToeModel extends GameModel {
 
@@ -71,6 +72,19 @@ public class TicTacToeModel extends GameModel {
 		// Set the fixed size
 		boardFrame.getContentPane().setSize(BOARD_RANGE * 50, BOARD_RANGE * 50);
 		boardFrame.setResizable(false);
+		
+		//location popup
+		int x;
+		int y;
+		
+		MainView main = MainView.mainview;
+		
+		x = main.getLocation().x + (main.getContentPane().getWidth()+50);
+		y = main.getLocation().y + (main.getContentPane().getHeight()-boardFrame.getHeight());
+		
+		
+		boardFrame.setLocation(x, y);
+		//boardFrame.setLocationRelativeTo(MainView.mainview);
 	}
 
 	@Override
