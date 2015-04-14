@@ -8,12 +8,15 @@ public class PlayerModel {
 	public String playingAs = "";
 	// Your opponent
 	public String playingAgainst = "";
+	// First tile to begin
+	public char tile = 0;
 
 	public PlayerModel(String playerType, String playingAs,
-			String playingAgainst) {
+			String playingAgainst, char tile) {
 		this.playerType = playerType;
 		this.playingAs = playingAs;
 		this.playingAgainst = playingAgainst;
+		this.tile = tile;
 	}
 
 	public String getPlayerType() {
@@ -26,6 +29,10 @@ public class PlayerModel {
 
 	public String getPlayingAgainst() {
 		return playingAgainst;
+	}
+	
+	public char getTile() {
+		return tile;
 	}
 
 }

@@ -111,13 +111,22 @@ public class InputModel {
 
 		// Get the variables
 		String gameName = map.get("GAMETYPE");
+		String firstOne = map.get("PLAYERTOMOVE");
 		String opponent = map.get("OPPONENT");
 
 		String playerType = MainView.games.getPlayerType();
 		String playingAs = MainView.connection.getSelectedName();
+		
+		char tile = 0;
+		
+		if (firstOne.equalsIgnoreCase(playingAs)) {
+			tile = 'X';
+		} else {
+			tile = 'O';
+		}
 
 		// Make a player and game class
-		PlayerModel player = new PlayerModel(playerType, playingAs, opponent);
+		PlayerModel player = new PlayerModel(playerType, playingAs, opponent, tile);
 		GameModel game = null;
 		
 		SettingsModel settings = new SettingsModel();
@@ -132,13 +141,13 @@ public class InputModel {
 				game = loadGame(gameName, value);
 			}
 		}
-		
-		// Start the game
-		game.startGame();
 
 		// Initialize the board
 		BoardModel newBoard = new BoardModel(player, game);
 		NetworkModel.board = newBoard;
+
+		// Start the game
+		game.startGame();
 	}
 
 	/**
@@ -256,7 +265,7 @@ public class InputModel {
 			Object instance = constructor.newInstance(gameName);
 			game = (GameModel) instance;
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getCause().printStackTrace();
 		}
 		return game;
 	}
