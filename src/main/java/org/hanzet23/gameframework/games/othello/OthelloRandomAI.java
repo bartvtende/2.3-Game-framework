@@ -23,7 +23,7 @@ public class OthelloRandomAI implements OthelloAIInterface {
 		if (board[move.x][move.y] != 'E') {
 			return false;
 		}
-		
+
 		char opp = 0;
 		if (player == 'X') {
 			opp = 'O';
@@ -32,8 +32,8 @@ public class OthelloRandomAI implements OthelloAIInterface {
 		}
 
 		// 8 directions 2 coordinates each direction
-		int[][] directions = { 
-				{ -1, -1 }, { 0, -1 }, { 1, -1 }, // Top directions
+		int[][] directions = { { -1, -1 }, { 0, -1 }, { 1, -1 }, // Top
+																	// directions
 				{ -1, 0 }, { 1, 0 }, // left and right
 				{ -1, 1 }, { 0, 1 }, { 1, 1 } // bottom directions
 		};
@@ -83,10 +83,74 @@ public class OthelloRandomAI implements OthelloAIInterface {
 		return validmoves;
 	}
 
+	/**
+	 * Place an OthelloMove on the board.
+	 * 
+	 * @param player
+	 * @param move
+	 * @return
+	 */
+	public char[][] place(char player, OthelloMove move, char[][] board) {
+		char opp = 0;
+		if (player == 'X') {
+			opp = 'O';
+		} else {
+			opp = 'X';
+		}
+
+		int flipped = 0;
+
+		int[][] directions = {
+				{ -1, -1 }, { 0, -1 }, { 1, -1 }, // Top directions
+				{ -1, 0 }, { 1, 0 }, // left and right
+				{ -1, 1 }, { 0, 1 }, { 1, 1 } // bottom directions
+		};
+
+		outerLoop: for (int dir = 0; dir < directions.length; dir++) { // Check
+																		// all
+																		// directions
+
+			// first check if we can go this way, skip if not
+			for (int dist = 1; true; dist++) {
+				int checkX = move.x + (dist * directions[dir][0]);
+				int checkY = move.y + (dist * directions[dir][1]);
+
+				if (checkX < 0 || checkY < 0 || checkX >= board.length
+						|| checkY >= board.length) {
+					continue outerLoop;
+				} else if (dist == 1) {
+					if (board[checkX][checkY] != opp)
+						continue outerLoop;
+				} else {
+					if (board[checkX][checkY] == 'E')
+						continue outerLoop;
+					else if (board[checkX][checkY] == player)
+						break;
+				}
+			}
+
+			// then flip the tiles
+			for (int dist = 1; dist < board.length; dist++) {
+				int checkX = move.x + (dist * directions[dir][0]);
+				int checkY = move.y + (dist * directions[dir][1]);
+
+				if (board[checkX][checkY] == opp) {
+					board[checkX][checkY] = player;
+					flipped++;
+				} else {
+					break;
+				}
+			}
+		}
+
+		board[move.x][move.y] = player;
+		return board;
+	}
+
 	@Override
 	public void setBoard(char[][] board) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

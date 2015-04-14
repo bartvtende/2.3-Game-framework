@@ -34,7 +34,7 @@ public class OthelloModel extends GameModel {
 	@Override
 	public void moveHuman() {
 		// TODO Auto-generated method stub
-		// boardFrame.refresh(board);
+		boardView.refresh(board);
 	}
 
 	@Override
@@ -42,8 +42,8 @@ public class OthelloModel extends GameModel {
 		boardView.refresh(board);
 		
 		try {
-            // thread to sleep for 10 seconds
-            Thread.sleep(1000);
+            // thread to sleep for 1 seconds
+            Thread.sleep(4000);
 		} catch (Exception e) {
 			System.out.println(e);
         }
@@ -63,9 +63,20 @@ public class OthelloModel extends GameModel {
 		network.getOutput().move(position);
 		
 		// Add to board
-		addItemToBoard(position, 'X');
+		placeMove('O', move.getValue(), false);
 
 		boardView.refresh(board);
+	}
+	
+	@Override
+	public void placeMove(char identifier, int move, boolean game) {
+		if (game) {
+			identifier = 'X';
+		}
+
+		OthelloMove newMove = new OthelloMove(move/8, move%8);
+		OthelloRandomAI ai = new OthelloRandomAI();
+		this.board = ai.place(identifier, newMove, board);
 	}
 
 	@Override

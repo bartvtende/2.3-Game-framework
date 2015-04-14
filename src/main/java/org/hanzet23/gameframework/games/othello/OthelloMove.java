@@ -47,6 +47,10 @@ public class OthelloMove {
 		return toString() + ": " + value;
 	}
 	
+	public int getValue() {
+		return x*8 + y;
+	}
+	
 	/**
 	 * Method to check if another move is better than (or equal to) this one.
 	 * @param move

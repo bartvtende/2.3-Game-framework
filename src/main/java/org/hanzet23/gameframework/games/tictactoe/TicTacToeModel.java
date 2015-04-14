@@ -86,4 +86,10 @@ public class TicTacToeModel extends GameModel {
 		return boardView;
 	}
 
+	@Override
+	public void placeMove(char identifier, int move, boolean game) {
+		String newMove = Integer.toString(move);
+		NetworkModel.board.game.addItemToBoard(newMove, identifier);
+	}
+
 }

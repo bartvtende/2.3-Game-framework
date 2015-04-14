@@ -41,6 +41,8 @@ public abstract class GameModel {
 			}
 		}
 	}
+	
+	public abstract void placeMove(char identifier, int move, boolean game);
 
 	public abstract void moveHuman();
 	
