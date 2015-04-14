@@ -16,7 +16,6 @@ public class CircleShape extends JPanel {
 		updatePoints(x,y);
 		this.setBackground(backGround);
 		this.circle = circle;
-		System.out.println(this.getBackground());
 		
 		this.setPreferredSize(new Dimension(x,y));
 	}

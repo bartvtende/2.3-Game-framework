@@ -2,10 +2,11 @@ package main.java.org.hanzet23.gameframework.games.othello;
 
 
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import javax.swing.JFrame;
 
-import main.java.org.hanzet23.gameframework.games.othello.BoardView;
-import main.java.org.hanzet23.gameframework.models.BoardModel;
 import main.java.org.hanzet23.gameframework.models.GameModel;
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
 
@@ -38,20 +39,31 @@ public class OthelloModel extends GameModel {
 
 	@Override
 	public void moveComputer() {
-		// TODO Auto-generated method stub
 		boardView.refresh(board);
-		// Send to server
-		// NetworkModel network = NetworkModel.getInstance();
+		
 		try {
             // thread to sleep for 10 seconds
             Thread.sleep(1000);
 		} catch (Exception e) {
 			System.out.println(e);
         }
-		//network.getOutput().move("1");
+		
+		OthelloRandomAI ai = new OthelloRandomAI();
+		ArrayList<OthelloMove> list = ai.getValidMoves('O', board);
+		
+		for (OthelloMove move : list) {
+			System.out.println("FOUND MOVE: " + move.toString());
+		}
 
+		OthelloMove move = list.get(new Random().nextInt(list.size()-1));
+		
+		// Send to server
+		NetworkModel network = NetworkModel.getInstance();
+		String position = Integer.toString(move.x * 8 + move.y);
+		network.getOutput().move(position);
+		
 		// Add to board
-		//addItemToBoard("1", 'X');
+		addItemToBoard(position, 'X');
 
 		boardView.refresh(board);
 	}
