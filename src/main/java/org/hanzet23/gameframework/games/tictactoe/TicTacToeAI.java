@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 
+
 /**
  * AI for TicTacToe
  */
@@ -34,56 +35,46 @@ public class TicTacToeAI {
 	}
 
 	// Find optimal move
-	private Best chooseMove(char side) {
-		char opp; // The other side
-
-		if (side == COMPUTER)
-			opp = ENEMY;
-		else
-			opp = COMPUTER;
-
-		Best reply; // Opponent's best reply
-
-		if (side == COMPUTER)
-			reply = new Best(HUMAN_WIN);
-		else
-			reply = new Best(COMPUTER_WIN);
-
-		int simpleEval; // Result of an immediate evaluation
+	private Best chooseMove(char side) 
+	
+	{
+		char opp = 0;              // The other side
+		Best reply;           // Opponent's best reply
 		int bestRow = 0;
 		int bestColumn = 0;
-		int value;
+		int value = 0;
 
-		if ((simpleEval = positionValue()) != UNCLEAR)
-			return new Best(simpleEval);
-
-		for (int i = 0; i < 9; i++) {
-			if (moveOk(i)) {
-				// Place it on the board temporary
-				place(i / 3, i % 3, side);
-				Best turn = chooseMove(opp);
-
-				// Check the side
-				if (side == COMPUTER) {
-					if (reply.val < turn.val) {
-						reply.val = turn.val;
-						reply.row = i / 3;
-						reply.column = i % 3;
-					}
-				} else {
-					if (reply.val > turn.val) {
-						reply.val = turn.val;
-						reply.row = i / 3;
-						reply.column = i % 3;
-					}
-				}
-				// Reset the board
-				place(i / 3, i % 3, EMPTY);
-			}
+		if(positionValue() != UNCLEAR){
+			return new Best(positionValue());
 		}
 
-		return reply;
-	}
+		if(side == COMPUTER){
+            opp = ENEMY;
+            value = HUMAN_WIN;
+        }else if(side == ENEMY){
+            opp = COMPUTER;
+            value = COMPUTER_WIN;
+        }
+		
+		// doorloop speelbord
+		for(int row = 0; row < board.length; row++){
+            for(int col = 0; col < board.length; col++){
+            	// doorloop lege vakken
+                if(squareIsEmpty(row, col)){
+                    place(row, col, side);
+	                reply = chooseMove(opp);
+	                place(row, col, EMPTY);
+	                // update beste zet wanneer er een betere is
+	                if(side == COMPUTER && reply.val > value || side == ENEMY && reply.val < value){
+	                    value = reply.val;
+	                    bestRow = row;
+	                    bestColumn = col;
+	                }
+                }
+            }
+		}
+	    return new Best (value, bestRow, bestColumn);
+    }
 
 	// check if move ok
 	public boolean moveOk(int move) {
