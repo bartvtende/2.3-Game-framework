@@ -11,8 +11,8 @@ import java.util.Random;
  * AI for TicTacToe
  */
 public class TicTacToeAI {
-	public static final char ENEMY = 'X';
-	public static final char COMPUTER = 'O';
+	public static final char ENEMY = 'O';
+	public static final char COMPUTER = 'X';
 	public static final char EMPTY = 'E';
 
 	public static final int HUMAN_WIN = 0;
@@ -21,10 +21,7 @@ public class TicTacToeAI {
 	public static final int COMPUTER_WIN = 3;
 
 	private char[][] board = new char[3][3];
-	private Random random = new Random();
 	private char side = COMPUTER;
-	private int position = UNCLEAR;
-	private char computerChar, humanChar;
 
 	// Constructor
 	public TicTacToeAI(char[][] board) {
@@ -100,15 +97,6 @@ public class TicTacToeAI {
 			this.side = ENEMY;
 		else
 			this.side = COMPUTER;
-	}
-
-	// Simple supporting routines
-	public void clearBoard() {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				board[i][j] = EMPTY;
-			}
-		}
 	}
 
 	// Check if the board is full
@@ -189,38 +177,6 @@ public class TicTacToeAI {
 		}
 
 		return UNCLEAR;
-	}
-
-	// Prints the board in a string
-	public String toString() {
-		String str = "";
-
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (board[i][j] == COMPUTER)
-					str += computerChar;
-				else if (board[i][j] == ENEMY)
-					str += humanChar;
-				else
-					str += ".";
-			}
-			str += '\n'; // Start new row
-		}
-		return str;
-	}
-
-	public boolean gameOver() {
-		this.position = positionValue();
-		return this.position != UNCLEAR;
-	}
-
-	public String winner() {
-		if (this.position == COMPUTER_WIN)
-			return "computer";
-		else if (this.position == HUMAN_WIN)
-			return "human";
-		else
-			return "nobody";
 	}
 
 	private class Best {
