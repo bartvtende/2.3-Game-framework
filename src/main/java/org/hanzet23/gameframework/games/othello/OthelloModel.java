@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 import main.java.org.hanzet23.gameframework.models.GameModel;
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
+import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class OthelloModel extends GameModel {
 	
@@ -88,6 +89,18 @@ public class OthelloModel extends GameModel {
 		frame.getContentPane().add(boardView);
 		frame.setVisible(true);
 		frame.pack();
+		
+		//location popup
+		int x;
+		int y;
+		
+		MainView main = MainView.mainview;
+		
+		x = main.getLocation().x + (main.getContentPane().getWidth()+50);
+		y = main.getLocation().y + (main.getContentPane().getHeight()-boardFrame.getHeight());
+		
+		
+		boardFrame.setLocation(x, y);
 		
 		initializeBoard();
 		
