@@ -104,12 +104,20 @@ public class TicTacToeAI {
 	}
 
 	// Returns whether 'side' has won in this position
-	public boolean isAWin(int side) {
-		int pos = positionValue();
-		if ((pos == COMPUTER_WIN && side == COMPUTER)
-				|| (pos == HUMAN_WIN && side == ENEMY)) {
-			return true;
+	public boolean isAWin(int side)
+	{
+		for(int i=0; i<board.length; i++){
+			if(board[i][0]==side && board[i][1]==side && board[i][2]==side){ 
+				return true;
+			}		
+			for(int j=0; j<board[i].length; j++){
+				if(board[0][j]==side && board[1][j]==side && board[2][j]==side){ 
+					return true;
+				}
+			}
 		}
+		if(board[0][0]==side && board[1][1]==side && board[2][2]==side)	return true;
+		else if(board[0][2]==side && board[1][1]==side && board[2][0]==side) return true;
 		return false;
 	}
 
@@ -123,51 +131,13 @@ public class TicTacToeAI {
 	}
 
 	// Compute static value of current position (win, draw, etc.)
-	public int positionValue() {
-		// Initialize arrays for the sums of rows, columns and diagonals
-		String[] columns = new String[3];
-		String[] rows = new String[3];
-		String[] diagonals = new String[2];
+	public int positionValue() 
+	{
+		if(isAWin(COMPUTER)) return COMPUTER_WIN;
+		else if(isAWin(ENEMY)) return HUMAN_WIN;
+		else if(!isAWin(COMPUTER) && !isAWin(ENEMY) && boardIsFull()) return DRAW;
+		else return UNCLEAR;
 
-		// Fill the arrays with an empty string
-		Arrays.fill(columns, "");
-		Arrays.fill(rows, "");
-		Arrays.fill(diagonals, "");
-		
-		// Check column and row wins
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				columns[i] += board[j][i];
-				rows[i] += board[i][j];
-			}
-		    diagonals[0] += board[i][i];
-		    diagonals[1] += board[2-i][2-i];
-		}
-		
-		// Check for column wins
-		for (int i = 0; i < 3; i++) {
-			if (rows[i].equals("XXX") || columns[i].equals("XXX")) {
-				return COMPUTER_WIN;
-			} else if (rows[i].equals("OOO") || columns[i].equals("OOO")) {
-				return HUMAN_WIN;
-			}
-		}
-		
-		// Check for diagonal wins
-		for (int i = 0; i < 2; i++) {
-			if (diagonals[i].equals("XXX")) {
-				return COMPUTER_WIN;
-			} else if (diagonals[i].equals("OOO")) {
-				return HUMAN_WIN;
-			}
-		}
-
-		// Check if board is full (draw)
-		if (boardIsFull()) {
-			return DRAW;
-		}
-
-		return UNCLEAR;
 	}
 
 	private class Best {
