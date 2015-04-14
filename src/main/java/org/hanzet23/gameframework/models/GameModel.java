@@ -22,8 +22,16 @@ public abstract class GameModel {
 		int position = (int) Integer.parseInt(positionString);
 		int x = (int) Math.floor(position / board.length);
 		int y = position % board.length;
+		char opp;
 		
-		board[x][y] = identifier;
+		if (identifier == 'X') {
+			opp = 'O';
+		} else {
+			opp = 'X';
+		}
+		
+		if (board[x][y] != opp)
+			board[x][y] = identifier;
 	}
 	
 	public void initializeBoard() {

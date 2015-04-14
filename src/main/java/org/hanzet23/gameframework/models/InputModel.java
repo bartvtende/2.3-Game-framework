@@ -128,15 +128,8 @@ public class InputModel {
 			String value = entry.getValue();
 			
 			if (gameName.equalsIgnoreCase(key)) {
-				try {
-					// Dynamically load the game class from the settings file
-					Class<?> gameClass = Class.forName(value);
-					Constructor<?> constructor = gameClass.getConstructor(String.class);
-					Object instance = constructor.newInstance(gameName);
-					game = (GameModel) instance;
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				// Dynamically instantiate a game class from the settings file
+				game = loadGame(gameName, value);
 			}
 		}
 		
@@ -166,6 +159,9 @@ public class InputModel {
 		HashMap<String, String> map = parseMap(line);
 		
 		String position = map.get("MOVE");
+		
+		System.out.println(position);
+		
 		NetworkModel.board.game.addItemToBoard(position, 'O');
 		
 		// Check the input
@@ -249,6 +245,20 @@ public class InputModel {
 		network.getOutput().login("Winnaar #" + randomNumber);
 
 		network.getOutput().getPlayerlist();
+	}
+	
+	private GameModel loadGame(String gameName, String value) {
+		GameModel game = null;
+		try {
+			// Dynamically load the game class from the settings file
+			Class<?> gameClass = Class.forName(value);
+			Constructor<?> constructor = gameClass.getConstructor(String.class);
+			Object instance = constructor.newInstance(gameName);
+			game = (GameModel) instance;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return game;
 	}
 
 	/**
