@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import main.java.org.hanzet23.gameframework.models.NetworkModel;
+
 public class Tile extends JButton {
 
 	private static final long serialVersionUID = 1L;
@@ -20,9 +22,7 @@ public class Tile extends JButton {
 	public Tile(int x, int y){
 		XPosition = x;
 		YPosition = y;
-	}
-
-	public Tile() {
+		
 		JPanel empty = new JPanel();
 		empty.setSize(tileSize, tileSize);
 		this.content = empty;
@@ -41,10 +41,18 @@ public class Tile extends JButton {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Something with get player or
+				String position = Integer.toString(XPosition * 3 + YPosition);
+				NetworkModel.getInstance().getOutput().move(position);
+				NetworkModel.getInstance().board.game.addItemToBoard(position, 'X');
+				
 				System.out.println("Tile got clicked");
 				setContent("X");
 			}
 		});
+	}
+
+	public Tile() {
+		System.out.println("Bad reference");
 	}
 
 	void setContent(String command) {

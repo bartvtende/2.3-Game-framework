@@ -22,12 +22,8 @@ public class TicTacToeModel extends GameModel {
 
 	@Override
 	public void moveHuman() {
-		// Luister naar de actionlisteners
-		for (int i = 0; i < BOARD_RANGE; i++) {
-			for (int j = 0; j < BOARD_RANGE; j++) {
-				boardView.getTile(i, j).setEnabled(true);
-			}
-		}
+		// Refresh board
+		boardView.refresh(board);
 	}
 
 	@Override
