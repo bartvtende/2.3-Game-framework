@@ -14,6 +14,13 @@ public class Tile extends JButton {
 	private static final long serialVersionUID = 1L;
 	private JPanel content;
 	private final int tileSize = 50;
+	private int XPosition;
+	private int YPosition;
+	
+	public Tile(int x, int y){
+		XPosition = x;
+		YPosition = y;
+	}
 
 	public Tile() {
 		JPanel empty = new JPanel();
@@ -62,5 +69,21 @@ public class Tile extends JButton {
 			this.add(content);
 			this.revalidate();
 		}
+	}
+
+	public int getXPosition() {
+		return XPosition;
+	}
+
+	public void setXPosition(int xPosition) {
+		XPosition = xPosition;
+	}
+
+	public int getYPosition() {
+		return YPosition;
+	}
+
+	public void setYPosition(int yPosition) {
+		YPosition = yPosition;
 	}
 }

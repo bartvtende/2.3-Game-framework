@@ -15,7 +15,7 @@ public class BoardView extends JPanel {
 		this.setLayout(new GridLayout(3, 3));
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				Tile tile = new Tile();
+				Tile tile = new Tile(i,j);
 				tiles[i][j] = tile;
 				this.add(tile);
 			}
@@ -45,19 +45,19 @@ public class BoardView extends JPanel {
 				char boardChar = board[i][j];
 				System.out.println(boardChar);
 				if (boardChar == 'X' || boardChar == 'x') {
-					Tile tile = new Tile();
+					Tile tile = new Tile(i,j);
 					tile.setContent("X");
 
 					tiles[i][j] = tile;
 					this.add(tile);
 				} else if (boardChar == 'O' || boardChar == 'o') {
-					Tile tile = new Tile();
+					Tile tile = new Tile(i,j);
 					tile.setContent("O");
 
 					tiles[i][j] = tile;
 					this.add(tile);
 				} else if (boardChar == 'E' || boardChar == 'e') {
-					Tile tile = new Tile();
+					Tile tile = new Tile(i,j);
 					tile.setContent("Empty");
 
 					tiles[i][j] = tile;
