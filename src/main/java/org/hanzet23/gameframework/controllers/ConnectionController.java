@@ -141,8 +141,8 @@ public class ConnectionController extends JPanel {
 					// Login with the selected username
 					String playerName = name.getText();
 					if (playerName.equals("")) {
-						int randomNumber = (new Random()).nextInt(999);
-						playerName = "Winnaar #" + randomNumber;
+						int randomNumber = (new Random()).nextInt(9999);
+						playerName = "Speler #" + randomNumber;
 					}
 					selectedName = playerName;
 					network.getOutput().login(playerName);

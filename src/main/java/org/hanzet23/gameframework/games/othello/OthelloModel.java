@@ -26,8 +26,8 @@ public class OthelloModel extends GameModel {
 	public OthelloModel(String gameName) {
 		super(gameName);
 		this.board = new char[BOARD_RANGE][BOARD_RANGE];
-		initializeBoard();
 		OthelloModel = this;
+		initializeBoard();
 	}
 
 	@Override
@@ -41,18 +41,23 @@ public class OthelloModel extends GameModel {
 		// TODO Auto-generated method stub
 		boardView.refresh(board);
 		// Send to server
-		NetworkModel network = NetworkModel.getInstance();
-		network.getOutput().move("1");
+		//NetworkModel network = NetworkModel.getInstance();
+		try {
+            // thread to sleep for 1000 milliseconds
+            Thread.sleep(10000);
+         } catch (Exception e) {
+              System.out.println(e);
+           }
+		//network.getOutput().move("1");
 
 		// Add to board
-		addItemToBoard("1", 'X');
+		//addItemToBoard("1", 'X');
 
 		boardView.refresh(board);
 	}
 
 	@Override
 	public void startGame() {
-		// TODO: doesn't work!
 		JFrame frame = new JFrame();
 		this.boardFrame = frame;
 		BoardView boardView = new BoardView();
@@ -60,6 +65,8 @@ public class OthelloModel extends GameModel {
 		frame.getContentPane().add(boardView);
 		frame.setVisible(true);
 		frame.pack();
+		
+		boardView.refresh(board);
 	}
 
 	@Override
@@ -70,19 +77,14 @@ public class OthelloModel extends GameModel {
 			boardFrame = null;
 		}
 	}
-	
-	/**
-	 * Method to clone the board.
-	 * @return OthelloModel
-	 */
-	public OthelloModel clone() {
-		OthelloModel clone = new OthelloModel(this.getGameName());
-		for(int x = 0; x < BOARD_RANGE; x++) {
-			for(int y = 0; y < BOARD_RANGE; y++) {
-				clone.board[x][y] = board[x][y];
-			}
-		}
-		return clone;
+
+	@Override
+	public void initializeBoard() {
+		super.initializeBoard();
+		board[3][3] = 'O';
+		board[3][4] = 'X';
+		board[4][4] = 'O';
+		board[4][3] = 'X';
 	}
 
 }

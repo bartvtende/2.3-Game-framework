@@ -10,7 +10,7 @@ import main.java.org.hanzet23.gameframework.games.othello.Tile;
 public class BoardView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Tile[][] tiles = new Tile[8][8];
 
 	public BoardView() {
@@ -22,7 +22,6 @@ public class BoardView extends JPanel {
 				tiles[i][j] = tile;
 				this.add(tile);
 			}
-
 		}
 
 		this.setPreferredSize(new Dimension(400, 400));
@@ -63,7 +62,7 @@ public class BoardView extends JPanel {
 					this.add(tile);
 				} else if (boardChar == 'E' || boardChar == 'e') {
 					Tile tile = new Tile();
-					tile.setContent("Empty");
+					tile.setContent("E");
 
 					tiles[i][j] = tile;
 					this.add(tile);

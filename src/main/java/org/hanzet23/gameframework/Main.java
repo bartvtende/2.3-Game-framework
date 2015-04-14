@@ -8,7 +8,8 @@ import main.java.org.hanzet23.gameframework.views.MainView;
 public class Main {
 	public static void main(String[] args) {
 		MainView frame = new MainView();
-		frame.setPreferredSize(new Dimension(525, 200));
+		// Was 525x200
+		frame.setPreferredSize(new Dimension(525, 300));
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int height = screenSize.height;
 		int width = screenSize.width;
