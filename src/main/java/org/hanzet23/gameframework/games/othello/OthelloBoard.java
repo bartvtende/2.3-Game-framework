@@ -395,4 +395,26 @@ public class OthelloBoard {
 		 * return OthelloGame.PLAYER_ONE + (one / sum);
 		 */
 	}
+	
+	@Override
+	public String toString() {
+	    String print = "";
+	    print += " |01234567\n";
+	    print += "-+--------\n";
+	    
+		for(int y = 0; y < HEIGHT; y++){
+			print += y + "|";
+	    	for(int x = 0; x < WIDTH; x++){
+	    		if(board[x][y] == OthelloModel.PLAYER_ONE){
+	    			print += OthelloModel.PLAYER_ONE;
+	    		}else if(board[x][y] == OthelloModel.PLAYER_TWO){
+	    			print += OthelloModel.PLAYER_TWO;
+	    		}else{
+	    			print += "E";
+	    		}
+	    	}
+	    	print += "\n";
+	    }
+		return print;
+	}
 }
