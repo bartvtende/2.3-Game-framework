@@ -1,18 +1,13 @@
-package extended.gameModules.othello;
-
-import extended.gameInterface.AbstractGameAI;
-import game.othello.OthelloBoard;
-import game.othello.OthelloMove;
-import game.othello.OthelloGame;
+package main.java.org.hanzet23.gameframework.games.othello;
 
 import java.util.ArrayList;
 
-import model.Settings;
+import main.java.org.hanzet23.gameframework.models.NetworkModel;
 
 /**
  * AI for Othello
  */
-public class OthelloAI extends AbstractGameAI implements Runnable {
+public class OthelloAI implements Runnable {
 	
 	// Turns out, threading doesn't make things fast enough that we could increase the max depth
 	// (Likely because it removes alpha-beta pruning benefit from the top recursion level)
@@ -22,7 +17,7 @@ public class OthelloAI extends AbstractGameAI implements Runnable {
 	
 	private final int MAX_DEPTH;				// Value representing the depth of recursion
 	private OthelloBoard board;					// Playing field
-	private int runForPlayer;
+	private char runForPlayer;
 	private Thread thread;
 	
 	// Used for multi-threading
@@ -30,8 +25,7 @@ public class OthelloAI extends AbstractGameAI implements Runnable {
 	private OthelloMove originMove;				// Stores the move that lead to this starting situation
 	
 	public OthelloAI(OthelloBoard board) {
-		if(USE_THREADING) MAX_DEPTH = 1 + (int) (2.0 * Settings.DIFFICULTY); // The root thread already effectively takes care of 1 level of recursion
-		else MAX_DEPTH = 1 + (int) (2.5 * Settings.DIFFICULTY);
+		MAX_DEPTH = 6;
 		
 		this.board = board;
 	}
@@ -56,7 +50,7 @@ public class OthelloAI extends AbstractGameAI implements Runnable {
 	 * @param player
 	 * @param originMove
 	 */
-	public void getBestMove(int player, OthelloMove originMove) {
+	public void getBestMove(char player, OthelloMove originMove) {
 		this.originMove = originMove;
 		getBestMove(player);
 	}
@@ -66,7 +60,7 @@ public class OthelloAI extends AbstractGameAI implements Runnable {
 	 * @param player
 	 * @return best move (ie: "1,1")
 	 */
-	public void getBestMove(int player) {
+	public void getBestMove(char player) {
 		runForPlayer = player;
 		thread = new Thread(this);
 		thread.start();
@@ -81,12 +75,6 @@ public class OthelloAI extends AbstractGameAI implements Runnable {
 			rootAIInstance.addResult(originMove);
 			return;
 		}
-		
-		// Used for non-threaded solving of calculating the best move
-		else {
-			OthelloMove bestMove = bestMove(board.clone(), runForPlayer, MAX_DEPTH, null, null);
-			notifyListeners(bestMove.toString());
-		}
 	}
 	
 	/**
@@ -98,7 +86,7 @@ public class OthelloAI extends AbstractGameAI implements Runnable {
 	 * @param beta
 	 * @return OthelloMove
 	 */
-	private OthelloMove bestMove(OthelloBoard board, int player, int depth, OthelloMove alpha, OthelloMove beta) {
+	private OthelloMove bestMove(OthelloBoard board, char player, int depth, OthelloMove alpha, OthelloMove beta) {
 		
 		if(depth == 0) {
 			// This is the final depth, check if we can determine an end-state. If not, estimate it
@@ -111,7 +99,7 @@ public class OthelloAI extends AbstractGameAI implements Runnable {
 			return move;
 		}
 		
-		int opponent = OthelloGame.getOtherPlayer(player);
+		char opponent = NetworkModel.board.player.tileOpp;
 		ArrayList<OthelloMove> moves = board.getValidMoves(player);
 		if(moves.size() == 0) {
 			if(board.canPlayerMove(opponent)) {
@@ -134,15 +122,15 @@ public class OthelloAI extends AbstractGameAI implements Runnable {
 			board.place(player, move);
 			move.value = bestMove(board, opponent, depth - 1, alpha, beta).value;
 			
-			if(player == OthelloGame.PLAYER_ONE) {
+			if(player == 'X') {
 				// If this move is better or equal for player alpha, alpha best = move
-				if(alpha == null || move.isBetterThan(alpha, OthelloGame.PLAYER_ONE)){
+				if(alpha == null || move.isBetterThan(alpha, 'X')){
 					alpha = move;
 				}
 			}
 			else {
 				// If this move is better or equal for player beta, beta best = move
-				if(beta == null || move.isBetterThan(beta, OthelloGame.PLAYER_TWO)){
+				if(beta == null || move.isBetterThan(beta, 'O')){
 					beta = move;
 				}
 			}
@@ -152,10 +140,10 @@ public class OthelloAI extends AbstractGameAI implements Runnable {
 			
 			// If the opponent has options with an outcome better than an outcome you have available here- he won't let it get to this
 			// If beta is better for player two, then alpha is better for player one
-			if(alpha != null && beta != null && beta.isBetterThan(alpha, OthelloGame.PLAYER_TWO)) break;
+			if(alpha != null && beta != null && beta.isBetterThan(alpha, 'O')) break;
 		}
 		
-		if(player == OthelloGame.PLAYER_ONE){
+		if(player == 'X'){
 			return alpha;
 		}
 		return beta;
