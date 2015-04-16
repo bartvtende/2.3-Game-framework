@@ -118,15 +118,18 @@ public class InputModel {
 		String playingAs = MainView.connection.getSelectedName();
 		
 		char tile = 0;
+		char tileOpp = 0;
 		
 		if (firstOne.equalsIgnoreCase(playingAs)) {
 			tile = 'X';
+			tileOpp = 'O';
 		} else {
 			tile = 'O';
+			tileOpp = 'X';
 		}
 
 		// Make a player and game class
-		PlayerModel player = new PlayerModel(playerType, playingAs, opponent, tile);
+		PlayerModel player = new PlayerModel(playerType, playingAs, opponent, tile, tileOpp);
 		GameModel game = null;
 		
 		SettingsModel settings = new SettingsModel();
@@ -169,8 +172,10 @@ public class InputModel {
 		
 		String position = map.get("MOVE");
 		int move = Integer.parseInt(position);
-		
-		NetworkModel.board.game.placeMove('O', move, true);
+
+		if (NetworkModel.board.player.playingAgainst.equalsIgnoreCase(map.get("PLAYER"))) {
+			NetworkModel.board.game.placeMove('O', move, true);
+		}
 		
 		// Check the input
 		printServerLine("Got a move back, info:");

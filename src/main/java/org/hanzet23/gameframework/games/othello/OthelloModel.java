@@ -49,8 +49,10 @@ public class OthelloModel extends GameModel {
 			System.out.println(e);
         }
 		
+		char tile = NetworkModel.board.player.getTile();
+		
 		OthelloRandomAI ai = new OthelloRandomAI();
-		ArrayList<OthelloMove> list = ai.getValidMoves('O', board);
+		ArrayList<OthelloMove> list = ai.getValidMoves(tile, board);
 		
 		for (OthelloMove move : list) {
 			System.out.println("FOUND MOVE: " + move.toString());
@@ -64,7 +66,7 @@ public class OthelloModel extends GameModel {
 		network.getOutput().move(position);
 		
 		// Add to board
-		placeMove('O', move.getValue(), false);
+		placeMove(tile, move.getValue(), false);
 
 		boardView.refresh(board);
 	}
@@ -72,9 +74,10 @@ public class OthelloModel extends GameModel {
 	@Override
 	public void placeMove(char identifier, int move, boolean game) {
 		if (game) {
-			identifier = 'X';
+			char tileOpp = NetworkModel.board.player.getTileOpp();
+			identifier = tileOpp;
 		}
-
+		
 		OthelloMove newMove = new OthelloMove(move/8, move%8);
 		OthelloRandomAI ai = new OthelloRandomAI();
 		this.board = ai.place(identifier, newMove, board);
@@ -120,6 +123,7 @@ public class OthelloModel extends GameModel {
 	@Override
 	public void initializeBoard() {
 		super.initializeBoard();
+		/*
 		char tile = NetworkModel.board.player.getTile();
 		char opp;
 
@@ -127,12 +131,12 @@ public class OthelloModel extends GameModel {
 			opp = 'O';
 		} else {
 			opp = 'X';
-		}
+		}*/
 		
-		board[3][3] = tile;
-		board[3][4] = opp;
-		board[4][4] = tile;
-		board[4][3] = opp;
+		board[3][3] = 'O';
+		board[3][4] = 'X';
+		board[4][3] = 'X';
+		board[4][4] = 'O';
 	}
 
 }

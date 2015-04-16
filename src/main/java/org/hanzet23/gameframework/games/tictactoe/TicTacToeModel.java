@@ -41,20 +41,13 @@ public class TicTacToeModel extends GameModel {
 
 		// Call to the AI
 		TicTacToeAI AI = new TicTacToeAI(board);
-		String position = Integer.toString(AI.chooseMove());
+		int position = AI.chooseMove();
 
-		if (position != null) {
-			// Send to server
-			NetworkModel network = NetworkModel.getInstance();
-			network.getOutput().move(position);
-
-			// Add to board
-			addItemToBoard(position, 'X');
-
-			// Refresh board
-			boardView.refresh(board);
-		}
-
+		NetworkModel network = NetworkModel.getInstance();
+		network.getOutput().move(Integer.toString(position));
+		// Send to server and add to board
+		placeMove('X', position, false);
+		
 		// Print the board in the console for testing purposes
 		printBoard();
 	}
@@ -104,6 +97,7 @@ public class TicTacToeModel extends GameModel {
 	public void placeMove(char identifier, int move, boolean game) {
 		String newMove = Integer.toString(move);
 		NetworkModel.board.game.addItemToBoard(newMove, identifier);
+		boardView.refresh(board);
 	}
 
 }
