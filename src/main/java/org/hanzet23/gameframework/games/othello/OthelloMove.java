@@ -9,6 +9,7 @@ package main.java.org.hanzet23.gameframework.games.othello;
 public class OthelloMove {
 	public int x;
 	public int y;
+	public int value;
 	
 	public OthelloMove(int x, int y) {
 		this.x = x;
@@ -19,8 +20,19 @@ public class OthelloMove {
 		this.x = move / 8;
 		this.y = move % 8;
 	}
+	public void setValue(int value) {
+		this.value = value;
+	}
 	
 	public int getValue() {
+		return value;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getPosition() {
 		return ((x * 8) + y);
 	}
 }

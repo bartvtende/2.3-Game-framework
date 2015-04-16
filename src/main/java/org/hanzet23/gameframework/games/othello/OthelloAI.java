@@ -3,7 +3,13 @@ package main.java.org.hanzet23.gameframework.games.othello;
 import java.util.ArrayList;
 
 public abstract class OthelloAI {
+	
+	protected OthelloBoard othelloBoard = null;
 
+	public OthelloAI() {
+		othelloBoard = new OthelloBoard();
+	}
+	
 	private boolean isValidMove(char player, OthelloMove move, char[][] board) {
 		// Return false if the square is empty
 		if (board[move.x][move.y] != 'E') {
@@ -50,6 +56,7 @@ public abstract class OthelloAI {
 		return false;
 	}
 
+	
 	/**
 	 * Returns an ArrayList with all of the valid moves
 	 * 
@@ -75,6 +82,7 @@ public abstract class OthelloAI {
 
 		return validMoves;
 	}
+	
 
 	/**
 	 * Places an OthelloMove object on the board for a specific player
@@ -136,40 +144,6 @@ public abstract class OthelloAI {
 		return board;
 	}
 
-	/**
-	 * Calculates how much tiles a player has on the board
-	 * 
-	 * @param player
-	 * @param board
-	 * @return
-	 */
-	public int calculateTiles(char player, char[][] board) {
-		int counter = 0;
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board.length; j++) {
-				if (board[i][j] == player) {
-					counter++;
-				}
-			}
-		}
-		return counter;
-	}
-
-	/**
-	 * Calculates the amount of tiles a player will get when they do a move
-	 * 
-	 * @param player
-	 * @param move
-	 * @param board
-	 * @return
-	 */
-	public int getAmountOfStones(char player, OthelloMove move, char[][] board) {
-		int oldCount = calculateTiles(player, board);
-		board = place(player, move, board);
-		int newCount = calculateTiles(player, board);
-
-		return newCount - oldCount;
-	}
 
 	/**
 	 * Failsafe when the list of available valid moves results to zero, this
@@ -187,5 +161,23 @@ public abstract class OthelloAI {
 			}
 		}
 	}
+	
+
+	/**
+	 * Calculates the amount of tiles a player will get when they do a move
+	 * 
+	 * @param player
+	 * @param move
+	 * @param board
+	 * @return
+	 */
+	public int getAmountOfStones(char player, OthelloMove move, char[][] board) {
+		int oldCount = othelloBoard.calculateTiles(player, board);
+		board = place(player, move, board);
+		int newCount = othelloBoard.calculateTiles(player, board);
+
+		return newCount - oldCount;
+	}
+	
 
 }

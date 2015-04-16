@@ -6,17 +6,11 @@ import main.java.org.hanzet23.gameframework.models.GameModel;
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
-/**
- * Relatively simple greedy algorithm implementation for Othello
- * 
- * @author Bart
- *
- */
 public class OthelloModel extends GameModel {
 	
 	private final int BOARD_RANGE = 8;
 	
-	private OthelloGreedyAI ai = null;
+	private static OthelloMinimaxAI ai = null;
 	private int turnCounter = 0;
 	
 	private JFrame boardFrame;
@@ -27,7 +21,7 @@ public class OthelloModel extends GameModel {
 		super(gameName);
 		this.board = new char[BOARD_RANGE][BOARD_RANGE];
 		othelloModel = this;
-		ai = new OthelloGreedyAI();
+		ai = new OthelloMinimaxAI();
 	}
 
 	@Override
@@ -49,17 +43,17 @@ public class OthelloModel extends GameModel {
 
 		// Get the tile of the current player
 		char tile = NetworkModel.board.player.getTile();
-
+		
 		// Calculate the best move with the greedy algorithm
-		OthelloMove move = ai.getBestMove(tile, board, turnCounter);
+		OthelloMove move = ai.getBestMove(tile, board);
 		
 		// Send to server
 		NetworkModel network = NetworkModel.getInstance();
-		String position = Integer.toString(move.getValue());
+		String position = Integer.toString(move.getPosition());
 		network.getOutput().move(position);
 		
 		// Add to board
-		placeMove(tile, move.getValue(), false);
+		placeMove(tile, move.getPosition(), false);
 	}
 	
 	@Override

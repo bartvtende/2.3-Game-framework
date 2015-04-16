@@ -36,10 +36,7 @@ public class OthelloGreedyAI extends OthelloAI {
 		// Loop through all the available valid moves
 		for (int i = 0; i < moves.size(); i++) {
 			// Copy the board
-			char[][] tempBoard = new char[board.length][];
-			for (int j = 0; j < board.length; j++) {
-				tempBoard[j] = board[j].clone();
-			}
+			char[][] tempBoard = othelloBoard.cloneBoard(board);
 
 			// Get the move
 			OthelloMove move = moves.get(i);
