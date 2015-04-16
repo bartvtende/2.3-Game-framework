@@ -21,6 +21,6 @@ public class OthelloMove {
 	}
 	
 	public int getValue() {
-		return x * 8 + y;
+		return ((x * 8) + y);
 	}
 }

@@ -20,6 +20,14 @@ public class OthelloGreedyAI extends OthelloAI {
 	public OthelloMove getBestMove(char player, char[][] board, int turnCounter) {
 		// Get all of the valid moves for this
 		ArrayList<OthelloMove> moves = getValidMoves(player, board);
+		
+		// If size is 0, place a random move
+		if (moves.size() == 0) {
+			moveRandom(player, board);
+		}
+		
+		// Print the size of the list
+		System.out.println(moves.size() + " moves have been found");
 
 		// Initialize the best value integer with -30
 		int bestValue = -30;

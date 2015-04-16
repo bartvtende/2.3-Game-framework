@@ -3,7 +3,7 @@ package main.java.org.hanzet23.gameframework.games.othello;
 import java.util.ArrayList;
 
 public abstract class OthelloAI {
-	
+
 	private boolean isValidMove(char player, OthelloMove move, char[][] board) {
 		// Return false if the square is empty
 		if (board[move.x][move.y] != 'E') {
@@ -45,7 +45,7 @@ public abstract class OthelloAI {
 				}
 			}
 		}
-		
+
 		// No direction includes a valid move for this position
 		return false;
 	}
@@ -169,6 +169,23 @@ public abstract class OthelloAI {
 		int newCount = calculateTiles(player, board);
 
 		return newCount - oldCount;
+	}
+
+	/**
+	 * Failsafe when the list of available valid moves results to zero, this
+	 * most likely result in an illegal move
+	 * 
+	 * @param player
+	 * @param board
+	 */
+	public void moveRandom(char player, char[][] board) {
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				if (board[i][j] == 'E') {
+					place(player, new OthelloMove(i, j), board);
+				}
+			}
+		}
 	}
 
 }
