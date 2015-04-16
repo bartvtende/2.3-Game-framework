@@ -48,7 +48,9 @@ public class Tile extends JButton {
 				// Something with get player or
 				String position = Integer.toString(XPosition * 8 + YPosition);
 				NetworkModel.getInstance().getOutput().move(position);
-				NetworkModel.getInstance().board.game.addItemToBoard(position, 'X');
+				NetworkModel.getInstance();
+				OthelloMove move = new OthelloMove(XPosition * 8, YPosition);
+				NetworkModel.board.game.placeMove('O', move.getValue(), false);
 				
 				System.out.println("Tile got clicked");
 				setContent("X");

@@ -23,7 +23,7 @@ public class OthelloModel extends GameModel {
 	private final int BOARD_RANGE = 8;
 	
 	private JFrame boardFrame;
-	private BoardView boardView;
+	public BoardView boardView;
 	public static OthelloModel OthelloModel;
 
 	public OthelloModel(String gameName) {
@@ -78,6 +78,7 @@ public class OthelloModel extends GameModel {
 		OthelloMove newMove = new OthelloMove(move/8, move%8);
 		OthelloRandomAI ai = new OthelloRandomAI();
 		this.board = ai.place(identifier, newMove, board);
+		boardView.refresh(board);
 	}
 
 	@Override
