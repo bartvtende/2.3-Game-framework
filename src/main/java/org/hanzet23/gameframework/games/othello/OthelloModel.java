@@ -2,9 +2,6 @@ package main.java.org.hanzet23.gameframework.games.othello;
 
 
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import javax.swing.JFrame;
 
 import main.java.org.hanzet23.gameframework.models.GameModel;
@@ -13,31 +10,27 @@ import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class OthelloModel extends GameModel {
 	
-	public static final int PLAYER_ONE = 0;
-	public static final int PLAYER_TWO = 1;
+	public static final int PLAYER_ONE = 'X';
+	public static final int PLAYER_TWO = 'O';
 	
 	public static final int STATE_DRAW = 2;
 	public static final int STATE_UNKNOWN = 3; //Hierbij is de uitkomst van het spel nog niet bepaald, zie OthelloMove
-	public static final int EMPTY = 2;
+	public static final int EMPTY = 'E';
 	
 	private final int BOARD_RANGE = 8;
 	
 	private JFrame boardFrame;
 	public BoardView boardView;
-	public static OthelloBoard othelloBoard;
 	public static OthelloModel OthelloModel;
 
 	public OthelloModel(String gameName) {
 		super(gameName);
-		othelloBoard = new OthelloBoard();
-		othelloBoard.initialize();
 		this.board = new char[BOARD_RANGE][BOARD_RANGE];
 		OthelloModel = this;
 	}
 
 	@Override
 	public void moveHuman() {
-		// TODO Auto-generated method stub
 		boardView.refresh(board);
 	}
 
@@ -54,25 +47,8 @@ public class OthelloModel extends GameModel {
 
 		char tile = NetworkModel.board.player.getTile();
 
-		OthelloAI ai = new OthelloAI(othelloBoard);
-		ai.getBestMove(0);
-		
-		/*
-		
-		OthelloRandomAI ai = new OthelloRandomAI();
-		ArrayList<OthelloMove> list = ai.getValidMoves(tile, board);
-		
-		for (OthelloMove move : list) {
-			System.out.println("FOUND MOVE: " + move.toString());
-		}
-
-		int moves = list.size();
-
-		if (moves == 1) {
-			moves = 2;
-		}
-
-		OthelloMove move = list.get(new Random().nextInt(moves - 1));
+		OthelloSomewhatRandomAI ai = new OthelloSomewhatRandomAI();
+		OthelloMove move = ai.getBestMove(tile, board);
 		
 		// Send to server
 		NetworkModel network = NetworkModel.getInstance();
@@ -81,7 +57,6 @@ public class OthelloModel extends GameModel {
 		
 		// Add to board
 		placeMove(tile, move.getValue(), false);
-		*/
 
 		boardView.refresh(board);
 	}
@@ -138,15 +113,6 @@ public class OthelloModel extends GameModel {
 	@Override
 	public void initializeBoard() {
 		super.initializeBoard();
-		/*
-		char tile = NetworkModel.board.player.getTile();
-		char opp;
-
-		if (tile == 'X') {
-			opp = 'O';
-		} else {
-			opp = 'X';
-		}*/
 		
 		board[3][3] = 'O';
 		board[3][4] = 'X';
