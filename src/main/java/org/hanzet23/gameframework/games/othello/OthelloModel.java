@@ -58,7 +58,13 @@ public class OthelloModel extends GameModel {
 			System.out.println("FOUND MOVE: " + move.toString());
 		}
 
-		OthelloMove move = list.get(new Random().nextInt(list.size()-1));
+		int moves = list.size();
+
+		if (moves == 1) {
+			moves = 2;
+		}
+
+		OthelloMove move = list.get(new Random().nextInt(moves - 1));
 		
 		// Send to server
 		NetworkModel network = NetworkModel.getInstance();
