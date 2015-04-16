@@ -10,7 +10,7 @@ public class OthelloModel extends GameModel {
 	
 	private final int BOARD_RANGE = 8;
 	
-	private static OthelloRandomAI ai = null;
+	private static OthelloGreedyAI ai = null;
 	private int turnCounter = 0;
 	
 	private JFrame boardFrame;
@@ -21,7 +21,7 @@ public class OthelloModel extends GameModel {
 		super(gameName);
 		this.board = new char[BOARD_RANGE][BOARD_RANGE];
 		othelloModel = this;
-		ai = new OthelloRandomAI();
+		ai = new OthelloGreedyAI();
 	}
 
 	@Override
@@ -34,6 +34,7 @@ public class OthelloModel extends GameModel {
 		// Increment the turn counter
 		turnCounter++;
 		
+		// Sleep for a couple of seconds
 		sleep(2);
 
 		// Get the tile of the current player
