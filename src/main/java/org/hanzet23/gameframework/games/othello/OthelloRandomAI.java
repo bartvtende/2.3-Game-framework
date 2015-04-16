@@ -5,9 +5,6 @@ import java.util.Random;
 
 public class OthelloRandomAI implements OthelloAIInterface {
 
-	private char[][] board = null;
-	private Random random = new Random();
-
 	public OthelloRandomAI() {
 		// Val in een kuil jongen!
 	}
