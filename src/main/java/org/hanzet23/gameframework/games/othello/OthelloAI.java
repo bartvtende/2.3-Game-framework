@@ -2,54 +2,10 @@ package main.java.org.hanzet23.gameframework.games.othello;
 
 import java.util.ArrayList;
 
-public class OthelloSomewhatRandomAI {
-
-	private int[][] randomBoard = {
-	   { 30, -25, 10, 5, 5, 10, -25,  30,},
-	   {-25, -25,  1, 1, 1,  1, -25, -25,},
-	   { 10,   1,  5, 2, 2,  5,   1,  10,},
-	   {  5,   1,  2, 1, 1,  2,   1,   5,},
-	   {  5,   1,  2, 1, 1,  2,   1,   5,},
-	   { 10,   1,  5, 2, 2,  5,   1,  10,},
-	   {-25, -25,  1, 1, 1,  1, -25, -25,},
-	   { 30, -25, 10, 5, 5, 10, -25,  30,}
-	};
+public abstract class OthelloAI {
 	
-	public OthelloMove getBestMove(char player, char[][] board) {
-		ArrayList<OthelloMove> moves = getValidMoves(player, board);
-		
-		int bestValue = -30;
-		
-		OthelloMove bestMove = null;
-		for (int i = 0; i < moves.size(); i++) {
-			// Copy the board
-			char[][] tempBoard = new char[board.length][];
-			
-			for(int j = 0; j < board.length; j++) {
-			    tempBoard[j] = board[j].clone();
-			}
-			
-			// Get the move
-			OthelloMove move = moves.get(i);
-			
-			// Check the amount of stones the move gives
-			int amountOfStones = getAmountOfStones(player, move, tempBoard);
-			if ((randomBoard[move.x][move.y] + amountOfStones) > bestValue) {
-				bestValue = randomBoard[move.x][move.y];
-				bestMove = move;
-			}
-		}
-		return bestMove;
-	}
-
-	/**
-	 * Checks if a OthelloMove is valid.
-	 * 
-	 * @param player
-	 * @param move
-	 * @return boolean
-	 */
 	private boolean isValidMove(char player, OthelloMove move, char[][] board) {
+		// Return false if the square is empty
 		if (board[move.x][move.y] != 'E') {
 			return false;
 		}
@@ -61,19 +17,17 @@ public class OthelloSomewhatRandomAI {
 			opp = 'X';
 		}
 
-		// 8 directions 2 coordinates each direction
 		int[][] directions = { { -1, -1 }, { 0, -1 }, { 1, -1 }, // Top
-																	// directions
-				{ -1, 0 }, { 1, 0 }, // left and right
-				{ -1, 1 }, { 0, 1 }, { 1, 1 } // bottom directions
+				{ -1, 0 }, { 1, 0 }, // Left and right
+				{ -1, 1 }, { 0, 1 }, { 1, 1 } // Bottom
 		};
 
 		for (int dir = 0; dir < directions.length; dir++) {
-			// each direction check the pieces
+			// Each direction check the pieces
 			for (int dist = 1; dist < board.length; dist++) {
 				int x = move.x + (dist * directions[dir][0]);
 				int y = move.y + (dist * directions[dir][1]);
-				// check for array out of bound
+				// Check for array out of bound
 				if (x < 0 || x >= board.length || y < 0 || y >= board.length) {
 					break;
 				}
@@ -91,33 +45,43 @@ public class OthelloSomewhatRandomAI {
 				}
 			}
 		}
-		// no direction includes a valid move for this position
+		
+		// No direction includes a valid move for this position
 		return false;
 	}
 
 	/**
-	 * Function to get a list of valid moves
+	 * Returns an ArrayList with all of the valid moves
 	 * 
-	 * @return ArrayList OthelloMove objects
+	 * @param player
+	 * @param board
+	 * @return
 	 */
 	public ArrayList<OthelloMove> getValidMoves(char player, char[][] board) {
-		ArrayList<OthelloMove> validmoves = new ArrayList<OthelloMove>();
+		// Initialize the ArrayList
+		ArrayList<OthelloMove> validMoves = new ArrayList<OthelloMove>();
+
+		// Loop through the board
 		for (int x = 0; x < board.length; x++) {
 			for (int y = 0; y < board.length; y++) {
+				// Make a new OthelloMove for every entry
 				OthelloMove move = new OthelloMove(x, y);
+				// If it's a valid move, add it to the list
 				if (isValidMove(player, move, board)) {
-					validmoves.add(move);
+					validMoves.add(move);
 				}
 			}
 		}
-		return validmoves;
+
+		return validMoves;
 	}
 
 	/**
-	 * Place an OthelloMove on the board.
+	 * Places an OthelloMove object on the board for a specific player
 	 * 
 	 * @param player
 	 * @param move
+	 * @param board
 	 * @return
 	 */
 	public char[][] place(char player, OthelloMove move, char[][] board) {
@@ -128,17 +92,15 @@ public class OthelloSomewhatRandomAI {
 			opp = 'X';
 		}
 
-		int[][] directions = {
-				{ -1, -1 }, { 0, -1 }, { 1, -1 }, // Top directions
-				{ -1, 0 }, { 1, 0 }, // left and right
-				{ -1, 1 }, { 0, 1 }, { 1, 1 } // bottom directions
+		int[][] directions = { { -1, -1 }, { 0, -1 }, { 1, -1 }, // Top
+				{ -1, 0 }, { 1, 0 }, // Left and right
+				{ -1, 1 }, { 0, 1 }, { 1, 1 } // Bottom
 		};
 
-		outerLoop: for (int dir = 0; dir < directions.length; dir++) { // Check
-																		// all
-																		// directions
+		// Check for all the direction
+		outerLoop: for (int dir = 0; dir < directions.length; dir++) {
 
-			// first check if we can go this way, skip if not
+			// First check if we can go this way, skip if not
 			for (int dist = 1; true; dist++) {
 				int checkX = move.x + (dist * directions[dir][0]);
 				int checkY = move.y + (dist * directions[dir][1]);
@@ -157,7 +119,7 @@ public class OthelloSomewhatRandomAI {
 				}
 			}
 
-			// then flip the tiles
+			// Then flip the tiles
 			for (int dist = 1; dist < board.length; dist++) {
 				int checkX = move.x + (dist * directions[dir][0]);
 				int checkY = move.y + (dist * directions[dir][1]);
@@ -173,7 +135,14 @@ public class OthelloSomewhatRandomAI {
 		board[move.x][move.y] = player;
 		return board;
 	}
-	
+
+	/**
+	 * Calculates how much tiles a player has on the board
+	 * 
+	 * @param player
+	 * @param board
+	 * @return
+	 */
 	public int calculateTiles(char player, char[][] board) {
 		int counter = 0;
 		for (int i = 0; i < board.length; i++) {
@@ -185,13 +154,21 @@ public class OthelloSomewhatRandomAI {
 		}
 		return counter;
 	}
-	
+
+	/**
+	 * Calculates the amount of tiles a player will get when they do a move
+	 * 
+	 * @param player
+	 * @param move
+	 * @param board
+	 * @return
+	 */
 	public int getAmountOfStones(char player, OthelloMove move, char[][] board) {
 		int oldCount = calculateTiles(player, board);
 		board = place(player, move, board);
 		int newCount = calculateTiles(player, board);
-		
+
 		return newCount - oldCount;
 	}
-	
+
 }

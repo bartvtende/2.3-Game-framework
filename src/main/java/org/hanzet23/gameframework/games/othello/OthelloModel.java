@@ -1,32 +1,33 @@
 package main.java.org.hanzet23.gameframework.games.othello;
 
-
-
 import javax.swing.JFrame;
 
 import main.java.org.hanzet23.gameframework.models.GameModel;
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
+/**
+ * Relatively simple greedy algorithm implementation for Othello
+ * 
+ * @author Bart
+ *
+ */
 public class OthelloModel extends GameModel {
-	
-	public static final int PLAYER_ONE = 'X';
-	public static final int PLAYER_TWO = 'O';
-	
-	public static final int STATE_DRAW = 2;
-	public static final int STATE_UNKNOWN = 3; //Hierbij is de uitkomst van het spel nog niet bepaald, zie OthelloMove
-	public static final int EMPTY = 'E';
 	
 	private final int BOARD_RANGE = 8;
 	
+	private OthelloGreedyAI ai = null;
+	private int turnCounter = 0;
+	
 	private JFrame boardFrame;
 	public BoardView boardView;
-	public static OthelloModel OthelloModel;
+	public static OthelloModel othelloModel;
 
 	public OthelloModel(String gameName) {
 		super(gameName);
 		this.board = new char[BOARD_RANGE][BOARD_RANGE];
-		OthelloModel = this;
+		othelloModel = this;
+		ai = new OthelloGreedyAI();
 	}
 
 	@Override
@@ -36,46 +37,50 @@ public class OthelloModel extends GameModel {
 
 	@Override
 	public void moveComputer() {
-		boardView.refresh(board);
+		// Increment the turn counter
+		turnCounter++;
 		
 		try {
-            // thread to sleep for 1 seconds
+            // Sleep for 2 seconds
             Thread.sleep(2000);
 		} catch (Exception e) {
 			System.out.println(e);
         }
 
+		// Get the tile of the current player
 		char tile = NetworkModel.board.player.getTile();
 
-		OthelloSomewhatRandomAI ai = new OthelloSomewhatRandomAI();
-		OthelloMove move = ai.getBestMove(tile, board);
+		// Calculate the best move with the greedy algorithm
+		OthelloMove move = ai.getBestMove(tile, board, turnCounter);
 		
 		// Send to server
 		NetworkModel network = NetworkModel.getInstance();
-		String position = Integer.toString(move.x * 8 + move.y);
+		String position = Integer.toString(move.getValue());
 		network.getOutput().move(position);
 		
 		// Add to board
 		placeMove(tile, move.getValue(), false);
-
-		boardView.refresh(board);
 	}
 	
 	@Override
 	public void placeMove(char identifier, int move, boolean game) {
+		// If this is a request for the opponent, get the opponent tile
 		if (game) {
 			char tileOpp = NetworkModel.board.player.getTileOpp();
 			identifier = tileOpp;
 		}
 		
-		OthelloMove newMove = new OthelloMove(move/8, move%8);
-		OthelloRandomAI ai = new OthelloRandomAI();
+		// Convert the integer to an OthelloMove object
+		OthelloMove newMove = new OthelloMove(move);
+		// Place the move on the board
 		this.board = ai.place(identifier, newMove, board);
+		// Refresh the board
 		boardView.refresh(board);
 	}
 
 	@Override
 	public void startGame() {
+		// Add the Othello view
 		JFrame frame = new JFrame();
 		this.boardFrame = frame;
 		BoardView boardView = new BoardView();
@@ -84,20 +89,17 @@ public class OthelloModel extends GameModel {
 		frame.setVisible(true);
 		frame.pack();
 		
-		//location popup
-		int x;
-		int y;
+		// Set the Othello view to the correct spawning location
+		int x = 0;
+		int y = 0;
 		
 		MainView main = MainView.mainview;
-		
 		x = main.getLocation().x + (main.getContentPane().getWidth()+50);
 		y = main.getLocation().y + (main.getContentPane().getHeight()-boardFrame.getHeight());
-		
-		
 		boardFrame.setLocation(x, y);
 		
+		// Initialize and refresh the board
 		initializeBoard();
-		
 		boardView.refresh(board);
 	}
 
@@ -114,6 +116,7 @@ public class OthelloModel extends GameModel {
 	public void initializeBoard() {
 		super.initializeBoard();
 		
+		// Initialize the first four stones for Othello
 		board[3][3] = 'O';
 		board[3][4] = 'X';
 		board[4][3] = 'X';
