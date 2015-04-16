@@ -20,10 +20,10 @@ public class OthelloAIThreaded implements Runnable {
 	public void getBestMove(char player) {
 		runForPlayer = player;
 		char opponent = 0;
-		if (player == 'X') {
-			opponent = 'O';
+		if (player == OthelloModel.PLAYER_ONE) {
+			opponent = OthelloModel.PLAYER_TWO;
 		} else {
-			opponent = 'X';
+			opponent = OthelloModel.PLAYER_ONE;
 		}
 		ArrayList<OthelloMove> moves = board.getValidMoves(player);
 		

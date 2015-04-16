@@ -107,7 +107,7 @@ public class OthelloBoard {
 		for (int x = 0; x < board.length; x++) {
 			for (int y = 0; y < board[x].length; y++) {
 				// TODO: CHANGED
-				if (board[x][y] == EMPTY && (isValidMove('X', x, y) || isValidMove('O', x, y))) {
+				if (board[x][y] == EMPTY && (isValidMove(OthelloModel.PLAYER_ONE, x, y) || isValidMove(OthelloModel.PLAYER_TWO, x, y))) {
 					return true;
 				}
 			}
@@ -140,10 +140,10 @@ public class OthelloBoard {
 		}
 
 		char opp = 0;
-		if (player == 'X') {
-			opp = 'O';
+		if (player == OthelloModel.PLAYER_ONE) {
+			opp = OthelloModel.PLAYER_TWO;
 		} else {
-			opp = 'X';
+			opp = OthelloModel.PLAYER_ONE;
 		}
 
 		// 8 directions 2 coordinates each direction
@@ -218,10 +218,10 @@ public class OthelloBoard {
 	 */
 	public char[][] place(char player, OthelloMove move) {
 		char opp = 0;
-		if (player == 'X') {
-			opp = 'O';
+		if (player == OthelloModel.PLAYER_ONE) {
+			opp = OthelloModel.PLAYER_TWO;
 		} else {
-			opp = 'X';
+			opp = OthelloModel.PLAYER_ONE;
 		}
 
 		int flipped = 0;
@@ -317,12 +317,12 @@ public class OthelloBoard {
 	 */
 	public double evaluateGameResult(boolean forceOutcome) {
 		if (forceOutcome || isFull() || !canPlayerMove()) {
-			int one = countPlayerStones('X');
-			int two = countPlayerStones('O');
+			int one = countPlayerStones(OthelloModel.PLAYER_ONE);
+			int two = countPlayerStones(OthelloModel.PLAYER_TWO);
 			if (one > two)
-				return 'X';
+				return OthelloModel.PLAYER_ONE;
 			if (two > one)
-				return 'O';
+				return OthelloModel.PLAYER_TWO;
 			return OthelloBoard.STATE_DRAW;
 		}
 		return OthelloBoard.STATE_UNKNOWN;
@@ -377,16 +377,16 @@ public class OthelloBoard {
 				else if (y == 1 || y == HEIGHT - 2)
 					value /= modifier;
 
-				if (tile == 'X') {
+				if (tile == OthelloModel.PLAYER_ONE) {
 					playerOneScore += value;
-				} else if (tile == 'O') {
+				} else if (tile == OthelloModel.PLAYER_TWO) {
 					playerTwoScore += value;
 				}
 			}
 		}
 
 		double sum = playerOneScore + playerTwoScore;
-		double result = 'X' + (playerTwoScore / sum);
+		double result = OthelloModel.PLAYER_ONE + (playerTwoScore / sum);
 		return result;
 
 		/*

@@ -122,15 +122,15 @@ public class OthelloAI implements Runnable {
 			board.place(player, move);
 			move.value = bestMove(board, opponent, depth - 1, alpha, beta).value;
 			
-			if(player == 'X') {
+			if(player == OthelloModel.PLAYER_ONE) {
 				// If this move is better or equal for player alpha, alpha best = move
-				if(alpha == null || move.isBetterThan(alpha, 'X')){
+				if(alpha == null || move.isBetterThan(alpha, OthelloModel.PLAYER_ONE)){
 					alpha = move;
 				}
 			}
 			else {
 				// If this move is better or equal for player beta, beta best = move
-				if(beta == null || move.isBetterThan(beta, 'O')){
+				if(beta == null || move.isBetterThan(beta, OthelloModel.PLAYER_TWO)){
 					beta = move;
 				}
 			}
@@ -140,10 +140,10 @@ public class OthelloAI implements Runnable {
 			
 			// If the opponent has options with an outcome better than an outcome you have available here- he won't let it get to this
 			// If beta is better for player two, then alpha is better for player one
-			if(alpha != null && beta != null && beta.isBetterThan(alpha, 'O')) break;
+			if(alpha != null && beta != null && beta.isBetterThan(alpha, OthelloModel.PLAYER_TWO)) break;
 		}
 		
-		if(player == 'X'){
+		if(player == OthelloModel.PLAYER_ONE){
 			return alpha;
 		}
 		return beta;
