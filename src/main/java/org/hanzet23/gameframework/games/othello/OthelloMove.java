@@ -32,6 +32,10 @@ public class OthelloMove {
 		return x;
 	}
 	
+	public int getY() {
+		return y;
+	}
+	
 	public int getPosition() {
 		return ((x * 8) + y);
 	}

@@ -10,27 +10,15 @@ import java.util.ArrayList;
  */
 public class OthelloGreedyAI extends OthelloAI {
 
-	// Matrix which determines how favourable a square is
-	private int[][] randomBoard = { { 30, -25, 10, 5, 5, 10, -25, 30, },
-			{ -25, -25, 1, 1, 1, 1, -25, -25, }, { 10, 1, 5, 2, 2, 5, 1, 10, },
-			{ 5, 1, 2, 1, 1, 2, 1, 5, }, { 5, 1, 2, 1, 1, 2, 1, 5, },
-			{ 10, 1, 5, 2, 2, 5, 1, 10, }, { -25, -25, 1, 1, 1, 1, -25, -25, },
-			{ 30, -25, 10, 5, 5, 10, -25, 30, } };
-
 	public OthelloMove getBestMove(char player, char[][] board, int turnCounter) {
 		// Get all of the valid moves for this
 		ArrayList<OthelloMove> moves = getValidMoves(player, board);
 		
-		// If size is 0, place a random move
-		if (moves.size() == 0) {
-			moveRandom(player, board);
-		}
-		
 		// Print the size of the list
 		System.out.println(moves.size() + " moves have been found");
 
-		// Initialize the best value integer with -30
-		int bestValue = -30;
+		// Initialize the best value integer with -50 (failsafe)
+		int bestValue = -50;
 
 		OthelloMove bestMove = null;
 		// Loop through all the available valid moves
@@ -47,13 +35,13 @@ public class OthelloGreedyAI extends OthelloAI {
 			// If there aren't more then .. squares on the board, try not to get
 			// the most amount of stones
 			if (turnCounter < 16) {
-				if ((randomBoard[move.x][move.y] + amountOfStones) > bestValue) {
+				if ((randomBoard[move.x][move.y] - amountOfStones) > bestValue) {
 					bestValue = randomBoard[move.x][move.y];
 					bestMove = move;
 				}
 			} else { // Pick the square with the most probability and most
 						// stones
-				if ((randomBoard[move.x][move.y] - amountOfStones) > bestValue) {
+				if ((randomBoard[move.x][move.y] + amountOfStones) > bestValue) {
 					bestValue = randomBoard[move.x][move.y];
 					bestMove = move;
 				}

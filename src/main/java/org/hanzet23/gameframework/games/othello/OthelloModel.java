@@ -10,7 +10,7 @@ public class OthelloModel extends GameModel {
 	
 	private final int BOARD_RANGE = 8;
 	
-	private static OthelloMinimaxAI ai = null;
+	private static OthelloRandomAI ai = null;
 	private int turnCounter = 0;
 	
 	private JFrame boardFrame;
@@ -21,7 +21,7 @@ public class OthelloModel extends GameModel {
 		super(gameName);
 		this.board = new char[BOARD_RANGE][BOARD_RANGE];
 		othelloModel = this;
-		ai = new OthelloMinimaxAI();
+		ai = new OthelloRandomAI();
 	}
 
 	@Override
@@ -34,18 +34,13 @@ public class OthelloModel extends GameModel {
 		// Increment the turn counter
 		turnCounter++;
 		
-		try {
-            // Sleep for 2 seconds
-            Thread.sleep(2000);
-		} catch (Exception e) {
-			System.out.println(e);
-        }
+		sleep(2);
 
 		// Get the tile of the current player
 		char tile = NetworkModel.board.player.getTile();
 		
 		// Calculate the best move with the greedy algorithm
-		OthelloMove move = ai.getBestMove(tile, board);
+		OthelloMove move = ai.getBestMove(tile, board, turnCounter);
 		
 		// Send to server
 		NetworkModel network = NetworkModel.getInstance();
@@ -115,6 +110,15 @@ public class OthelloModel extends GameModel {
 		board[3][4] = 'X';
 		board[4][3] = 'X';
 		board[4][4] = 'O';
+	}
+	
+	private void sleep(int seconds) {
+		seconds *= 1000;
+		try {
+            Thread.sleep(seconds);
+		} catch (Exception e) {
+			System.out.println(e);
+        }
 	}
 
 }

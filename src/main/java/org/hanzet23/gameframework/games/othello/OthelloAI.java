@@ -5,7 +5,14 @@ import java.util.ArrayList;
 public abstract class OthelloAI {
 	
 	protected OthelloBoard othelloBoard = null;
-
+	
+	// Matrix which determines how favourable a square is
+	protected int[][] randomBoard = { { 30, -25, 10, 5, 5, 10, -25, 30, },
+			{ -25, -25, 1, 1, 1, 1, -25, -25, }, { 10, 1, 5, 2, 2, 5, 1, 10, },
+			{ 5, 1, 2, 1, 1, 2, 1, 5, }, { 5, 1, 2, 1, 1, 2, 1, 5, },
+			{ 10, 1, 5, 2, 2, 5, 1, 10, }, { -25, -25, 1, 1, 1, 1, -25, -25, },
+			{ 30, -25, 10, 5, 5, 10, -25, 30, } };
+		
 	public OthelloAI() {
 		othelloBoard = new OthelloBoard();
 	}
@@ -142,24 +149,6 @@ public abstract class OthelloAI {
 
 		board[move.x][move.y] = player;
 		return board;
-	}
-
-
-	/**
-	 * Failsafe when the list of available valid moves results to zero, this
-	 * most likely result in an illegal move
-	 * 
-	 * @param player
-	 * @param board
-	 */
-	public void moveRandom(char player, char[][] board) {
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board.length; j++) {
-				if (board[i][j] == 'E') {
-					place(player, new OthelloMove(i, j), board);
-				}
-			}
-		}
 	}
 	
 

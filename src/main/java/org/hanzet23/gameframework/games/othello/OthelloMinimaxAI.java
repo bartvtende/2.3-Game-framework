@@ -2,33 +2,29 @@ package main.java.org.hanzet23.gameframework.games.othello;
 
 import java.util.ArrayList;
 
+import main.java.org.hanzet23.gameframework.models.NetworkModel;
+
 public class OthelloMinimaxAI extends OthelloAI {
 	
 	private final static int DEPTH = 6;
-	private final static int FORFEIT = 35;
-	private final static int FRONTIER = 10;
-	private final static int MOBILITY = 5;
-	private final static int STABILITY = 50;
 	
 	private final static int MAX_RANK = Integer.MAX_VALUE - 64;
 
-	public OthelloMove getBestMove(char player, char[][] board)
+	public OthelloMove getBestMove(char player, char[][] board, int turnCounter)
 	{
 		// Initialize the alpha-beta cutoff values.
 		int alpha = MAX_RANK + 64;
 		int beta  = -alpha;
 
 		// Kick off the look ahead.
-		return this.getBestMove(board, player, 1, alpha, beta);
+		return this.getBestMove(board, player, 1, alpha, beta, turnCounter);
 	}
 	
-	public OthelloMove getBestMove(char[][] board, char player, int depth, int alpha, int beta) {
-		char opponent = 0;
-		if (player == 'X') {
-			opponent = 'O';
-		} else {
-			opponent = 'X';
-		}
+	public OthelloMove getBestMove(char[][] board, char player, int depth, int alpha, int beta, int turnCounter) {
+		char tile = NetworkModel.board.player.tile;
+		char tileOpp = NetworkModel.board.player.tileOpp;
+
+		char opponent = tileOpp;
 		
 		// Initialize the best move.
 		OthelloMove bestMove = new OthelloMove(-1, -1);
@@ -56,7 +52,7 @@ public class OthelloMinimaxAI extends OthelloAI {
 			
 			if (opponentValidMoves.size() == 0) {
 				// The opponent cannot move, count the forfeit.
-				forfeit = player;
+				forfeit = 1;
 				
 				// If the player cannot make a move, game over
 				if (getValidMoves(player, tempBoard).size() == 0) {
@@ -83,18 +79,22 @@ public class OthelloMinimaxAI extends OthelloAI {
 					else
 						move.setValue(0);
 				} else {
-					// TODO: left out frontier, stability
+					// Get the amount of tiles this move gets
+					int stones = othelloBoard.countTiles(tempBoard, player) - othelloBoard.countTiles(board, player);
+					int probability = randomBoard[move.getX()][move.getY()];
 					
-					// It's not an end game so calculate the move rank.
-					int rank = FORFEIT * forfeit + MOBILITY * player * (validMoves - opponentValidMoves.size());
-						
+					if (turnCounter < 16) {
+						stones = -stones;
+					}
+					
+					int rank = stones + probability;
 					move.setValue(rank);
 				}
 			}
 			
 			// Otherwise, perform a look ahead.
 			else {
-				OthelloMove nextMove = getBestMove(tempBoard, opponent, depth + 1, alpha, beta);
+				OthelloMove nextMove = getBestMove(tempBoard, opponent, depth + 1, alpha, beta, turnCounter++);
 
 				// Pull up the rank.
 				move.setValue(nextMove.getValue());
@@ -103,26 +103,26 @@ public class OthelloMinimaxAI extends OthelloAI {
 				// result in an end game, add any current forfeit
 				// value to the rank.
 				if (forfeit != 0 && Math.abs(move.getValue()) < MAX_RANK) {
-					int rank = move.getValue() + (FORFEIT * forfeit);
+					int rank = move.getValue() + (6 * forfeit);
 					move.setValue(rank);
 				}
 				
 				// Adjust the alpha and beta values, if necessary.
-				if (player == 'O'
+				if (player == tileOpp
 						&& move.getValue() > beta)
 					beta = move.getValue();
-				if (player == 'X'
+				if (player == tile
 						&& move.getValue() < alpha)
 					alpha = move.getValue();
 			}
 			
 			// Perform a cutoff if the rank is outside tha alpha-beta
 			// range.
-			if (player == 'O' && move.getValue() > alpha) {
+			if (player == tileOpp && move.getValue() > alpha) {
 				move.setValue(alpha);
 				return move;
 			}
-			if (player == 'X' && move.getValue() < beta) {
+			if (player == tile && move.getValue() < beta) {
 				move.setValue(beta);
 				return move;
 			}
