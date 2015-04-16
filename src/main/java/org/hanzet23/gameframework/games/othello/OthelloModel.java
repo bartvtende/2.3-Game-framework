@@ -44,7 +44,7 @@ public class OthelloModel extends GameModel {
 		
 		try {
             // thread to sleep for 1 seconds
-            Thread.sleep(4000);
+            Thread.sleep(2000);
 		} catch (Exception e) {
 			System.out.println(e);
         }
