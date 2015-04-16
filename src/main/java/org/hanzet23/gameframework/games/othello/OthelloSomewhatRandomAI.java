@@ -19,10 +19,22 @@ public class OthelloSomewhatRandomAI {
 		ArrayList<OthelloMove> moves = getValidMoves(player, board);
 		
 		int bestValue = -30;
+		
 		OthelloMove bestMove = null;
 		for (int i = 0; i < moves.size(); i++) {
+			// Copy the board
+			char[][] tempBoard = new char[board.length][];
+			
+			for(int j = 0; j < board.length; j++) {
+			    tempBoard[j] = board[j].clone();
+			}
+			
+			// Get the move
 			OthelloMove move = moves.get(i);
-			if (randomBoard[move.x][move.y] > bestValue) {
+			
+			// Check the amount of stones the move gives
+			int amountOfStones = getAmountOfStones(player, move, tempBoard);
+			if ((randomBoard[move.x][move.y] + amountOfStones) > bestValue) {
 				bestValue = randomBoard[move.x][move.y];
 				bestMove = move;
 			}
@@ -116,8 +128,6 @@ public class OthelloSomewhatRandomAI {
 			opp = 'X';
 		}
 
-		int flipped = 0;
-
 		int[][] directions = {
 				{ -1, -1 }, { 0, -1 }, { 1, -1 }, // Top directions
 				{ -1, 0 }, { 1, 0 }, // left and right
@@ -154,7 +164,6 @@ public class OthelloSomewhatRandomAI {
 
 				if (board[checkX][checkY] == opp) {
 					board[checkX][checkY] = player;
-					flipped++;
 				} else {
 					break;
 				}
@@ -165,6 +174,24 @@ public class OthelloSomewhatRandomAI {
 		return board;
 	}
 	
+	public int calculateTiles(char player, char[][] board) {
+		int counter = 0;
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				if (board[i][j] == player) {
+					counter++;
+				}
+			}
+		}
+		return counter;
+	}
 	
+	public int getAmountOfStones(char player, OthelloMove move, char[][] board) {
+		int oldCount = calculateTiles(player, board);
+		board = place(player, move, board);
+		int newCount = calculateTiles(player, board);
+		
+		return newCount - oldCount;
+	}
 	
 }
