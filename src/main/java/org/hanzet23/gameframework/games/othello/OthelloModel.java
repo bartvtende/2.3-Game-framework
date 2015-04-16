@@ -34,8 +34,8 @@ public class OthelloModel extends GameModel {
 		// Increment the turn counter
 		turnCounter++;
 		
-		// Sleep for a couple of seconds
-		sleep(2);
+		// Sleep to compensate latency
+		sleep(4);
 
 		// Get the tile of the current player
 		char tile = NetworkModel.board.player.getTile();
@@ -114,7 +114,7 @@ public class OthelloModel extends GameModel {
 	}
 	
 	private void sleep(int seconds) {
-		seconds *= 1000;
+		seconds *= 100;
 		try {
             Thread.sleep(seconds);
 		} catch (Exception e) {
