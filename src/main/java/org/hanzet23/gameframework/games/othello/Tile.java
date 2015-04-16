@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import main.java.org.hanzet23.gameframework.models.NetworkModel;
+
 public class Tile extends JButton {
 
 	private static final long serialVersionUID = 1L;
@@ -18,8 +20,13 @@ public class Tile extends JButton {
 	private final static Color COLOR_1 = Color.BLACK;
 	private final static Color COLOR_2 = Color.WHITE;
 	private String state = "E";
+	private int XPosition;
+	private int YPosition;
 
-	public Tile() {
+	public Tile(int x, int y){
+		XPosition = x;
+		YPosition = y;
+		
 		JPanel empty = new JPanel();
 		empty.setSize(tileSize, tileSize);
 		this.content = empty;
@@ -39,8 +46,12 @@ public class Tile extends JButton {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Something with get player or
+				String position = Integer.toString(XPosition * 8 + YPosition);
+				NetworkModel.getInstance().getOutput().move(position);
+				NetworkModel.getInstance().board.game.addItemToBoard(position, 'X');
+				
 				System.out.println("Tile got clicked");
-				setContent("O");
+				setContent("X");
 			}
 		});
 	}
