@@ -23,19 +23,31 @@ public class OthelloBoard {
 
 	public static final int STATE_DRAW = 2;
 	public static final int STATE_UNKNOWN = 3;
-	public static final char EMPTY = 'E';
+	public static final int EMPTY = 2;
 
-	protected char[][] board;
+	protected int[][] board;
 
 	public OthelloBoard() {
-		this.board = new char[WIDTH][HEIGHT];
+		this.board = new int[WIDTH][HEIGHT];
+		empty();
+		System.out.println(this);
+	}
+	
+	/**
+	 * Initialize the board.
+	 */
+	public void initialize() {
+		board[3][3] = OthelloModel.PLAYER_ONE;
+		board[3][4] = OthelloModel.PLAYER_TWO;
+		board[4][3] = OthelloModel.PLAYER_TWO;
+		board[4][4] = OthelloModel.PLAYER_ONE;
 	}
 
 	/**
 	 * Clear the board.
 	 */
 	public void empty() {
-		for (char[] a : board) {
+		for (int[] a : board) {
 			Arrays.fill(a, EMPTY);
 		}
 	}
@@ -45,7 +57,7 @@ public class OthelloBoard {
 	 * 
 	 * @return Array
 	 */
-	public char[][] getArray() {
+	public int[][] getArray() {
 		return board;
 	}
 
@@ -87,7 +99,7 @@ public class OthelloBoard {
 	 * 
 	 * @return True if can still move
 	 */
-	public boolean canPlayerMove(char player) {
+	public boolean canPlayerMove(int player) {
 		for (int x = 0; x < board.length; x++) {
 			for (int y = 0; y < board[x].length; y++) {
 				if (board[x][y] == EMPTY && isValidMove(player, x, y)) {
@@ -123,7 +135,7 @@ public class OthelloBoard {
 	 * @param y
 	 * @return boolean
 	 */
-	public boolean isValidMove(char player, int x, int y) {
+	public boolean isValidMove(int player, int x, int y) {
 		return isValidMove(player, new OthelloMove(x, y));
 	}
 
@@ -134,12 +146,12 @@ public class OthelloBoard {
 	 * @param move
 	 * @return boolean
 	 */
-	private boolean isValidMove(char player, OthelloMove move) {
-		if (board[move.x][move.y] != 'E') {
+	private boolean isValidMove(int player, OthelloMove move) {
+		if (board[move.x][move.y] != OthelloModel.EMPTY) {
 			return false;
 		}
 
-		char opp = 0;
+		int opp = 0;
 		if (player == OthelloModel.PLAYER_ONE) {
 			opp = OthelloModel.PLAYER_TWO;
 		} else {
@@ -169,7 +181,7 @@ public class OthelloBoard {
 					if (tile != opp)
 						break;
 				} else {
-					if (tile == 'E')
+					if (tile == OthelloModel.EMPTY)
 						break;
 					if (tile == player)
 						return true;
@@ -185,7 +197,7 @@ public class OthelloBoard {
 	 * 
 	 * @return ArrayList OthelloMove objects
 	 */
-	public ArrayList<OthelloMove> getValidMoves(char player) {
+	public ArrayList<OthelloMove> getValidMoves(int player) {
 		ArrayList<OthelloMove> validmoves = new ArrayList<OthelloMove>();
 		for (int x = 0; x < WIDTH; x++) {
 			for (int y = 0; y < HEIGHT; y++) {
@@ -205,7 +217,7 @@ public class OthelloBoard {
 	 * @param y
 	 * @return
 	 */
-	public char[][] place(char player, int x, int y) {
+	public int[][] place(int player, int x, int y) {
 		return place(player, new OthelloMove(x, y));
 	}
 	
@@ -216,8 +228,8 @@ public class OthelloBoard {
 	 * @param move
 	 * @return
 	 */
-	public char[][] place(char player, OthelloMove move) {
-		char opp = 0;
+	public int[][] place(int player, OthelloMove move) {
+		int opp = 0;
 		if (player == OthelloModel.PLAYER_ONE) {
 			opp = OthelloModel.PLAYER_TWO;
 		} else {
@@ -248,7 +260,7 @@ public class OthelloBoard {
 					if (board[checkX][checkY] != opp)
 						continue outerLoop;
 				} else {
-					if (board[checkX][checkY] == 'E')
+					if (board[checkX][checkY] == OthelloModel.EMPTY)
 						continue outerLoop;
 					else if (board[checkX][checkY] == player)
 						break;
@@ -410,7 +422,7 @@ public class OthelloBoard {
 	    		}else if(board[x][y] == OthelloModel.PLAYER_TWO){
 	    			print += OthelloModel.PLAYER_TWO;
 	    		}else{
-	    			print += "E";
+	    			print += OthelloModel.EMPTY;
 	    		}
 	    	}
 	    	print += "\n";

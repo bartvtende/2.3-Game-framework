@@ -57,7 +57,7 @@ public class OthelloMove {
 	 * @param player
 	 * @return
 	 */
-	public boolean isBetterThan(OthelloMove move, char player) {
+	public boolean isBetterThan(OthelloMove move, int player) {
 		double valueA = (value <= OthelloModel.PLAYER_TWO) ? value : ((0.0 + OthelloModel.PLAYER_ONE + OthelloModel.PLAYER_TWO) / 2.0);
 		double valueB = (move.value <= OthelloModel.PLAYER_TWO) ? move.value : ((0.0 + OthelloModel.PLAYER_ONE + OthelloModel.PLAYER_TWO) / 2.0);
 		

@@ -13,8 +13,8 @@ import main.java.org.hanzet23.gameframework.views.MainView;
 
 public class OthelloModel extends GameModel {
 	
-	public static final char PLAYER_ONE = 'X';
-	public static final char PLAYER_TWO = 'O';
+	public static final int PLAYER_ONE = 0;
+	public static final int PLAYER_TWO = 1;
 	
 	public static final int STATE_DRAW = 2;
 	public static final int STATE_UNKNOWN = 3; //Hierbij is de uitkomst van het spel nog niet bepaald, zie OthelloMove
@@ -30,6 +30,7 @@ public class OthelloModel extends GameModel {
 	public OthelloModel(String gameName) {
 		super(gameName);
 		othelloBoard = new OthelloBoard();
+		othelloBoard.initialize();
 		this.board = new char[BOARD_RANGE][BOARD_RANGE];
 		OthelloModel = this;
 	}
@@ -54,7 +55,7 @@ public class OthelloModel extends GameModel {
 		char tile = NetworkModel.board.player.getTile();
 
 		OthelloAI ai = new OthelloAI(othelloBoard);
-		ai.getBestMove(tile);
+		ai.getBestMove(0);
 		
 		/*
 		

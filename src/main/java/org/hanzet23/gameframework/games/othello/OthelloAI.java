@@ -2,8 +2,6 @@ package main.java.org.hanzet23.gameframework.games.othello;
 
 import java.util.ArrayList;
 
-import main.java.org.hanzet23.gameframework.models.NetworkModel;
-
 /**
  * AI for Othello
  */
@@ -17,7 +15,7 @@ public class OthelloAI implements Runnable {
 	
 	private final int MAX_DEPTH;				// Value representing the depth of recursion
 	private OthelloBoard board;					// Playing field
-	private char runForPlayer;
+	private int runForPlayer;
 	private Thread thread;
 	
 	// Used for multi-threading
@@ -50,7 +48,7 @@ public class OthelloAI implements Runnable {
 	 * @param player
 	 * @param originMove
 	 */
-	public void getBestMove(char player, OthelloMove originMove) {
+	public void getBestMove(int player, OthelloMove originMove) {
 		this.originMove = originMove;
 		getBestMove(player);
 	}
@@ -60,7 +58,7 @@ public class OthelloAI implements Runnable {
 	 * @param player
 	 * @return best move (ie: "1,1")
 	 */
-	public void getBestMove(char player) {
+	public void getBestMove(int player) {
 		runForPlayer = player;
 		thread = new Thread(this);
 		thread.start();
@@ -69,12 +67,10 @@ public class OthelloAI implements Runnable {
 	@Override
 	public void run() {
 		// Used for threaded solving of calculating the best move
-		if(USE_THREADING) { // Sub AI
-			OthelloMove bestMove = bestMove(board.clone(), runForPlayer, MAX_DEPTH, null, null);
-			originMove.value = bestMove.value;
-			rootAIInstance.addResult(originMove);
-			return;
-		}
+		OthelloMove bestMove = bestMove(board.clone(), runForPlayer, MAX_DEPTH, null, null);
+		originMove.value = bestMove.value;
+		rootAIInstance.addResult(originMove);
+		return;
 	}
 	
 	/**
@@ -86,7 +82,7 @@ public class OthelloAI implements Runnable {
 	 * @param beta
 	 * @return OthelloMove
 	 */
-	private OthelloMove bestMove(OthelloBoard board, char player, int depth, OthelloMove alpha, OthelloMove beta) {
+	private OthelloMove bestMove(OthelloBoard board, int player, int depth, OthelloMove alpha, OthelloMove beta) {
 		
 		if(depth == 0) {
 			// This is the final depth, check if we can determine an end-state. If not, estimate it
@@ -98,8 +94,15 @@ public class OthelloAI implements Runnable {
 			move.setValue(moveValue);
 			return move;
 		}
+
+		int opponent = 0;
 		
-		char opponent = NetworkModel.board.player.tileOpp;
+		if (player == OthelloModel.PLAYER_ONE) {
+			opponent = OthelloModel.PLAYER_TWO;
+		} else {
+			opponent = OthelloModel.PLAYER_ONE;
+		}
+		
 		ArrayList<OthelloMove> moves = board.getValidMoves(player);
 		if(moves.size() == 0) {
 			if(board.canPlayerMove(opponent)) {
