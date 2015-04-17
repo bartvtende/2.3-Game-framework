@@ -23,7 +23,11 @@ public class TicTacToeAI {
 	private char[][] board = new char[3][3];
 	private char side = COMPUTER;
 
-	// Constructor for TicTacToeAI
+	/**
+	 * Constructor for TicTacToeAI
+	 * 
+	 * @param board
+	 */
 	public TicTacToeAI(char[][] board) {
 		this.board = board;
 	}
@@ -35,6 +39,7 @@ public class TicTacToeAI {
 	 */
 	public int chooseMove() {
 		Best best = chooseMove(COMPUTER);
+		// Format the move
 		return best.row * 3 + best.column;
 	}
 
@@ -73,11 +78,14 @@ public class TicTacToeAI {
 				if (squareIsEmpty(row, col)) {
 					// Simulate a move
 					place(row, col, side);
+					// Get the best move from the opponent
 					reply = chooseMove(opp);
+					// Set it back to empty
 					place(row, col, EMPTY);
 					// Update the best move if it's better
 					if (side == COMPUTER && reply.val > value || side == ENEMY
 							&& reply.val < value) {
+						// Set the move as the best move
 						value = reply.val;
 						bestRow = row;
 						bestColumn = col;
@@ -85,6 +93,8 @@ public class TicTacToeAI {
 				}
 			}
 		}
+
+		// Return the best move as an object of Best
 		return new Best(value, bestRow, bestColumn);
 	}
 

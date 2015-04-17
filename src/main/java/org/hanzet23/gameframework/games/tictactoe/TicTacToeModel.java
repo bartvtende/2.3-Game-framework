@@ -7,7 +7,7 @@ import main.java.org.hanzet23.gameframework.models.NetworkModel;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
 /**
- * Class implementating the basic behaviour of the TicTacToe game
+ * Class implementing the basic behavior of the TicTacToe game
  * 
  * @author Bart van 't Ende
  * @author Jan-Bert van Slochteren
@@ -29,12 +29,19 @@ public class TicTacToeModel extends GameModel {
 
 	/**
 	 * Constructor for the TicTacToeModel
+	 * 
 	 * @param gameName
 	 */
 	public TicTacToeModel(String gameName) {
 		super(gameName);
+		
+		// Create a new board
 		this.board = new char[BOARD_RANGE][BOARD_RANGE];
+		
+		// Initialize the board
 		initializeBoard();
+		
+		// Set the TTTModel object to the current object
 		TTTModel = this;
 	}
 

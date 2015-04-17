@@ -5,7 +5,10 @@ import java.util.ArrayList;
 /**
  * An abstract class that is extended by the algorithms for Othello
  * 
- * @author Bart
+ * @author Bart van 't Ende
+ * @author Jan-Bert van Slochteren
+ * @author Jonathan Berends
+ * @author Joz Reijneveld
  *
  */
 public abstract class OthelloAI {
@@ -45,18 +48,23 @@ public abstract class OthelloAI {
 				{ -1, 1 }, { 0, 1 }, { 1, 1 } // Bottom
 		};
 
+		// Loop through all of the possible directions
 		for (int dir = 0; dir < directions.length; dir++) {
-			// Each direction check the pieces
+			// For each direction check the pieces
 			for (int dist = 1; dist < board.length; dist++) {
+				// Calculate the x and y coordinates
 				int x = move.x + (dist * directions[dir][0]);
 				int y = move.y + (dist * directions[dir][1]);
+				
 				// Check for array out of bound
 				if (x < 0 || x >= board.length || y < 0 || y >= board.length) {
 					break;
 				}
 
-				int tile = board[x][y];
+				// Get the tile from the coordinates
+				char tile = board[x][y];
 
+				// Check the tiles
 				if (dist == 1) {
 					if (tile != opp)
 						break;
@@ -108,6 +116,7 @@ public abstract class OthelloAI {
 	 * @return
 	 */
 	public char[][] place(char player, OthelloMove move, char[][] board) {
+		// Get the tile of the opponent
 		char opp = 0;
 		if (player == 'X') {
 			opp = 'O';
@@ -115,6 +124,7 @@ public abstract class OthelloAI {
 			opp = 'X';
 		}
 
+		// Define the directions to search for
 		int[][] directions = { { -1, -1 }, { 0, -1 }, { 1, -1 }, // Top
 				{ -1, 0 }, { 1, 0 }, // Left and right
 				{ -1, 1 }, { 0, 1 }, { 1, 1 } // Bottom
@@ -123,11 +133,13 @@ public abstract class OthelloAI {
 		// Check for all the direction
 		outerLoop: for (int dir = 0; dir < directions.length; dir++) {
 
-			// First check if we can go this way, skip if not
+			// Check if we can go this way, skip if not
 			for (int dist = 1; true; dist++) {
+				// Get the x and y coordinates of this move
 				int checkX = move.x + (dist * directions[dir][0]);
 				int checkY = move.y + (dist * directions[dir][1]);
 
+				// Check the tile
 				if (checkX < 0 || checkY < 0 || checkX >= board.length
 						|| checkY >= board.length) {
 					continue outerLoop;
@@ -142,11 +154,13 @@ public abstract class OthelloAI {
 				}
 			}
 
-			// Then flip the tiles
+			// Flip the tiles
 			for (int dist = 1; dist < board.length; dist++) {
+				// Get the x and y coordinates of this move
 				int checkX = move.x + (dist * directions[dir][0]);
 				int checkY = move.y + (dist * directions[dir][1]);
 
+				// Check the tile
 				if (board[checkX][checkY] == opp) {
 					board[checkX][checkY] = player;
 				} else {
@@ -155,7 +169,10 @@ public abstract class OthelloAI {
 			}
 		}
 
+		// Place the tile
 		board[move.x][move.y] = player;
+		
+		// Return the game board
 		return board;
 	}
 
@@ -168,30 +185,17 @@ public abstract class OthelloAI {
 	 * @return
 	 */
 	public int getAmountOfStones(char player, OthelloMove move, char[][] board) {
-		int oldCount = calculateTiles(player, board);
+		// Count the tiles for the old move
+		int oldCount = countTiles(board, player);
+		
+		// Simulate a move
 		board = place(player, move, board);
-		int newCount = calculateTiles(player, board);
+		
+		// Count the tiles for the new move
+		int newCount = countTiles(board, player);
 
+		// Return the newCount minus the oldCount
 		return newCount - oldCount;
-	}
-
-	/**
-	 * Calculates how much tiles a player has on the board
-	 * 
-	 * @param player
-	 * @param board
-	 * @return
-	 */
-	public int calculateTiles(char player, char[][] board) {
-		int counter = 0;
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board.length; j++) {
-				if (board[i][j] == player) {
-					counter++;
-				}
-			}
-		}
-		return counter;
 	}
 
 	/**
@@ -218,9 +222,12 @@ public abstract class OthelloAI {
 	 */
 	public int countTiles(char[][] board, char identifier) {
 		int counter = 0;
+		// Loop through the board
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
+				// Check if the tile contains a tile from the given player
 				if (board[i][j] == identifier) {
+					// Increment the counter
 					counter++;
 				}
 			}

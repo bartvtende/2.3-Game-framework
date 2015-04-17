@@ -5,7 +5,10 @@ import java.util.ArrayList;
 /**
  * Relatively simple implementation of the greedy algorithm for Othello
  * 
- * @author Bart
+ * @author Bart van 't Ende
+ * @author Jan-Bert van Slochteren
+ * @author Jonathan Berends
+ * @author Joz Reijneveld
  *
  */
 public class OthelloGreedyAI extends OthelloAI {
@@ -40,7 +43,7 @@ public class OthelloGreedyAI extends OthelloAI {
 			// Check the amount of stones the move gives
 			int amountOfStones = getAmountOfStones(player, move, tempBoard);
 
-			// If there aren't more then .. squares on the board, try not to get
+			// If there aren't more then 36 (16*2 + 4) squares on the board, try not to get
 			// the most amount of stones
 			if (turnCounter < 16) {
 				if ((randomBoard[move.x][move.y] - amountOfStones) > bestValue) {
