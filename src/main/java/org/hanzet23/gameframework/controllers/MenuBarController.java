@@ -8,6 +8,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import main.java.org.hanzet23.gameframework.views.HelpView;
+
 public class MenuBarController extends JMenuBar {
 
 	private static final long serialVersionUID = 1L;
@@ -57,6 +59,7 @@ public class MenuBarController extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO: Help menu frame should be called here
+				new HelpView();
 			}
 
 		});
