@@ -1,27 +1,30 @@
-package main.java.org.hanzet23.gameframework.games.tictactoe;
+package main.java.org.hanzet23.gameframework.games.othello;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-public class BoardView extends JPanel {
+import main.java.org.hanzet23.gameframework.games.othello.Tile;
+
+public class OthelloView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private Tile[][] tiles = new Tile[3][3];
+	private Tile[][] tiles = new Tile[8][8];
 
-	public BoardView() {
-		this.setLayout(new GridLayout(3, 3));
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
+	public OthelloView() {
+		this.setLayout(new GridLayout(tiles.length, tiles[0].length));
+		for (int i = 0; i < tiles.length; i++) {
+			for (int j = 0; j < tiles[0].length; j++) {
 				Tile tile = new Tile(i,j);
+				tile.setBackground(this.getBackground());
 				tiles[i][j] = tile;
 				this.add(tile);
 			}
 		}
 
-		this.setPreferredSize(new Dimension(150, 150));
+		this.setPreferredSize(new Dimension(400, 400));
 	}
 
 	public Tile getTile(int x, int y) {
@@ -38,7 +41,7 @@ public class BoardView extends JPanel {
 	public void refresh(char[][] board) {
 		this.removeAll();
 
-		this.setLayout(new GridLayout(3, 3));
+		this.setLayout(new GridLayout(8, 8));
 
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
@@ -49,6 +52,7 @@ public class BoardView extends JPanel {
 
 					tiles[i][j] = tile;
 					this.add(tile);
+
 				} else if (boardChar == 'O' || boardChar == 'o') {
 					Tile tile = new Tile(i,j);
 					tile.setContent("O");
@@ -57,7 +61,7 @@ public class BoardView extends JPanel {
 					this.add(tile);
 				} else if (boardChar == 'E' || boardChar == 'e') {
 					Tile tile = new Tile(i,j);
-					tile.setContent("Empty");
+					tile.setContent("E");
 
 					tiles[i][j] = tile;
 					this.add(tile);
@@ -67,4 +71,5 @@ public class BoardView extends JPanel {
 
 		this.revalidate();
 	}
+
 }

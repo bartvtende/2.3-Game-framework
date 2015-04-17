@@ -17,7 +17,7 @@ import main.java.org.hanzet23.gameframework.views.MainView;
  * This class represents the input stream to the game server. Receives commands
  * send by the server through a socket connection
  * 
- * @@author Bart van 't Ende
+ * @author Bart van 't Ende
  * @author Jan-Bert van Slochteren
  * @author Jonathan Berends
  * @author Joz Reijneveld

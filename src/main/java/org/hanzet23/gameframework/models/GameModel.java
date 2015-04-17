@@ -131,4 +131,18 @@ public abstract class GameModel {
 		}
 	}
 
+	/**
+	 * Let the program sleep for a given amount of seconds
+	 * 
+	 * @param seconds
+	 */
+	protected void sleep(int seconds) {
+		seconds *= 1000;
+		try {
+            Thread.sleep(seconds);
+		} catch (Exception e) {
+			System.out.println(e);
+        }
+	}
+
 }

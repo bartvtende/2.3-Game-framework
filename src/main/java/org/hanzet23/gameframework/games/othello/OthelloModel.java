@@ -14,7 +14,7 @@ public class OthelloModel extends GameModel {
 	private int turnCounter = 0;
 	
 	private JFrame boardFrame;
-	public BoardView boardView;
+	public OthelloView boardView;
 	public static OthelloModel othelloModel;
 
 	public OthelloModel(String gameName) {
@@ -34,8 +34,8 @@ public class OthelloModel extends GameModel {
 		// Increment the turn counter
 		turnCounter++;
 		
-		// Sleep to compensate latency
-		//sleep(4);
+		// Sleep for 2 seconds
+		sleep(2);
 
 		// Get the tile of the current player
 		char tile = NetworkModel.board.player.getTile();
@@ -73,7 +73,7 @@ public class OthelloModel extends GameModel {
 		// Add the Othello view
 		JFrame frame = new JFrame();
 		this.boardFrame = frame;
-		BoardView boardView = new BoardView();
+		OthelloView boardView = new OthelloView();
 		this.boardView = boardView;
 		frame.getContentPane().add(boardView);
 		frame.setVisible(true);
@@ -111,15 +111,6 @@ public class OthelloModel extends GameModel {
 		board[3][4] = 'X';
 		board[4][3] = 'X';
 		board[4][4] = 'O';
-	}
-	
-	private void sleep(int seconds) {
-		seconds *= 100;
-		try {
-            Thread.sleep(seconds);
-		} catch (Exception e) {
-			System.out.println(e);
-        }
 	}
 
 }
