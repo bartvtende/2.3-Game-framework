@@ -15,17 +15,16 @@ public class TicTacToeTest extends TestCase {
 	public static Test suite() {
 		return new TestSuite(TicTacToeTest.class);
 	}
-	
+
+	/**
+	 * Testing for the following case:
+	 * 
+	 * X.X
+	 * OO.
+	 * ...
+	 */
 	public void testTicTacToeGame1() {
 		TicTacToeModel t = new TicTacToeModel("Test game 1");
-		
-		/*
-		 * Testing for the following case:
-		 * 
-		 * X.X
-		 * OO.
-		 * ...
-		 */
 		
 		t.addItemToBoard("0", 'X');
 		t.addItemToBoard("3", 'O');
@@ -37,18 +36,17 @@ public class TicTacToeTest extends TestCase {
 		// Should equal 1 (best move)
 		assertEquals(1, bestMove);
 	}
-	
+
+	/**
+	 * Testing for the following case:
+	 * 
+	 * O.O
+	 * .X.
+	 * X-X
+	 */
 	public void testTicTacToeGame2() {
 		TicTacToeModel t = new TicTacToeModel("Test game 2");
 		
-		/*
-		 * Testing for the following case:
-		 * 
-		 * O.O
-		 * .X.
-		 * X-X
-		 */
-
 		t.addItemToBoard("0", 'X');
 		t.addItemToBoard("2", 'X');
 		t.addItemToBoard("4", 'O');
@@ -61,16 +59,15 @@ public class TicTacToeTest extends TestCase {
 		assertEquals(1, bestMove);
 	}
 
+	/**
+	 * Testing for the following case:
+	 * 
+	 * XOX
+	 * X.O
+	 * 00X
+	 */
 	public void testTicTacToeGame3() {
 		TicTacToeModel t = new TicTacToeModel("Test game 3");
-		
-		/*
-		 * Testing for the following case:
-		 * 
-		 * XOX
-		 * X.O
-		 * 00X
-		 */
 
 		t.addItemToBoard("0", 'X');
 		t.addItemToBoard("1", 'O');

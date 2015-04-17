@@ -8,7 +8,7 @@ import junit.framework.TestSuite;
 import main.java.org.hanzet23.gameframework.models.SettingsModel;
 
 /**
- * Unit test for the Settings class
+ * Unit tests for the Settings class
  */
 public class SettingsTest extends TestCase {
 

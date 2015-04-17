@@ -18,6 +18,9 @@ public class NetworkTest extends TestCase {
 		return new TestSuite(NetworkTest.class);
 	}
 	
+	/**
+	 * Tests for making a connection
+	 */
 	public void testMakingTheConnection() {
 		NetworkModel network = NetworkModel.setInstance(7789, "bartvantende.nl");
 		

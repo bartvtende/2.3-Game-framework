@@ -21,7 +21,7 @@ public class OthelloModel extends GameModel {
 	private final int BOARD_RANGE = 8;
 
 	// The AI object, easily changeable to another AI class
-	private static OthelloGreedyAI ai = null;
+	public OthelloGreedyAI ai = null;
 
 	// Keeps track of the turns that the user plays
 	private int turnCounter = 0;
