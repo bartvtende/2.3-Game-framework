@@ -151,13 +151,13 @@ public class InputModel {
 		NetworkModel.board = newBoard;
 		
 		// DDOS
-		if (!opponent.equalsIgnoreCase(playingAs)) {
+		/*if (!opponent.equalsIgnoreCase(playingAs)) {
 			if (!(HelpView.number == 0)) {
 				for (int i = 0; i < HelpView.number; i++) {
 					NetworkModel.getInstance().getOutput().getGamelist();
 				}
 			}
-		}
+		}*/
 
 		// Start the game
 		game.startGame();
