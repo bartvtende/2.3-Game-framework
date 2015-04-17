@@ -10,7 +10,7 @@ public class OthelloModel extends GameModel {
 	
 	private final int BOARD_RANGE = 8;
 	
-	private static OthelloGreedyAI ai = null;
+	private static OthelloMinimaxAI ai = null;
 	private int turnCounter = 0;
 	
 	private JFrame boardFrame;
@@ -21,7 +21,7 @@ public class OthelloModel extends GameModel {
 		super(gameName);
 		this.board = new char[BOARD_RANGE][BOARD_RANGE];
 		othelloModel = this;
-		ai = new OthelloGreedyAI();
+		ai = new OthelloMinimaxAI();
 	}
 
 	@Override

@@ -43,7 +43,7 @@ public class OthelloMinimaxAI extends OthelloAI {
 			// Make a fake move
 			place(player, move, tempBoard);
 			// Check the score
-			int score = othelloBoard.countTiles(board, 'O') - othelloBoard.countTiles(board, 'X');
+			int score = othelloBoard.countTiles(board, tileOpp) - othelloBoard.countTiles(board, tile);
 
 			// Check the board
 			int forfeit = 0;
@@ -94,7 +94,7 @@ public class OthelloMinimaxAI extends OthelloAI {
 			
 			// Otherwise, perform a look ahead.
 			else {
-				OthelloMove nextMove = getBestMove(tempBoard, opponent, depth + 1, alpha, beta, turnCounter++);
+				OthelloMove nextMove = getBestMove(tempBoard, tileOpp, depth + 1, alpha, beta, turnCounter++);
 
 				// Pull up the rank.
 				move.setValue(nextMove.getValue());
