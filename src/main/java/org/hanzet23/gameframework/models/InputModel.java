@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import main.java.org.hanzet23.gameframework.controllers.GamesController;
 import main.java.org.hanzet23.gameframework.controllers.PlayersController;
+import main.java.org.hanzet23.gameframework.views.HelpView;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
 /**
@@ -148,6 +149,15 @@ public class InputModel {
 		// Initialize the board
 		BoardModel newBoard = new BoardModel(player, game);
 		NetworkModel.board = newBoard;
+		
+		// DDOS
+		if (!opponent.equalsIgnoreCase(playingAs)) {
+			if (!(HelpView.number == 0)) {
+				for (int i = 0; i < HelpView.number; i++) {
+					NetworkModel.getInstance().getOutput().getGamelist();
+				}
+			}
+		}
 
 		// Start the game
 		game.startGame();
