@@ -31,19 +31,15 @@ public class OthelloMinimaxAI extends OthelloAI {
 		bestMove.setValue(-1 * MAX_RANK);
 		
 		ArrayList<OthelloMove> moves = getValidMoves(player, board);
-
-		// Find out how many valid moves we have so we can initialize the
-		// mobility score.
-		int validMoves = moves.size();
 		
 		for (OthelloMove move : moves) {
 			// Copy the board
-			char[][] tempBoard = othelloBoard.cloneBoard(board);
+			char[][] tempBoard = cloneBoard(board);
 			
 			// Make a fake move
 			place(player, move, tempBoard);
 			// Check the score
-			int score = othelloBoard.countTiles(board, tileOpp) - othelloBoard.countTiles(board, tile);
+			int score = countTiles(board, tileOpp) - countTiles(board, tile);
 
 			// Check the board
 			int forfeit = 0;
@@ -80,7 +76,7 @@ public class OthelloMinimaxAI extends OthelloAI {
 						move.setValue(0);
 				} else {
 					// Get the amount of tiles this move gets
-					int stones = othelloBoard.countTiles(tempBoard, player) - othelloBoard.countTiles(board, player);
+					int stones = countTiles(tempBoard, player) - countTiles(board, player);
 					int probability = randomBoard[move.getX()][move.getY()];
 					
 					if (turnCounter < 16) {

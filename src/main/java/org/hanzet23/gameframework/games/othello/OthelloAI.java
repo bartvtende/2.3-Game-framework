@@ -2,27 +2,36 @@ package main.java.org.hanzet23.gameframework.games.othello;
 
 import java.util.ArrayList;
 
+/**
+ * An abstract class that is extended by the algorithms for Othello
+ * 
+ * @author Bart
+ *
+ */
 public abstract class OthelloAI {
-	
-	protected OthelloBoard othelloBoard = null;
-	
+
 	// Matrix which determines how favourable a square is
 	protected int[][] randomBoard = { { 30, -25, 10, 5, 5, 10, -25, 30, },
 			{ -25, -25, 1, 1, 1, 1, -25, -25, }, { 10, 1, 5, 2, 2, 5, 1, 10, },
 			{ 5, 1, 2, 1, 1, 2, 1, 5, }, { 5, 1, 2, 1, 1, 2, 1, 5, },
 			{ 10, 1, 5, 2, 2, 5, 1, 10, }, { -25, -25, 1, 1, 1, 1, -25, -25, },
 			{ 30, -25, 10, 5, 5, 10, -25, 30, } };
-		
-	public OthelloAI() {
-		othelloBoard = new OthelloBoard();
-	}
-	
+
+	/**
+	 * Calculates if a move is valid for the player
+	 * 
+	 * @param player
+	 * @param move
+	 * @param board
+	 * @return
+	 */
 	private boolean isValidMove(char player, OthelloMove move, char[][] board) {
 		// Return false if the square is empty
 		if (board[move.x][move.y] != 'E') {
 			return false;
 		}
 
+		// Calculates the tile of the opponent
 		char opp = 0;
 		if (player == 'X') {
 			opp = 'O';
@@ -30,6 +39,7 @@ public abstract class OthelloAI {
 			opp = 'X';
 		}
 
+		// Define the directions to search for
 		int[][] directions = { { -1, -1 }, { 0, -1 }, { 1, -1 }, // Top
 				{ -1, 0 }, { 1, 0 }, // Left and right
 				{ -1, 1 }, { 0, 1 }, { 1, 1 } // Bottom
@@ -63,9 +73,8 @@ public abstract class OthelloAI {
 		return false;
 	}
 
-	
 	/**
-	 * Returns an ArrayList with all of the valid moves
+	 * Returns an ArrayList with all of the valid moves for the given player
 	 * 
 	 * @param player
 	 * @param board
@@ -89,7 +98,6 @@ public abstract class OthelloAI {
 
 		return validMoves;
 	}
-	
 
 	/**
 	 * Places an OthelloMove object on the board for a specific player
@@ -150,7 +158,6 @@ public abstract class OthelloAI {
 		board[move.x][move.y] = player;
 		return board;
 	}
-	
 
 	/**
 	 * Calculates the amount of tiles a player will get when they do a move
@@ -161,12 +168,64 @@ public abstract class OthelloAI {
 	 * @return
 	 */
 	public int getAmountOfStones(char player, OthelloMove move, char[][] board) {
-		int oldCount = othelloBoard.calculateTiles(player, board);
+		int oldCount = calculateTiles(player, board);
 		board = place(player, move, board);
-		int newCount = othelloBoard.calculateTiles(player, board);
+		int newCount = calculateTiles(player, board);
 
 		return newCount - oldCount;
 	}
-	
+
+	/**
+	 * Calculates how much tiles a player has on the board
+	 * 
+	 * @param player
+	 * @param board
+	 * @return
+	 */
+	public int calculateTiles(char player, char[][] board) {
+		int counter = 0;
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				if (board[i][j] == player) {
+					counter++;
+				}
+			}
+		}
+		return counter;
+	}
+
+	/**
+	 * Helper method that makes a copy of the 2d Othello board
+	 * 
+	 * @param board
+	 * @return
+	 */
+	public char[][] cloneBoard(char[][] board) {
+		// Copy the board
+		char[][] tempBoard = new char[board.length][];
+		for (int j = 0; j < board.length; j++) {
+			tempBoard[j] = board[j].clone();
+		}
+		return tempBoard;
+	}
+
+	/**
+	 * Calculate the amount of occurrences of the given tile in the board
+	 * 
+	 * @param board
+	 * @param identifier
+	 * @return
+	 */
+	public int countTiles(char[][] board, char identifier) {
+		int counter = 0;
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				if (board[i][j] == identifier) {
+					counter++;
+				}
+			}
+		}
+		return counter;
+	}
 
 }

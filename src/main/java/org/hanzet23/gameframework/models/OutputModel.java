@@ -4,8 +4,10 @@ package main.java.org.hanzet23.gameframework.models;
  * This class represents the output stream to the game server. Sends commands to
  * the server through a socket connection
  * 
- * @authors Groep 2: Jonathan Berends, Bart van 't Ende, Joz Reijneveld en
- *          Jan-Bert van Slochteren
+ * @author Bart van 't Ende
+ * @author Jan-Bert van Slochteren
+ * @author Jonathan Berends
+ * @author Joz Reijneveld
  */
 public class OutputModel {
 
@@ -15,7 +17,7 @@ public class OutputModel {
 	 * @param command
 	 */
 	public synchronized void sendCommand(String command) {
-		// Print the command
+		// Print the command to the console
 		System.out.println("Client: " + command);
 		// Send the command
 		NetworkModel.getWriter().println(command);

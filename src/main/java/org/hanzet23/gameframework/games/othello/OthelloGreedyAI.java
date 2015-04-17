@@ -3,17 +3,25 @@ package main.java.org.hanzet23.gameframework.games.othello;
 import java.util.ArrayList;
 
 /**
- * Relatively simple inplementation of the greedy algorithm for Othello
+ * Relatively simple implementation of the greedy algorithm for Othello
  * 
  * @author Bart
  *
  */
 public class OthelloGreedyAI extends OthelloAI {
 
+	/**
+	 * Calculates the best move for the given player using the greedy algorithm
+	 * 
+	 * @param player
+	 * @param board
+	 * @param turnCounter
+	 * @return
+	 */
 	public OthelloMove getBestMove(char player, char[][] board, int turnCounter) {
 		// Get all of the valid moves for this
 		ArrayList<OthelloMove> moves = getValidMoves(player, board);
-		
+
 		// Print the size of the list
 		System.out.println(moves.size() + " moves have been found");
 
@@ -24,7 +32,7 @@ public class OthelloGreedyAI extends OthelloAI {
 		// Loop through all the available valid moves
 		for (int i = 0; i < moves.size(); i++) {
 			// Copy the board
-			char[][] tempBoard = othelloBoard.cloneBoard(board);
+			char[][] tempBoard = cloneBoard(board);
 
 			// Get the move
 			OthelloMove move = moves.get(i);
@@ -48,6 +56,7 @@ public class OthelloGreedyAI extends OthelloAI {
 			}
 		}
 
+		// Returns the calculated best move
 		return bestMove;
 	}
 

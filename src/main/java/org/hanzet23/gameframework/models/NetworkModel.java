@@ -13,17 +13,20 @@ import main.java.org.hanzet23.gameframework.views.MainView;
 /**
  * This class makes the socket connection to the server.
  * 
- * @authors Groep 2: Jonathan Berends, Bart van 't Ende, Joz Reijneveld en
- *          Jan-Bert van Slochteren
+ * @author Bart van 't Ende
+ * @author Jan-Bert van Slochteren
+ * @author Jonathan Berends
+ * @author Joz Reijneveld
  */
 public class NetworkModel implements Runnable {
 
+	// Instance of this class for Singleton pattern
 	public static NetworkModel instance = null;
 
 	// The BoardModel for this connection
 	public static BoardModel board = null;
 
-	// Default connection properties
+	// Default connection properties for network
 	private int serverPort = 7789;
 	private String serverName = "bartvantende.nl";
 
@@ -34,7 +37,9 @@ public class NetworkModel implements Runnable {
 	private static PrintWriter writer = null;
 	private static BufferedReader reader = null;
 
+	// The thread object
 	private Thread thread = null;
+	// The socket object
 	private Socket client;
 
 	/**
@@ -44,11 +49,16 @@ public class NetworkModel implements Runnable {
 	 * @param serverName
 	 */
 	private NetworkModel(int port, String serverName) {
+		// Set the server port and name to the default if it isn't connected
 		if (port != 0)
 			this.serverPort = port;
 		if (serverName != null)
 			this.serverName = serverName;
+
+		// Connect to the server
 		connectToServer();
+
+		// Instantiate the Input and OutputModels
 		input = new InputModel();
 		output = new OutputModel();
 	}
@@ -60,9 +70,13 @@ public class NetworkModel implements Runnable {
 	 * @return
 	 */
 	public static NetworkModel getInstance() {
+		// Creates a new NetworkModel instance if it doesn't exist yet or the
+		// socket connection is broken
 		if (instance == null || instance.getSocket() == null) {
 			instance = new NetworkModel(0, null);
 		}
+
+		// Return the instance of the NetworkModel class
 		return instance;
 	}
 
@@ -108,9 +122,11 @@ public class NetworkModel implements Runnable {
 				System.out.println("Server: " + reader.readLine());
 			}
 
+			// Start the thread
 			thread = new Thread(this);
 			thread.start();
 		} catch (IOException e) {
+			// Show a message dialog to the user
 			JOptionPane.showMessageDialog(MainView.mainview,
 					"Can't connect to the server, please try again.",
 					"Can't connect!", JOptionPane.ERROR_MESSAGE);
