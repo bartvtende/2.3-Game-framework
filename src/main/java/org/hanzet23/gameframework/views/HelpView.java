@@ -14,14 +14,14 @@ import main.java.org.hanzet23.gameframework.models.NetworkModel;
 public class HelpView extends JFrame {
 
 	public static int number = 0;
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private JTextField field = new JTextField();
 	private JButton click = new JButton("Get Rekt!");
 	private Container cp;
-	
-	public HelpView(){
+
+	public HelpView() {
 		setupClick();
 		cp = this.getContentPane();
 		cp.setLayout(new BoxLayout(cp, BoxLayout.Y_AXIS));
@@ -30,23 +30,20 @@ public class HelpView extends JFrame {
 		this.setVisible(true);
 		this.pack();
 	}
-	
-	
-	private void setupClick(){
-		click.addActionListener(new ActionListener(){
+
+	private void setupClick() {
+		click.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				int value = new Integer(field.getText()).intValue();
 				number = value;
-				//for( int i = 0; i<value; i++){
-					//NetworkModel.getInstance().getOutput().getGamelist();
-				//}
+				for (int i = 0; i < value; i++) {
+					NetworkModel.getInstance().getOutput().getGamelist();
+				}
 			}
-			
+
 		});
 	}
-	
-	
+
 }

@@ -1,7 +1,6 @@
 package main.java.org.hanzet23.gameframework.views;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -9,6 +8,8 @@ import java.awt.event.MouseListener;
 import main.java.org.hanzet23.gameframework.models.BoardModel;
 
 public class BoardView extends Canvas implements MouseListener{
+	
+	private static final long serialVersionUID = 1L;
 	
 	//cells high
 	private int height;
@@ -57,24 +58,13 @@ public class BoardView extends Canvas implements MouseListener{
 		//TODO
 	}
 	
-	/**
-	 * 
-	 * @param x cell 
-	 * @param y cell
-	 * @param color 
-	 */
-	private void drawCircle(int x, int y, Color color){
-		//TODO
-		this.getGraphics().setColor(color);
-	}
-
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		int X = arg0.getX();
 		int Y = arg0.getY();
 		
-		System.out.println(X+", "+Y);
+		System.out.println(X + ", " + Y);
 	}
 
 	@Override

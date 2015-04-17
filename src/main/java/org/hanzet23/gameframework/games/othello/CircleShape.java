@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 
 public class CircleShape extends JPanel {
 
+	private static final long serialVersionUID = 1L;
+	
 	private double[] pointsX = {0.1, 0.9};
 	private double[] pointsY = {0.1, 0.9};
 	private Color circle;

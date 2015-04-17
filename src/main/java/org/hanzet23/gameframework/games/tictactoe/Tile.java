@@ -18,16 +18,16 @@ public class Tile extends JButton {
 	private final int tileSize = 50;
 	private int XPosition;
 	private int YPosition;
-	
-	public Tile(int x, int y){
+
+	public Tile(int x, int y) {
 		XPosition = x;
 		YPosition = y;
-		
+
 		JPanel empty = new JPanel();
 		empty.setSize(tileSize, tileSize);
 		this.content = empty;
 
-        this.setContent("Empty");
+		this.setContent("Empty");
 		// border
 
 		Border raisedBevel = BorderFactory.createRaisedBevelBorder();
@@ -43,8 +43,8 @@ public class Tile extends JButton {
 				// Something with get player or
 				String position = Integer.toString(XPosition * 3 + YPosition);
 				NetworkModel.getInstance().getOutput().move(position);
-				NetworkModel.getInstance().board.game.addItemToBoard(position, 'X');
-				
+				NetworkModel.board.game.addItemToBoard(position, 'X');
+
 				System.out.println("Tile got clicked");
 				setContent("X");
 			}

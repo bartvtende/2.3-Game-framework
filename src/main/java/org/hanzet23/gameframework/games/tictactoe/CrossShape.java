@@ -7,16 +7,17 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 public class CrossShape extends JPanel {
 
-	private double points[][] = { 
-			{ 0.2, 0.1 }, { 0.5, 0.4 }, { 0.8, 0.1 }, { 0.9, 0.2 }, 
-			{ 0.6, 0.5 }, { 0.9, 0.8 }, { 0.8, 0.9 }, { 0.5, 0.6 }, 
-			{ 0.2, 0.9 }, { 0.1, 0.8 }, { 0.4, 0.5 }, { 0.1, 0.2 }, 
-			{ 0.2, 0.1 } };
+	private static final long serialVersionUID = 1L;
+
+	private double points[][] = { { 0.2, 0.1 }, { 0.5, 0.4 }, { 0.8, 0.1 },
+			{ 0.9, 0.2 }, { 0.6, 0.5 }, { 0.9, 0.8 }, { 0.8, 0.9 },
+			{ 0.5, 0.6 }, { 0.2, 0.9 }, { 0.1, 0.8 }, { 0.4, 0.5 },
+			{ 0.1, 0.2 }, { 0.2, 0.1 } };
+
 	private Color color;
 
 	public CrossShape(double width, double height) {
@@ -26,8 +27,9 @@ public class CrossShape extends JPanel {
 	public CrossShape(double width, double height, Color color) {
 		this.color = color;
 		updatePoints(width, height);
-		this.setPreferredSize(new Dimension(new Double( width).intValue(), new Double(height).intValue()));
-		
+		this.setPreferredSize(new Dimension(new Double(width).intValue(),
+				new Double(height).intValue()));
+
 	}
 
 	private void updatePoints(double width, double height) {
@@ -37,7 +39,7 @@ public class CrossShape extends JPanel {
 		}
 	}
 
-	//source: http://zetcode.com/gfx/java2d/shapesandfills/
+	// source: http://zetcode.com/gfx/java2d/shapesandfills/
 	private void doDrawing(Graphics g) {
 
 		Graphics2D g2d = (Graphics2D) g;
@@ -48,7 +50,7 @@ public class CrossShape extends JPanel {
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
 				RenderingHints.VALUE_RENDER_QUALITY);
 
-		//g2d.translate(25, 5);
+		// g2d.translate(25, 5);
 
 		GeneralPath cross = new GeneralPath();
 
@@ -68,5 +70,5 @@ public class CrossShape extends JPanel {
 		super.paintComponent(g);
 		doDrawing(g);
 	}
-	
+
 }
