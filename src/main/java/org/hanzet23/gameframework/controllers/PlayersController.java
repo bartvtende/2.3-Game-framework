@@ -17,6 +17,12 @@ import javax.swing.JPanel;
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
 import main.java.org.hanzet23.gameframework.views.MainView;
 
+/**
+ * JPanel that holds all button involved in choosing what player is played against.
+ * 
+ * @author Jan-Bert
+ *
+ */
 public class PlayersController extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -27,6 +33,9 @@ public class PlayersController extends JPanel {
 	private JButton refresh;
 	private JList<String> playerList;
 
+	/**
+	 * Constructor for PlayersController.
+	 */
 	public PlayersController() {
 		// Setups
 		setupPlayers();
@@ -54,12 +63,18 @@ public class PlayersController extends JPanel {
 
 	}
 
+	/**
+	 * This method makes an JList out of the players available in the array playersList.
+	 */
 	public void setupPlayers() {
 		if (playerList != null) {
 			playerList.setListData(playersList);
 		}
 	}
 
+	/**
+	 * Creates the button for connecting to the specified player and the actions that will be performed when it is clicked.
+	 */
 	private void setupConnect() {
 		connect = new JButton("Connect");
 		connect.addActionListener(new ActionListener() {
@@ -91,6 +106,9 @@ public class PlayersController extends JPanel {
 		});
 	}
 
+	/**
+	 * Creates the button for refreshing the JList with the player names and the actions that will be performed when it is clicked.
+	 */
 	private void setupRefresh() {
 		refresh = new JButton("Refresh");
 		refresh.addActionListener(new ActionListener() {
@@ -103,6 +121,10 @@ public class PlayersController extends JPanel {
 		});
 	}
 	
+	/**
+	 * Sets the contents of the JList to that of the array that is passed as a parameter.
+	 * @param players The array that contains the player names.
+	 */
 	public void setPlayersList(String[] players) {
 		playersList = players;
 	}

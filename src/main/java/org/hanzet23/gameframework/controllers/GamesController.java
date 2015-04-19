@@ -19,6 +19,12 @@ import javax.swing.JToggleButton;
 
 import main.java.org.hanzet23.gameframework.models.SettingsModel;
 
+/**
+ * JPanel that holds all buttons involved in choosing what game is played and who plays it.
+ * 
+ * @author Jan-Bert
+ *
+ */
 public class GamesController extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -34,6 +40,9 @@ public class GamesController extends JPanel {
 	private JLabel playerLabel = new JLabel("Play as");
 	private JPanel centerPanel = new JPanel();;
 
+	/**
+	 * Contructor for GamesController.
+	 */
 	public GamesController() {
 		// Setups
 		setupGames();
@@ -72,10 +81,14 @@ public class GamesController extends JPanel {
 		this.add(southPanel, BorderLayout.SOUTH);
 	}
 
+	/**
+	 * Creates the contents for the list of games that can be played.
+	 */
 	public void setupGames() {
 		centerPanel.removeAll();
 		centerPanel.setLayout(new GridLayout(0, 1));
 
+		//list with all the JButtons that can be chosen from.
 		games = new ArrayList<JToggleButton>();
 		for (String game : gamesList) {
 			JToggleButton gameButton = new JToggleButton(game);
@@ -112,6 +125,9 @@ public class GamesController extends JPanel {
 		}
 	}
 
+	/**
+	 * Creates the contents for the button that must be pressed for a human player.
+	 */
 	private void setupHuman() {
 		human = new JToggleButton("Human");
 		human.addActionListener(new ActionListener() {
@@ -124,6 +140,9 @@ public class GamesController extends JPanel {
 		});
 	}
 
+	/**
+	 * Creates the contents for the button that must be pressed for an AI player.
+	 */
 	private void setupComputer() {
 		computer = new JToggleButton("Computer");
 		computer.addActionListener(new ActionListener() {
@@ -138,6 +157,10 @@ public class GamesController extends JPanel {
 		computer.setSelected(true);
 	}
 
+	/**
+	 * The method to pass on what games are available to be played.
+	 * @param list
+	 */
 	public void setGamesList(String[] list) {
 		gamesList = list;
 	}
@@ -156,6 +179,10 @@ public class GamesController extends JPanel {
 		return null;
 	}
 	
+	/**
+	 * return wether the player is "Human" or "Computer".
+	 * @return
+	 */
 	public String getPlayerType() {
 		String playerType = null;
 		if (isHuman) {

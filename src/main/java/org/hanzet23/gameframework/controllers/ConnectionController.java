@@ -19,7 +19,12 @@ import javax.swing.JToggleButton;
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
 import main.java.org.hanzet23.gameframework.models.SettingsModel;
 import main.java.org.hanzet23.gameframework.views.MainView;
-
+/**
+ * JPanel that holds all buttons and fields involved in creating the connection to the server. 
+ * 
+ * @author Jan-Bert
+ *
+ */
 public class ConnectionController extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -35,6 +40,9 @@ public class ConnectionController extends JPanel {
 
 	private boolean isLocal = false;
 
+	/**
+	 * Constructor for ConnectionController.  
+	 */
 	public ConnectionController() {
 		// Setups
 		this.setupNetwork();
@@ -75,6 +83,10 @@ public class ConnectionController extends JPanel {
 		this.add(connect, BorderLayout.SOUTH);
 	}
 
+	/**
+	 * Creates the button for local games and the actions that will be performed when it is clicked.
+	 * @return The JButton for local games.
+	 */
 	private JToggleButton setupLocal() {
 		local = new JToggleButton("Local");
 		
@@ -91,6 +103,10 @@ public class ConnectionController extends JPanel {
 		return local;
 	}
 
+	/**
+	 * Creates the button for network games and the actions that will be performed when it is clicked.
+	 * @return The JButton for network games.
+	 */
 	private JToggleButton setupNetwork() {
 		network = new JToggleButton("Network");
 
@@ -107,12 +123,19 @@ public class ConnectionController extends JPanel {
 		return network;
 	}
 
+	/**
+	 *  Creates the textfield for the player's username.
+	 * @return The textfield for the player's username.
+	 */
 	private JTextField setupName() {
 		name = new JTextField();
 		name.setSize(50, name.getHeight());
 		return name;
 	}
 
+	/**
+	 * Creates the button for connecting via the selected methodand the actions that will be performed when it is clicked.
+	 */
 	private JButton setupConnect() {
 		connect = new JButton("Connect");
 
@@ -159,10 +182,17 @@ public class ConnectionController extends JPanel {
 		return connect;
 	}
 	
+	/**
+	 * Gets the name the user entered in the textfield
+	 * @return
+	 */
 	public String getSelectedName() {
 		return selectedName;
 	}
 	
+	/**
+	 * Returns Either "local" or "network" depending on which button is selected.
+	 */
 	public String getConnectionType() {
 		if (local.isSelected()) {
 			return "local";

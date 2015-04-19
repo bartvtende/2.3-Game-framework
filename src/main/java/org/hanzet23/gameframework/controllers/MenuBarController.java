@@ -10,10 +10,19 @@ import javax.swing.JMenuItem;
 
 import main.java.org.hanzet23.gameframework.views.HelpView;
 
+/**
+ * Class that holds all the things involved with the menubar.
+ * 
+ * @author Jan-Bert
+ *
+ */
 public class MenuBarController extends JMenuBar {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Contructor for MenuBarController.
+	 */
 	public MenuBarController() {
 		// Menu 1
 		JMenu options = new JMenu("Options");
