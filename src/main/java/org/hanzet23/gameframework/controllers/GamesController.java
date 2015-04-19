@@ -1,4 +1,4 @@
- package main.java.org.hanzet23.gameframework.controllers;
+package main.java.org.hanzet23.gameframework.controllers;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -20,7 +20,8 @@ import javax.swing.JToggleButton;
 import main.java.org.hanzet23.gameframework.models.SettingsModel;
 
 /**
- * JPanel that holds all buttons involved in choosing what game is played and who plays it.
+ * JPanel that holds all buttons involved in choosing what game is played and
+ * who plays it.
  * 
  * @author Bart van 't Ende
  * @author Jan-Bert van Slochteren
@@ -44,7 +45,7 @@ public class GamesController extends JPanel {
 	private JPanel centerPanel = new JPanel();;
 
 	/**
-	 * Contructor for GamesController.
+	 * Constructor for GamesController.
 	 */
 	public GamesController() {
 		// Setups
@@ -91,15 +92,15 @@ public class GamesController extends JPanel {
 		centerPanel.removeAll();
 		centerPanel.setLayout(new GridLayout(0, 1));
 
-		//list with all the JButtons that can be chosen from.
+		// list with all the JButtons that can be chosen from.
 		games = new ArrayList<JToggleButton>();
 		for (String game : gamesList) {
 			JToggleButton gameButton = new JToggleButton(game);
 			String key = game.toLowerCase();
-			
+
 			SettingsModel settings = new SettingsModel();
 			LinkedHashMap<String, String> map = settings.getGames();
-			
+
 			boolean counter = false;
 			for (Map.Entry<String, String> entry : map.entrySet()) {
 				String gameName = entry.getKey();
@@ -112,7 +113,8 @@ public class GamesController extends JPanel {
 							for (JToggleButton button : games) {
 								button.setSelected(false);
 							}
-							((JToggleButton) arg0.getSource()).setSelected(true);
+							((JToggleButton) arg0.getSource())
+									.setSelected(true);
 						}
 					});
 				}
@@ -129,7 +131,8 @@ public class GamesController extends JPanel {
 	}
 
 	/**
-	 * Creates the contents for the button that must be pressed for a human player.
+	 * Creates the contents for the button that must be pressed for a human
+	 * player.
 	 */
 	private void setupHuman() {
 		human = new JToggleButton("Human");
@@ -144,7 +147,8 @@ public class GamesController extends JPanel {
 	}
 
 	/**
-	 * Creates the contents for the button that must be pressed for an AI player.
+	 * Creates the contents for the button that must be pressed for an AI
+	 * player.
 	 */
 	private void setupComputer() {
 		computer = new JToggleButton("Computer");
@@ -162,6 +166,7 @@ public class GamesController extends JPanel {
 
 	/**
 	 * The method to pass on what games are available to be played.
+	 * 
 	 * @param list
 	 */
 	public void setGamesList(String[] list) {
@@ -181,9 +186,10 @@ public class GamesController extends JPanel {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * return wether the player is "Human" or "Computer".
+	 * 
 	 * @return
 	 */
 	public String getPlayerType() {

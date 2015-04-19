@@ -29,7 +29,7 @@ public class OthelloView extends JPanel {
 		this.setLayout(new GridLayout(tiles.length, tiles[0].length));
 		for (int i = 0; i < tiles.length; i++) {
 			for (int j = 0; j < tiles[0].length; j++) {
-				Tile tile = new Tile(i,j);
+				Tile tile = new Tile(i, j);
 				tile.setBackground(this.getBackground());
 				tiles[i][j] = tile;
 				this.add(tile);
@@ -41,6 +41,7 @@ public class OthelloView extends JPanel {
 
 	/**
 	 * Returns the Tile at the given x and y coordinates.
+	 * 
 	 * @param x
 	 * @param y
 	 * @return
@@ -65,20 +66,20 @@ public class OthelloView extends JPanel {
 			for (int j = 0; j < board[0].length; j++) {
 				char boardChar = board[i][j];
 				if (boardChar == 'X' || boardChar == 'x') {
-					Tile tile = new Tile(i,j);
+					Tile tile = new Tile(i, j);
 					tile.setContent("X");
 
 					tiles[i][j] = tile;
 					this.add(tile);
 
 				} else if (boardChar == 'O' || boardChar == 'o') {
-					Tile tile = new Tile(i,j);
+					Tile tile = new Tile(i, j);
 					tile.setContent("O");
 
 					tiles[i][j] = tile;
 					this.add(tile);
 				} else if (boardChar == 'E' || boardChar == 'e') {
-					Tile tile = new Tile(i,j);
+					Tile tile = new Tile(i, j);
 					tile.setContent("E");
 
 					tiles[i][j] = tile;

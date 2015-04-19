@@ -18,6 +18,16 @@ import javax.swing.JTextField;
 
 import main.java.org.hanzet23.gameframework.models.SettingsModel;
 
+/**
+ * JFrame that constructs the settings file to a friendly view, to easily change
+ * important game settings
+ * 
+ * @author Bart van 't Ende
+ * @author Jan-Bert van Slochteren
+ * @author Jonathan Berends
+ * @author Joz Reijneveld
+ *
+ */
 public class SettingsController extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -27,6 +37,9 @@ public class SettingsController extends JFrame {
 	private LinkedHashMap<String, String> map;
 	private ArrayList<JTextField> textFieldList;
 
+	/**
+	 * Constructor for SettingsController
+	 */
 	public SettingsController() {
 		frame = this;
 		setupButton();
@@ -41,9 +54,15 @@ public class SettingsController extends JFrame {
 		this.add(update, BorderLayout.SOUTH);
 	}
 
+	/**
+	 * Sets up the "Update settings" button within the Settings view
+	 */
 	private void setupButton() {
 		update = new JButton("Update settings");
 
+		/**
+		 * ActionListener for the settings refresh button, updates the settings
+		 */
 		update.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -51,12 +70,13 @@ public class SettingsController extends JFrame {
 
 				SettingsModel settingsModel = new SettingsModel();
 
+				// Loop through each value in the textfield and settingsModel
 				int i = 0;
 				for (Entry<String, String> setting : map.entrySet()) {
 					String newValue = textFieldList.get(i).getText();
 					String oldValue = setting.getValue();
 
-					// If values don't match, update them
+					// If values don't match, update the settings
 					if (!newValue.equals(oldValue)) {
 						settingsModel.writeSettings(setting.getKey(), newValue);
 					}
@@ -66,6 +86,12 @@ public class SettingsController extends JFrame {
 		});
 	}
 
+	/**
+	 * Constructs a settings view from the user's settings file
+	 * 
+	 * @param center
+	 * @return
+	 */
 	private JPanel setupPanels(JPanel center) {
 		// Get all the settings from the settings file
 		SettingsModel settingsModel = new SettingsModel();
@@ -85,12 +111,12 @@ public class SettingsController extends JFrame {
 			JPanel newPanel = new JPanel();
 			newPanel.setLayout(new BoxLayout(newPanel, BoxLayout.Y_AXIS));
 			newPanel.add(new JLabel(key));
-			newPanel.add(textField);			
+			newPanel.add(textField);
 
 			// Add the panel
 			center.add(newPanel);
 			// Add some spacing
-			center.add(Box.createRigidArea(new Dimension(0,5)));
+			center.add(Box.createRigidArea(new Dimension(0, 5)));
 		}
 		return center;
 	}

@@ -24,22 +24,22 @@ public class MenuBarController extends JMenuBar {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Contructor for MenuBarController.
+	 * Constructor for MenuBarController.
 	 */
 	public MenuBarController() {
 		// Menu 1
 		JMenu options = new JMenu("Options");
-		
+
 		// Menu 2
 		JMenu about = new JMenu("About");
 
 		// Menu 1 items
 		JMenuItem settings = new JMenuItem("Settings");
 		JMenuItem exit = new JMenuItem("Exit");
-		
+
 		// Menu 2 items
 		JMenuItem help = new JMenuItem("Help");
-		
+
 		/**
 		 * ActionListener for the menu item "Settings"
 		 */
@@ -49,7 +49,7 @@ public class MenuBarController extends JMenuBar {
 				JFrame popup = new SettingsController();
 				popup.setVisible(true);
 				popup.pack();
-				
+
 			}
 		});
 
@@ -62,7 +62,7 @@ public class MenuBarController extends JMenuBar {
 				System.exit(0);
 			}
 		});
-		
+
 		/**
 		 * ActionListener for the menu item "Help"
 		 */
@@ -70,7 +70,6 @@ public class MenuBarController extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: Help menu frame should be called here
 				new HelpView();
 			}
 
@@ -78,7 +77,7 @@ public class MenuBarController extends JMenuBar {
 
 		options.add(settings);
 		options.add(exit);
-		
+
 		about.add(help);
 
 		this.add(options);

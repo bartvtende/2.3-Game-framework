@@ -31,8 +31,11 @@ public class CrossShape extends JPanel {
 
 	/**
 	 * Constructor for CrossShape.
-	 * @param width The width of the JPanel.
-	 * @param height The height of the JPanel.
+	 * 
+	 * @param width
+	 *            The width of the JPanel.
+	 * @param height
+	 *            The height of the JPanel.
 	 */
 	public CrossShape(double width, double height) {
 		this(width, height, Color.BLACK);
@@ -40,9 +43,13 @@ public class CrossShape extends JPanel {
 
 	/**
 	 * Constructor for CrossShape
-	 * @param width The width of the JPanel.
-	 * @param height The height of the JPanel.
-	 * @param color The color of the cross.
+	 * 
+	 * @param width
+	 *            The width of the JPanel.
+	 * @param height
+	 *            The height of the JPanel.
+	 * @param color
+	 *            The color of the cross.
 	 */
 	public CrossShape(double width, double height, Color color) {
 		this.color = color;
@@ -53,9 +60,13 @@ public class CrossShape extends JPanel {
 	}
 
 	/**
-	 * Updates the points which are used for drawing the cross based of the size of the panel.
-	 * @param x The width of the panel.
-	 * @param y The height of the panel.
+	 * Updates the points which are used for drawing the cross based of the size
+	 * of the panel.
+	 * 
+	 * @param x
+	 *            The width of the panel.
+	 * @param y
+	 *            The height of the panel.
 	 */
 	private void updatePoints(double width, double height) {
 		for (int i = 0; i < points.length; i++) {
@@ -66,7 +77,9 @@ public class CrossShape extends JPanel {
 
 	/**
 	 * Draws the cross.
-	 * @param g Graphics used for drawing the cross.
+	 * 
+	 * @param g
+	 *            Graphics used for drawing the cross.
 	 */
 	// source: http://zetcode.com/gfx/java2d/shapesandfills/
 	private void doDrawing(Graphics g) {
@@ -95,7 +108,9 @@ public class CrossShape extends JPanel {
 
 	/**
 	 * The overridden method that also paints the cross.
-	 * @param g The graphics used for painting the component.
+	 * 
+	 * @param g
+	 *            The graphics used for painting the component.
 	 */
 	@Override
 	public void paintComponent(Graphics g) {

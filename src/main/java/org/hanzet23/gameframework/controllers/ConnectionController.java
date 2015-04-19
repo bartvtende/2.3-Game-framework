@@ -19,8 +19,10 @@ import javax.swing.JToggleButton;
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
 import main.java.org.hanzet23.gameframework.models.SettingsModel;
 import main.java.org.hanzet23.gameframework.views.MainView;
+
 /**
- * JPanel that holds all buttons and fields involved in creating the connection to the server. 
+ * JPanel that holds all buttons and fields involved in creating the connection
+ * to the server.
  * 
  * @author Bart van 't Ende
  * @author Jan-Bert van Slochteren
@@ -31,7 +33,7 @@ import main.java.org.hanzet23.gameframework.views.MainView;
 public class ConnectionController extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public String selectedName = null;
 
 	private JLabel title = new JLabel("Connection");
@@ -44,7 +46,7 @@ public class ConnectionController extends JPanel {
 	private boolean isLocal = false;
 
 	/**
-	 * Constructor for ConnectionController.  
+	 * Constructor for ConnectionController
 	 */
 	public ConnectionController() {
 		// Setups
@@ -74,9 +76,9 @@ public class ConnectionController extends JPanel {
 		JPanel namePanel = new JPanel();
 		namePanel.setLayout(new GridBagLayout());
 		namePanel.add(nameLabel);
-		
+
 		center.add(namePanel);
-		
+
 		JPanel text = new JPanel();
 		text.setLayout(new BoxLayout(text, BoxLayout.X_AXIS));
 		text.add(name);
@@ -87,12 +89,14 @@ public class ConnectionController extends JPanel {
 	}
 
 	/**
-	 * Creates the button for local games and the actions that will be performed when it is clicked.
+	 * Creates the button for local games and the actions that will be performed
+	 * when it is clicked.
+	 * 
 	 * @return The JButton for local games.
 	 */
 	private JToggleButton setupLocal() {
 		local = new JToggleButton("Local");
-		
+
 		local.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -107,7 +111,9 @@ public class ConnectionController extends JPanel {
 	}
 
 	/**
-	 * Creates the button for network games and the actions that will be performed when it is clicked.
+	 * Creates the button for network games and the actions that will be
+	 * performed when it is clicked.
+	 * 
 	 * @return The JButton for network games.
 	 */
 	private JToggleButton setupNetwork() {
@@ -127,7 +133,8 @@ public class ConnectionController extends JPanel {
 	}
 
 	/**
-	 *  Creates the textfield for the player's username.
+	 * Creates the textfield for the player's username.
+	 * 
 	 * @return The textfield for the player's username.
 	 */
 	private JTextField setupName() {
@@ -137,7 +144,8 @@ public class ConnectionController extends JPanel {
 	}
 
 	/**
-	 * Creates the button for connecting via the selected methodand the actions that will be performed when it is clicked.
+	 * Creates the button for connecting via the selected methodand the actions
+	 * that will be performed when it is clicked.
 	 */
 	private JButton setupConnect() {
 		connect = new JButton("Connect");
@@ -147,23 +155,25 @@ public class ConnectionController extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				int serverPort = 7789;
 				String serverName = "localhost";
-				
+
 				// Connect to the network
 				if (isLocal == false) {
 					SettingsModel settings = new SettingsModel();
 					LinkedHashMap<String, String> map = settings.getSettings();
-					serverPort = Integer.parseInt(map.get("network_server_port"));
+					serverPort = Integer.parseInt(map
+							.get("network_server_port"));
 					serverName = map.get("network_server_ip");
 				}
-				
+
 				// Connect to the server with the credentials
-				NetworkModel network = NetworkModel.setInstance(serverPort, serverName);
+				NetworkModel network = NetworkModel.setInstance(serverPort,
+						serverName);
 
 				if (network.getSocket() != null) {
 					// Activate views
 					MainView.mainview.activateGames();
 					MainView.mainview.activatePlayers();
-					
+
 					// Login with the selected username
 					String playerName = name.getText();
 					if (playerName.equals("")) {
@@ -172,10 +182,10 @@ public class ConnectionController extends JPanel {
 					}
 					selectedName = playerName;
 					network.getOutput().login(playerName);
-					
+
 					// Get the list of games available on the server
 					network.getOutput().getGamelist();
-	
+
 					// Get the list of players on the server
 					network.getOutput().getPlayerlist();
 
@@ -184,17 +194,20 @@ public class ConnectionController extends JPanel {
 		});
 		return connect;
 	}
-	
+
 	/**
 	 * Gets the name the user entered in the textfield
+	 * 
 	 * @return
 	 */
 	public String getSelectedName() {
 		return selectedName;
 	}
-	
+
 	/**
-	 * Returns Either "local" or "network" depending on which button is selected.
+	 * Returns Either "local" or "network" depending on which button is selected
+	 * 
+	 * @return
 	 */
 	public String getConnectionType() {
 		if (local.isSelected()) {

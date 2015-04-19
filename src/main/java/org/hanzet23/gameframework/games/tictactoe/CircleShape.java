@@ -26,10 +26,15 @@ public class CircleShape extends JPanel {
 
 	/**
 	 * Constructor for CircleShape
-	 * @param x The width of the panel.
-	 * @param y The height of the panel.
-	 * @param circle The color of the circle.
-	 * @param backGround The color of the background of the panel.
+	 * 
+	 * @param x
+	 *            The width of the panel.
+	 * @param y
+	 *            The height of the panel.
+	 * @param circle
+	 *            The color of the circle.
+	 * @param backGround
+	 *            The color of the background of the panel.
 	 */
 	public CircleShape(int x, int y, Color circle, Color background) {
 		updatePoints(x, y);
@@ -41,7 +46,9 @@ public class CircleShape extends JPanel {
 
 	/**
 	 * Draws the circle.
-	 * @param g Graphics used for drawing the circle.
+	 * 
+	 * @param g
+	 *            Graphics used for drawing the circle.
 	 */
 	private void doDrawing(Graphics g) {
 		g.setColor(background);
@@ -60,9 +67,13 @@ public class CircleShape extends JPanel {
 	}
 
 	/**
-	 * Updates the points which are used for drawing the circle based of the size of the panel.
-	 * @param x The width of the panel.
-	 * @param y The height of the panel.
+	 * Updates the points which are used for drawing the circle based of the
+	 * size of the panel.
+	 * 
+	 * @param x
+	 *            The width of the panel.
+	 * @param y
+	 *            The height of the panel.
 	 */
 	private void updatePoints(int x, int y) {
 		for (int i = 0; i < PointsX.length; i++) {
@@ -76,7 +87,9 @@ public class CircleShape extends JPanel {
 
 	/**
 	 * The overridden method that also paints the circle.
-	 * @param g The graphics used for painting the component.
+	 * 
+	 * @param g
+	 *            The graphics used for painting the component.
 	 */
 	public void paintComponent(Graphics g) {
 

@@ -27,7 +27,7 @@ public class TicTacToeView extends JPanel {
 		this.setLayout(new GridLayout(3, 3));
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				Tile tile = new Tile(i,j);
+				Tile tile = new Tile(i, j);
 				tiles[i][j] = tile;
 				this.add(tile);
 			}
@@ -38,6 +38,7 @@ public class TicTacToeView extends JPanel {
 
 	/**
 	 * Returns the Tile at the given x and y coordinates.
+	 * 
 	 * @param x
 	 * @param y
 	 * @return
@@ -62,19 +63,19 @@ public class TicTacToeView extends JPanel {
 			for (int j = 0; j < board[0].length; j++) {
 				char boardChar = board[i][j];
 				if (boardChar == 'X' || boardChar == 'x') {
-					Tile tile = new Tile(i,j);
+					Tile tile = new Tile(i, j);
 					tile.setContent("X");
 
 					tiles[i][j] = tile;
 					this.add(tile);
 				} else if (boardChar == 'O' || boardChar == 'o') {
-					Tile tile = new Tile(i,j);
+					Tile tile = new Tile(i, j);
 					tile.setContent("O");
 
 					tiles[i][j] = tile;
 					this.add(tile);
 				} else if (boardChar == 'E' || boardChar == 'e') {
-					Tile tile = new Tile(i,j);
+					Tile tile = new Tile(i, j);
 					tile.setContent("Empty");
 
 					tiles[i][j] = tile;

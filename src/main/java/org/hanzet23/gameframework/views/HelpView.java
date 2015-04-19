@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
 
 /**
- * Frame in which the ddos cheat can be fine tuned.
+ * Frame in which the DDOS cheat can be fine tuned.
  * 
  * @author Bart van 't Ende
  * @author Jan-Bert van Slochteren

@@ -57,12 +57,8 @@ public class TicTacToeModel extends GameModel {
 		boardView.refresh(board);
 
 		// Sleep for 2 seconds
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException ex) {
-			Thread.currentThread().interrupt();
-		}
-
+		sleep(2);
+		
 		// Call to the AI
 		TicTacToeAI AI = new TicTacToeAI(board);
 		

@@ -30,8 +30,11 @@ public class Tile extends JButton {
 
 	/**
 	 * Creates a tile.
-	 * @param x The X position of the tile on the board.
-	 * @param y The Y position of the tile on the board.
+	 * 
+	 * @param x
+	 *            The X position of the tile on the board.
+	 * @param y
+	 *            The Y position of the tile on the board.
 	 */
 	public Tile(int x, int y) {
 		XPosition = x;
@@ -42,8 +45,8 @@ public class Tile extends JButton {
 		this.content = empty;
 
 		this.setContent("Empty");
-		// border
-
+		
+		// Border
 		Border raisedBevel = BorderFactory.createRaisedBevelBorder();
 		Border loweredBevel = BorderFactory.createLoweredBevelBorder();
 		BorderFactory.createCompoundBorder(raisedBevel, loweredBevel);
@@ -54,8 +57,10 @@ public class Tile extends JButton {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// Something with get player or
+				// Gets the position of the clicked tile
 				String position = Integer.toString(XPosition * 3 + YPosition);
+
+				// Send the move and it to the board
 				NetworkModel.getInstance().getOutput().move(position);
 				NetworkModel.board.game.addItemToBoard(position, 'X');
 
@@ -67,7 +72,9 @@ public class Tile extends JButton {
 
 	/**
 	 * Sets the contents of the tile based on what String is passed on.
-	 * @param command "Empty", "X" or "O".
+	 * 
+	 * @param command
+	 *            "Empty", "X" or "O".
 	 */
 	void setContent(String command) {
 		if (command.equals("Empty")) {
@@ -95,6 +102,7 @@ public class Tile extends JButton {
 
 	/**
 	 * Returns the XPosition of the tile.
+	 * 
 	 * @return
 	 */
 	public int getXPosition() {
@@ -103,6 +111,7 @@ public class Tile extends JButton {
 
 	/**
 	 * Sets the XPosition of the tile.
+	 * 
 	 * @param xPosition
 	 */
 	public void setXPosition(int xPosition) {
@@ -111,6 +120,7 @@ public class Tile extends JButton {
 
 	/**
 	 * Returns the YPosition of the tile.
+	 * 
 	 * @return
 	 */
 	public int getYPosition() {
@@ -119,6 +129,7 @@ public class Tile extends JButton {
 
 	/**
 	 * Sets the YPosition of the tile.
+	 * 
 	 * @param yPosition
 	 */
 	public void setYPosition(int yPosition) {

@@ -16,6 +16,7 @@ public class Position {
 
 	/**
 	 * Constructor for Position.
+	 * 
 	 * @param x
 	 * @param y
 	 */
@@ -26,6 +27,7 @@ public class Position {
 
 	/**
 	 * Returns the X value of the position.
+	 * 
 	 * @return
 	 */
 	public int getXPosition() {
@@ -34,6 +36,7 @@ public class Position {
 
 	/**
 	 * Sets the X value of the position.
+	 * 
 	 * @param xPosition
 	 */
 	public void setXPosition(int xPosition) {
@@ -42,6 +45,7 @@ public class Position {
 
 	/**
 	 * Returns the Y value of the position.
+	 * 
 	 * @return
 	 */
 	public int getYPosition() {
@@ -50,6 +54,7 @@ public class Position {
 
 	/**
 	 * Sets the Y value of the position.
+	 * 
 	 * @param yPosition
 	 */
 	public void setYPosition(int yPosition) {

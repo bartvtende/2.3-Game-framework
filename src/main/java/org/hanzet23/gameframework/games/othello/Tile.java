@@ -23,7 +23,7 @@ import main.java.org.hanzet23.gameframework.models.NetworkModel;
 public class Tile extends JButton {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private JPanel content;
 	private final int tileSize = 50;
 	private final static Color COLOR_1 = Color.BLACK;
@@ -34,24 +34,26 @@ public class Tile extends JButton {
 
 	/**
 	 * Creates a tile.
-	 * @param x The X position of the tile on the board.
-	 * @param y The Y position of the tile on the board.
+	 * 
+	 * @param x
+	 *            The X position of the tile on the board.
+	 * @param y
+	 *            The Y position of the tile on the board.
 	 */
-	public Tile(int x, int y){
+	public Tile(int x, int y) {
 		XPosition = x;
 		YPosition = y;
-		
+
 		JPanel empty = new JPanel();
 		empty.setSize(tileSize, tileSize);
 		this.content = empty;
 
 		this.setContent("X");
-		// border
-
+		
+		// Border
 		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
-		BorderFactory.createCompoundBorder(raisedbevel,
-				loweredbevel);
+		BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -59,13 +61,16 @@ public class Tile extends JButton {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// Something with get player or
+				// Gets the position of the clicked tile
 				String position = Integer.toString(XPosition * 8 + YPosition);
+
+				// Send the move and it to the board
 				NetworkModel.getInstance().getOutput().move(position);
 				NetworkModel.getInstance();
 				OthelloMove move = new OthelloMove(XPosition * 8, YPosition);
-				NetworkModel.board.game.placeMove('O', move.getPosition(), false);
-				
+				NetworkModel.board.game.placeMove('O', move.getPosition(),
+						false);
+
 				System.out.println("Tile got clicked");
 				setContent("X");
 			}
@@ -74,7 +79,9 @@ public class Tile extends JButton {
 
 	/**
 	 * Sets the contents of the tile based on what String is passed on.
-	 * @param command "E", "X" or "O".
+	 * 
+	 * @param command
+	 *            "E", "X" or "O".
 	 */
 	void setContent(String command) {
 		this.setBackground(new Color(0, 100, 0));
@@ -110,7 +117,9 @@ public class Tile extends JButton {
 
 	/**
 	 * Sets the current state of the tile based on what string is passed on.
-	 * @param state "E", "X" or "O".
+	 * 
+	 * @param state
+	 *            "E", "X" or "O".
 	 */
 	public void setState(String state) {
 		this.state = state;
@@ -118,6 +127,7 @@ public class Tile extends JButton {
 
 	/**
 	 * Returns the current state of the tile.
+	 * 
 	 * @return
 	 */
 	public String getState() {
