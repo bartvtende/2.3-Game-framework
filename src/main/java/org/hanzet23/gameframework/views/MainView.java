@@ -10,6 +10,15 @@ import main.java.org.hanzet23.gameframework.controllers.GamesController;
 import main.java.org.hanzet23.gameframework.controllers.MenuBarController;
 import main.java.org.hanzet23.gameframework.controllers.PlayersController;
 
+/**
+ * The Frame that contains all of the game setup.
+ * 
+ * @author Bart van 't Ende
+ * @author Jan-Bert van Slochteren
+ * @author Jonathan Berends
+ * @author Joz Reijneveld
+ *
+ */
 public class MainView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -21,6 +30,9 @@ public class MainView extends JFrame {
 	public static GamesController games = new GamesController();
 	public static PlayersController players = new PlayersController();
 
+	/**
+	 * Constructor for the MainView.
+	 */
 	public MainView() {
 		mainview = this;
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,12 +43,18 @@ public class MainView extends JFrame {
 		this.activateConnection();
 	}
 	
+	/**
+	 * Sets up the layout of the contentPane.
+	 */
 	private void setupContentPane(){
 		cp = this.getContentPane();
 		cp.setLayout(new GridLayout(1,0,5,0));
 		
 	}
 	
+	/**
+	 * Displays the ConnectionController.
+	 */
 	public void activateConnection(){
 		if (!cp.isAncestorOf(connection)) {
 			cp.add(connection, 0);
@@ -44,6 +62,9 @@ public class MainView extends JFrame {
 		}
 	}
 	
+	/**
+	 * Stops Displaying the ConnectionController.
+	 */
 	public void removeConnection(){
 		if(cp.isAncestorOf(connection)){
 			cp.remove(connection);
@@ -51,6 +72,9 @@ public class MainView extends JFrame {
 		}
 	}
 	
+	/**
+	 * Displays the GamesController.
+	 */
 	public void activateGames(){
 		if (!cp.isAncestorOf(games)) {
 			cp.add(games, 1);
@@ -58,6 +82,9 @@ public class MainView extends JFrame {
 		}
 	}
 	
+	/**
+	 * Stops displaying the GamesController.
+	 */
 	public void removeGames(){
 		if(cp.isAncestorOf(games)){
 			cp.remove(games);
@@ -65,6 +92,9 @@ public class MainView extends JFrame {
 		}
 	}
 	
+	/**
+	 * Displays the PlayersController.
+	 */
 	public void activatePlayers(){
 		if (!cp.isAncestorOf(players)) {
 			cp.add(players, 2);
@@ -72,6 +102,9 @@ public class MainView extends JFrame {
 		}
 	}
 	
+	/**
+	 * Stops displaying the PlayersController.
+	 */
 	public void removePlayers(){
 		if(cp.isAncestorOf(players)){
 			cp.remove(players);

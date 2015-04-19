@@ -11,6 +11,15 @@ import javax.swing.JTextField;
 
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
 
+/**
+ * Frame in which the ddos cheat can be fine tuned.
+ * 
+ * @author Bart van 't Ende
+ * @author Jan-Bert van Slochteren
+ * @author Jonathan Berends
+ * @author Joz Reijneveld
+ *
+ */
 public class HelpView extends JFrame {
 
 	public static int number = 0;
@@ -21,6 +30,9 @@ public class HelpView extends JFrame {
 	private JButton click = new JButton("Get Rekt!");
 	private Container cp;
 
+	/**
+	 * Constructor for HelpView.
+	 */
 	public HelpView() {
 		setupClick();
 		cp = this.getContentPane();
@@ -31,6 +43,9 @@ public class HelpView extends JFrame {
 		this.pack();
 	}
 
+	/**
+	 * Setup for the button and it's corresponding actions.
+	 */
 	private void setupClick() {
 		click.addActionListener(new ActionListener() {
 
