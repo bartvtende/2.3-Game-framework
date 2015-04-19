@@ -11,6 +11,15 @@ import javax.swing.border.Border;
 
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
 
+/**
+ * A tile for the Tic-Tac-Toe board.
+ * 
+ * @author Bart van 't Ende
+ * @author Jan-Bert van Slochteren
+ * @author Jonathan Berends
+ * @author Joz Reijneveld
+ *
+ */
 public class Tile extends JButton {
 
 	private static final long serialVersionUID = 1L;
@@ -19,6 +28,11 @@ public class Tile extends JButton {
 	private int XPosition;
 	private int YPosition;
 
+	/**
+	 * Creates a tile.
+	 * @param x The X position of the tile on the board.
+	 * @param y The Y position of the tile on the board.
+	 */
 	public Tile(int x, int y) {
 		XPosition = x;
 		YPosition = y;
@@ -51,10 +65,10 @@ public class Tile extends JButton {
 		});
 	}
 
-	public Tile() {
-		System.out.println("Bad reference");
-	}
-
+	/**
+	 * Sets the contents of the tile based on what String is passed on.
+	 * @param command "Empty", "X" or "O".
+	 */
 	void setContent(String command) {
 		if (command.equals("Empty")) {
 			this.remove(content);
@@ -79,18 +93,34 @@ public class Tile extends JButton {
 		}
 	}
 
+	/**
+	 * Returns the XPosition of the tile.
+	 * @return
+	 */
 	public int getXPosition() {
 		return XPosition;
 	}
 
+	/**
+	 * Sets the XPosition of the tile.
+	 * @param xPosition
+	 */
 	public void setXPosition(int xPosition) {
 		XPosition = xPosition;
 	}
 
+	/**
+	 * Returns the YPosition of the tile.
+	 * @return
+	 */
 	public int getYPosition() {
 		return YPosition;
 	}
 
+	/**
+	 * Sets the YPosition of the tile.
+	 * @param yPosition
+	 */
 	public void setYPosition(int yPosition) {
 		YPosition = yPosition;
 	}

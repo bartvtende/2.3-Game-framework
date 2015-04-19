@@ -5,12 +5,24 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
+/**
+ * JPanel with the Tic-Tac-Toe board.
+ * 
+ * @author Bart van 't Ende
+ * @author Jan-Bert van Slochteren
+ * @author Jonathan Berends
+ * @author Joz Reijneveld
+ *
+ */
 public class TicTacToeView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
 	private Tile[][] tiles = new Tile[3][3];
 
+	/**
+	 * Constructor for TicTacToeView.
+	 */
 	public TicTacToeView() {
 		this.setLayout(new GridLayout(3, 3));
 		for (int i = 0; i < 3; i++) {
@@ -24,6 +36,12 @@ public class TicTacToeView extends JPanel {
 		this.setPreferredSize(new Dimension(150, 150));
 	}
 
+	/**
+	 * Returns the Tile at the given x and y coordinates.
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public Tile getTile(int x, int y) {
 		return tiles[x][y];
 	}

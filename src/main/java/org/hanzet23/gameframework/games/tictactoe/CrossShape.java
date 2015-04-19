@@ -9,6 +9,15 @@ import java.awt.geom.GeneralPath;
 
 import javax.swing.JPanel;
 
+/**
+ * JPanel with a cross.
+ * 
+ * @author Bart van 't Ende
+ * @author Jan-Bert van Slochteren
+ * @author Jonathan Berends
+ * @author Joz Reijneveld
+ *
+ */
 public class CrossShape extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -20,10 +29,21 @@ public class CrossShape extends JPanel {
 
 	private Color color;
 
+	/**
+	 * Constructor for CrossShape.
+	 * @param width The width of the JPanel.
+	 * @param height The height of the JPanel.
+	 */
 	public CrossShape(double width, double height) {
 		this(width, height, Color.BLACK);
 	}
 
+	/**
+	 * Constructor for CrossShape
+	 * @param width The width of the JPanel.
+	 * @param height The height of the JPanel.
+	 * @param color The color of the cross.
+	 */
 	public CrossShape(double width, double height, Color color) {
 		this.color = color;
 		updatePoints(width, height);
@@ -32,6 +52,11 @@ public class CrossShape extends JPanel {
 
 	}
 
+	/**
+	 * Updates the points which are used for drawing the cross based of the size of the panel.
+	 * @param x The width of the panel.
+	 * @param y The height of the panel.
+	 */
 	private void updatePoints(double width, double height) {
 		for (int i = 0; i < points.length; i++) {
 			points[i][0] = points[i][0] * width;
@@ -39,6 +64,10 @@ public class CrossShape extends JPanel {
 		}
 	}
 
+	/**
+	 * Draws the cross.
+	 * @param g Graphics used for drawing the cross.
+	 */
 	// source: http://zetcode.com/gfx/java2d/shapesandfills/
 	private void doDrawing(Graphics g) {
 
@@ -64,6 +93,10 @@ public class CrossShape extends JPanel {
 		g2d.fill(cross);
 	}
 
+	/**
+	 * The overridden method that also paints the cross.
+	 * @param g The graphics used for painting the component.
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 
