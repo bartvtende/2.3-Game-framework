@@ -11,6 +11,15 @@ import javax.swing.border.Border;
 
 import main.java.org.hanzet23.gameframework.models.NetworkModel;
 
+/**
+ * A tile for the Othello board.
+ * 
+ * @author Bart van 't Ende
+ * @author Jan-Bert van Slochteren
+ * @author Jonathan Berends
+ * @author Joz Reijneveld
+ *
+ */
 public class Tile extends JButton {
 
 	private static final long serialVersionUID = 1L;
@@ -23,6 +32,11 @@ public class Tile extends JButton {
 	private int XPosition;
 	private int YPosition;
 
+	/**
+	 * Creates a tile.
+	 * @param x The X position of the tile on the board.
+	 * @param y The Y position of the tile on the board.
+	 */
 	public Tile(int x, int y){
 		XPosition = x;
 		YPosition = y;
@@ -58,6 +72,10 @@ public class Tile extends JButton {
 		});
 	}
 
+	/**
+	 * Sets the contents of the tile based on what String is passed on.
+	 * @param command "E", "X" or "O".
+	 */
 	void setContent(String command) {
 		this.setBackground(new Color(0, 100, 0));
 		if (command.equals("E")) {
@@ -90,10 +108,18 @@ public class Tile extends JButton {
 		}
 	}
 
+	/**
+	 * Sets the current state of the tile based on what string is passed on.
+	 * @param state "E", "X" or "O".
+	 */
 	public void setState(String state) {
 		this.state = state;
 	}
 
+	/**
+	 * Returns the current state of the tile.
+	 * @return
+	 */
 	public String getState() {
 		return state;
 	}

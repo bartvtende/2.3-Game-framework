@@ -7,12 +7,24 @@ import javax.swing.JPanel;
 
 import main.java.org.hanzet23.gameframework.games.othello.Tile;
 
+/**
+ * JPanel with the Othello board.
+ * 
+ * @author Bart van 't Ende
+ * @author Jan-Bert van Slochteren
+ * @author Jonathan Berends
+ * @author Joz Reijneveld
+ *
+ */
 public class OthelloView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
 	private Tile[][] tiles = new Tile[8][8];
 
+	/**
+	 * Constructor for OthelloView.
+	 */
 	public OthelloView() {
 		this.setLayout(new GridLayout(tiles.length, tiles[0].length));
 		for (int i = 0; i < tiles.length; i++) {
@@ -27,6 +39,12 @@ public class OthelloView extends JPanel {
 		this.setPreferredSize(new Dimension(400, 400));
 	}
 
+	/**
+	 * Returns the Tile at the given x and y coordinates.
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public Tile getTile(int x, int y) {
 		return tiles[x][y];
 	}
