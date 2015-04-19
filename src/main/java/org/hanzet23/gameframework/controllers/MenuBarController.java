@@ -13,7 +13,10 @@ import main.java.org.hanzet23.gameframework.views.HelpView;
 /**
  * Class that holds all the things involved with the menubar.
  * 
- * @author Jan-Bert
+ * @author Bart van 't Ende
+ * @author Jan-Bert van Slochteren
+ * @author Jonathan Berends
+ * @author Joz Reijneveld
  *
  */
 public class MenuBarController extends JMenuBar {

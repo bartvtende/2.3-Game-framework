@@ -22,7 +22,10 @@ import main.java.org.hanzet23.gameframework.models.SettingsModel;
 /**
  * JPanel that holds all buttons involved in choosing what game is played and who plays it.
  * 
- * @author Jan-Bert
+ * @author Bart van 't Ende
+ * @author Jan-Bert van Slochteren
+ * @author Jonathan Berends
+ * @author Joz Reijneveld
  *
  */
 public class GamesController extends JPanel {
